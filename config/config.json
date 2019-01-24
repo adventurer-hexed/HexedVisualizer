@@ -1,0 +1,15 @@
+{
+    "development" : {
+        "username" : "",
+        "password" : "",
+        "database" : "",
+        "host" : "",
+        "port": 0,
+        "dialect": "mysql",
+        "operatorsAliases": false
+    },
+
+    "production": {
+        "use_env_variable": ""
+    }
+}
