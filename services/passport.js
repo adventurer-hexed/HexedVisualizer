@@ -40,5 +40,3 @@ passport.use(
         }
     )
 );
-
-// refresh.use()

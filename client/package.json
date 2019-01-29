@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "http-proxy-middleware": "^0.19.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-particles-js": "^2.4.2",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",

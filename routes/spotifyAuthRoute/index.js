@@ -18,7 +18,7 @@ router.get("/auth/spotify", passport.authenticate("spotify", { scope }));
 router.get(
     "/auth/spotify/callback",
     passport.authenticate("spotify", {
-        successRedirect: "/current_user",
+        successRedirect: "/",
         failureRedirect: "/login"
     })
 );
@@ -28,7 +28,8 @@ router.get(
     ensureAuth,
     spotifyTokenVerification,
     (req, res) => {
-        res.send(req.user);
+        const { id } = req.user;
+        res.json({ id });
     }
 );
 

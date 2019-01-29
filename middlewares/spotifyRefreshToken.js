@@ -1,11 +1,9 @@
 const axios = require("axios");
 const { spotifyClientID, spotifySecret } = require("../config/keys");
-const SpotifyWebApi = require("spotify-web-api-node");
 const qs = require("qs");
 const db = require("../models");
 
 module.exports = async (req, res, next) => {
-    console.log(req.user.spotifyRefreshToken);
     const data = qs.stringify({
         grant_type: "refresh_token",
         refresh_token: req.user.spotifyRefreshToken,

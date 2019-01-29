@@ -1,10 +1,10 @@
 {
     "development" : {
-        "username" : "",
-        "password" : "",
-        "database" : "",
-        "host" : "",
-        "port": 0,
+        "username" : "root",
+        "password" : "Fifty5@jimmy",
+        "database" : "vispi",
+        "host" : "localhost",
+        "port": 3306,
         "dialect": "mysql",
         "operatorsAliases": false
     },
