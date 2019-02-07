@@ -7,9 +7,10 @@ export default ({ signIn }) => (
             <h3>Continue with</h3>
             <h3>Spotify</h3>
         </header>
+
         <figure onClick={() => signIn()} className={"logo_container"}>
             <a href="/auth/spotify">
-                <img width="200px" src={spotifyLogo} />
+                <img alt="Spotify logo" width="200px" src={spotifyLogo} />
             </a>
         </figure>
     </div>

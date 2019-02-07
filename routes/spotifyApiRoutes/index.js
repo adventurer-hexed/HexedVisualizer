@@ -3,24 +3,11 @@ const express = require('express'),
     { spotifyClientID, spotifySecret } = require("../../config/keys"),
     spotifyTokenVerification = require("../../middlewares/spotifyRefreshToken"),
     ensureAuth = require("../../middlewares/ensureAuth"),
-    axios = require('axios');
+    axios = require('axios'),
+    { fetchSongAnalysis, pausePlayersPlayback, playPlayersPlayback } = require("./controllers/spotifyContoller")
 
-router.get('/api/get-song-analysis',
-    ensureAuth,
-    spotifyTokenVerification,
-    (req, res) => {
-        axios.get('https://api.spotify.com/v1/audio-analysis/06AKEBrKUckW0KREUWRnvT', {
-            headers: {
-                Authorization: `Bearer ${req.user.spotifyAccessToken}`
-            }
-        })
-            .then((data) => {
-                res.json(data.data.segments);
-            })
-            .catch((err) => {
-                console.log(err);
-                res.send('An error occurred')
-            })
-    });
 
+router.get('/api/get-song-analysis', ensureAuth, spotifyTokenVerification, fetchSongAnalysis);
+router.put("/api/pause-playblack", ensureAuth, spotifyTokenVerification, pausePlayersPlayback);
+router.put("/api/play-playback", ensureAuth, spotifyTokenVerification, playPlayersPlayback);
 module.exports = router;

@@ -8,6 +8,7 @@ export default ChildComponent => {
         state = {
             isLoggedIn: null
         };
+        
         componentDidMount() {
             this.props.getUser();
             if (!this.props.auth.isSignedIn && !this.props.auth.id) {

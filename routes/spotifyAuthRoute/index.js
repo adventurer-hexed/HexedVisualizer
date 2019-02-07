@@ -28,8 +28,8 @@ router.get(
     ensureAuth,
     spotifyTokenVerification,
     (req, res) => {
-        const { id } = req.user;
-        res.json({ id });
+        const { id, spotifyAccessToken} = req.user
+        res.json({id,spotifyAccessToken})
     }
 );
 
