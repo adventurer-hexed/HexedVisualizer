@@ -1,6 +1,8 @@
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
 
+export const DEVICE_STATE_LISTENER = "DEVICE_STATE_LISTENER";
+
 export const FETCH_CURR_PLAYBACK = "FETCH_CURR_PLAYBACK"
 export const FETCH_SONG_ANALYSIS = "FETCH_SONG_ANALYSIS"
 export const PLAY_STATE_ON = "PLAY_STATE_ON"

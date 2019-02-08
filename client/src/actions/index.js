@@ -1,3 +1,5 @@
+import axios from "axios";
+import history from "../history";
 import { SIGN_IN,
         SIGN_OUT,
         PLAY_STATE_ON,
@@ -5,10 +7,8 @@ import { SIGN_IN,
         FETCH_SONG_ANALYSIS,
         FETCH_CURR_PLAYBACK,
         CURRENT_PROGRESS,
-        SEEK_PLAYER_PROGRESS } from "./types";
-
-import axios from "axios";
-import history from "../history";
+        SEEK_PLAYER_PROGRESS,
+        DEVICE_STATE_LISTENER  } from "./types";
 
 
 export const signIn = id => async dispatch => {
@@ -22,7 +22,12 @@ export const signOut = () => async dispatch => {
     history.push("/login");
 };
 
-
+export const deviceStateListener = (deviceState) => {
+    return {
+        type: DEVICE_STATE_LISTENER,
+        payload: deviceState
+    }
+}
 
 export const getUser = () => async dispatch => {
     try {
