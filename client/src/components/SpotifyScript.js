@@ -5,7 +5,7 @@ export default class SpotifyScript extends React.Component {
     handleScriptLoad = () => {
         window.onSpotifyWebPlaybackSDKReady = () => {
             const player = new window.Spotify.Player({
-              name: 'Web Playback SDK Quick Start Player',
+              name: "Visualizer",
               getOAuthToken: cb => { cb(this.props.token); }
             });
       

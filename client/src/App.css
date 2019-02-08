@@ -18,3 +18,30 @@ body {
     border: 0;
     background: transparent;
 }
+
+.audio_progress_container {
+    position: relative;
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.progress_icon {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: springgreen;
+    transition: all .4s;
+}
+
+.audio_progress_bar {
+    width: 100%;
+    height: 2px;
+    background: black;
+}

@@ -32,6 +32,7 @@
     "passport-oauth2-refresh": "^1.1.0",
     "passport-spotify": "^1.0.1",
     "qs": "^6.6.0",
+    "querystring": "^0.2.0",
     "sequelize": "^4.42.0"
   }
 }
