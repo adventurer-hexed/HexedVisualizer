@@ -35,8 +35,8 @@ body {
     position: absolute;
     width: 20px;
     height: 20px;
-    border-radius: 50%;
-    background: springgreen;
+    border: 2px solid springgreen;
+    animation: spinner 2s linear infinite;
     transition: all .4s;
 }
 
@@ -44,4 +44,9 @@ body {
     width: 100%;
     height: 2px;
     background: black;
+}
+
+@keyframes spinner {
+    from { transform: rotate(0deg) }
+    to { transform: rotate(360deg) }
 }
