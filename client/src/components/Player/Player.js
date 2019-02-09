@@ -3,11 +3,11 @@ import requireAuth from "../HOC/requireAuth";
 import { connect } from "react-redux"
 import { compose } from "redux"
 import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from "../../actions"
-import { FaPlay, FaPause, FaChessRook } from 'react-icons/fa';
+import { FaPlay, FaPause } from 'react-icons/fa';
 import AudioProgress from "./AudioProgress"
 import withDevice from "../HOC/withDevice"
 
-class HomePage extends Component {
+class Player extends Component {
 
     playPlayback = () => {
         this.props.playPlayback()
@@ -77,6 +77,6 @@ const EnhancedComponent = connect(mapStateToProps,
         playPlayback, 
         stopPlayback,
         updateProgress,
-        fetchCurrPlayback })(HomePage)
+        fetchCurrPlayback })(Player)
 
 export default enhance(EnhancedComponent)

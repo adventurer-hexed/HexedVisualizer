@@ -1,5 +1,4 @@
 import React from "react"
-import { FaChessRook } from 'react-icons/fa';
 import { connect } from "react-redux"
 import { updateProgress, seekProgressPlayback } from "../../actions"
 

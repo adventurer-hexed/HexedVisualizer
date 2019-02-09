@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import SpotifyScript from "../SpotifyScript";
+import NeedConnect from "../NeedConnect/NeedConnect";
 
 const mapStateToProps = (state) => {
     if(Object.values(state.deviceState).length > 0) {
@@ -17,7 +18,7 @@ export default ChildComponent => {
             if(this.props.deviceState) {
                 return <ChildComponent {...this.props} />
             } else {
-                return <h1>You need to connect with you device</h1>
+                return <NeedConnect />
             }
         }
         render() {

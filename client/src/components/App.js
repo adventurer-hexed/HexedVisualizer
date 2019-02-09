@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Router, Route } from "react-router-dom";
 import Login from "./LoginPage/LoginPage";
-import HomePage from "./HomePage/HomePage";
+import Player from "./Player/Player";
 import history from "../history";
 
 export default class App extends Component {
@@ -9,7 +9,7 @@ export default class App extends Component {
         return (
             <Router history={history}>
                 <div>
-                    <Route exact path="/" component={HomePage} />
+                    <Route exact path="/" component={Player} />
                     <Route exact path="/login" component={Login} />
                 </div>
             </Router>

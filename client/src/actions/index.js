@@ -72,6 +72,6 @@ export const updateProgress = (ms) => {
 }
 
 export const seekProgressPlayback = (ms) => async dispatch => {
-    let response = await axios.put("/api/seek-player-position", {time:ms})
+    await axios.put("/api/seek-player-position", {time:ms})
     dispatch({type:SEEK_PLAYER_PROGRESS, payload:ms})
 }
