@@ -38,6 +38,18 @@ body {
     border: 2px solid springgreen;
     animation: spinner 2s linear infinite;
     transition: all .4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress_icon:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: springgreen;
+    transform: rotate(45deg);
+    
 }
 
 .audio_progress_bar {

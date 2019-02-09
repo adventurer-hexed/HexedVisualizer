@@ -8,11 +8,13 @@ const express = require('express'),
       pausePlayersPlayback, 
       playPlayersPlayback, 
       seekPlayerPosition,
-      fetchUserCurrentPlayback } = require("./controllers/spotifyContoller")
+      fetchUserCurrentPlayback,
+      fetchUsersAvailableDevices } = require("./controllers/spotifyContoller")
 
 
 router.get("/api/fetch-curr-playback", ensureAuth, spotifyTokenVerification, fetchUserCurrentPlayback)
 router.get('/api/get-song-analysis', ensureAuth, spotifyTokenVerification, fetchSongAnalysis);
+router.get("/api/available-devices", ensureAuth, spotifyTokenVerification,fetchUsersAvailableDevices)
 
 router.put("/api/pause-playblack", ensureAuth, spotifyTokenVerification, pausePlayersPlayback);
 router.put("/api/play-playback", ensureAuth, spotifyTokenVerification, playPlayersPlayback);

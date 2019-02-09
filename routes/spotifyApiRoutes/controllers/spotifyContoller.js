@@ -43,9 +43,23 @@ module.exports = {
       }
     },
 
-    seekPlayerPosition(req, res) {
-            axios.put(`https://api.spotify.com/v1/me/player/seek?position_ms=${req.body.time}`,{},
+    async seekPlayerPosition(req, res) {
+        try {
+            await axios.put(`https://api.spotify.com/v1/me/player/seek?position_ms=${req.body.time}`,{},
             applyHeader(req.user.spotifyAccessToken))
-            .then( result => console.log(result)).catch(e => console.log(e))
+            res.status(200).json({msg:"Success"})
+
+        } catch(e) {
+            res.status(401).json({err: "Failed to relay song"})
+        }
+    },
+
+    async fetchUsersAvailableDevices(req, res) {
+        try {
+            const response = await axios.get("https://api.spotify.com/v1/me/player/devices", applyHeader(req.user.spotifyAccessToken))
+            res.status(200).json(response.data)
+        } catch(e) {
+            res.status(401).json({err: "Failed to fetch users devices"})
+        }
     }
 }

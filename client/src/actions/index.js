@@ -8,7 +8,8 @@ import { SIGN_IN,
         FETCH_CURR_PLAYBACK,
         CURRENT_PROGRESS,
         SEEK_PLAYER_PROGRESS,
-        DEVICE_STATE_LISTENER  } from "./types";
+        // DEVICE_STATE_LISTENER,
+        FETCH_AVAILABLE_DEVICES  } from "./types";
 
 
 export const signIn = id => async dispatch => {
@@ -22,10 +23,11 @@ export const signOut = () => async dispatch => {
     history.push("/login");
 };
 
-export const deviceStateListener = (deviceState) => {
-    return {
-        type: DEVICE_STATE_LISTENER,
-        payload: deviceState
+export const deviceStateListener = (isPaused) => async (dispatch, getState) => {
+    if(isPaused) {
+        stopPlayback()
+    } else {
+        playPlayback()
     }
 }
 
@@ -41,6 +43,11 @@ export const getUser = () => async dispatch => {
         history.push("/login");
     }
 };
+
+export const fetchAvailableDevices = () => async dispatch => {
+    const res = await axios.get("/api/available-devices")
+    dispatch({ type: FETCH_AVAILABLE_DEVICES, payload: res.data})
+}
 
 export const fetchCurrPlayback = () => async dispatch => {
     const res = await axios.get("/api/fetch-curr-playback")
