@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { compose } from "redux"
 import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from "../../actions"
 import { FaPlay, FaPause } from 'react-icons/fa';
-import AudioProgress from "./AudioProgress"
+import PlayerAudioProgress from "./PlayerAudioProgress"
 import withDevice from "../HOC/withDevice"
 
 class Player extends Component {
@@ -56,7 +56,7 @@ class Player extends Component {
             <div>
                 <h1>Home Page</h1>
                 { this.renderPlayer() }
-                <AudioProgress />
+                <PlayerAudioProgress />
             </div>
         );
     }

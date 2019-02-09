@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { signIn } from "../../actions/";
 import Particles from "react-particles-js";
 import particles from "./particles.json";
-import Form from "./Form";
+import LoginForm from "./LoginForm";
 import "./login.css";
 
 class Login extends Component {
@@ -16,7 +16,7 @@ class Login extends Component {
             <div className="login_container">
                 <Particles width="100%" height="100vh" params={particles} />
                 <div className="center_form">
-                    <Form signIn={this.signIn} />
+                    <LoginForm signIn={this.signIn} />
                 </div>
             </div>
         );
