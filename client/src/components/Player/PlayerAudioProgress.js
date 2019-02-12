@@ -9,12 +9,12 @@ export default connect(mapStateToProps, { updateProgress, seekProgressPlayback }
     class AudioProgress extends React.Component {
         constructor(props) {
             super(props)
-            this.progressRef = React.createRef()
+            this._progressRef = React.createRef()
         }
 
         handleProgressPoint = (e) => {
-            let offSet = this.progressRef.current.getClientRects()[0]
-            const widthOfEl = this.progressRef.current.offsetWidth
+            let offSet = this._progressRef.current.getClientRects()[0]
+            const widthOfEl = this._progressRef.current.offsetWidth
             const position = (e.clientX - offSet.left) / widthOfEl
             const positionClicked = Math.floor((this.props.currSongPlayback.item.duration_ms * position))
 
@@ -23,15 +23,15 @@ export default connect(mapStateToProps, { updateProgress, seekProgressPlayback }
 
 
         componentDidMount() {
-            this.progressRef.current.addEventListener("click", this.handleProgressPoint)
+            this._progressRef.current.addEventListener("click", this.handleProgressPoint)
         }
 
         componentWillUnmount() {
-            this.progressRef.current.removeEventListener("click", this.handleProgressPoint)
+            this._progressRef.current.removeEventListener("click", this.handleProgressPoint)
         }
         render() {
             return (
-                <div ref={this.progressRef} className="audio_progress_container">
+                <div ref={this._progressRef} className="audio_progress_container">
                     <div className="audio_progress_bar"></div>
                     <div 
                         className="progress_icon" 

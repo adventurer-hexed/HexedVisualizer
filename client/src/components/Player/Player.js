@@ -6,6 +6,7 @@ import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from ".
 import { FaPlay, FaPause } from 'react-icons/fa';
 import PlayerAudioProgress from "./PlayerAudioProgress"
 import withDevice from "../HOC/withDevice"
+import Visualizer from "../Visualizer/Visualizer"
 
 class Player extends Component {
 
@@ -57,6 +58,7 @@ class Player extends Component {
                 <h1>Home Page</h1>
                 { this.renderPlayer() }
                 <PlayerAudioProgress />
+                <Visualizer />
             </div>
         );
     }
@@ -77,6 +79,7 @@ const EnhancedComponent = connect(mapStateToProps,
         playPlayback, 
         stopPlayback,
         updateProgress,
-        fetchCurrPlayback })(Player)
+        fetchCurrPlayback 
+    })(Player)
 
 export default enhance(EnhancedComponent)
