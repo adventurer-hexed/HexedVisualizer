@@ -1,9 +1,9 @@
 import React from "react"
 import Script from "react-load-script"
 import { connect } from "react-redux"
-import { deviceStateListener, fetchAvailableDevices } from "../actions"
+import { deviceStateListener, fetchAvailableDevices, fetchAnalysis } from "../actions"
 
-export default connect(null, { deviceStateListener, fetchAvailableDevices})(
+export default connect(null, { deviceStateListener, fetchAvailableDevices, fetchAnalysis})(
 
     class SpotifyScript extends React.Component {
         handleScriptLoad = () => {
@@ -20,11 +20,12 @@ export default connect(null, { deviceStateListener, fetchAvailableDevices})(
                 player.addListener('playback_error', ({ message }) => { console.error(message); });
         
                 // Playback status updates
-                player.addListener('player_state_changed', state => { 
+                player.addListener('player_state_changed', state => {
+                    console.log(state);
                     if(state) {
                         this.props.deviceStateListener(state.paused)
                     }
-                    
+                    this.props.fetchAnalysis(state.track_window.current_track.id)
                     this.props.fetchAvailableDevices()               
                 });
         

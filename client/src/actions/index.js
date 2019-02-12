@@ -54,9 +54,16 @@ export const fetchCurrPlayback = () => async dispatch => {
     dispatch({ type:FETCH_CURR_PLAYBACK, payload: res.data })
 }
 
-export const fetchAnalysis = () => async dispatch => {
-    const res = await axios.get("/api/get-song-analysis")
-    dispatch({ type:FETCH_SONG_ANALYSIS, payload:res.data })
+export const fetchAnalysis = (currentSongID) => async (dispatch, getState) => {
+    if(Object.keys(getState().currSongPlayback).length > 0){
+        if(currentSongID !== getState().currSongPlayback.item.id){
+            const res = await axios.get(`/api/get-song-analysis/${currentSongID}`)
+            dispatch({ type:FETCH_SONG_ANALYSIS, payload:res.data })
+        }
+    }else{
+        const res = await axios.get(`/api/get-song-analysis/${currentSongID}`)
+            dispatch({ type:FETCH_SONG_ANALYSIS, payload:res.data })
+    }
 }
 
 export const playPlayback = () => async (dispatch, getState) => {

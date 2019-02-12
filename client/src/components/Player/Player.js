@@ -3,7 +3,7 @@ import requireAuth from "../HOC/requireAuth";
 import { connect } from "react-redux"
 import { compose } from "redux"
 import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from "../../actions"
-import { FaPlay, FaPause } from 'react-icons/fa';
+import { FaPlay, FaPause, FaGrinBeamSweat } from 'react-icons/fa';
 import PlayerAudioProgress from "./PlayerAudioProgress"
 import withDevice from "../HOC/withDevice"
 import Visualizer from "../Visualizer/Visualizer"
@@ -53,12 +53,22 @@ class Player extends Component {
     
     
     render() {
+        let {beats, segments} = this.props.currSongAnalysis;
         return (
             <div>
                 <h1>Home Page</h1>
                 { this.renderPlayer() }
                 <PlayerAudioProgress />
-                <Visualizer />
+                <Visualizer 
+                    beats={beats}
+                    beatAvgLength={
+                        (beats) ? beats.reduce((sum, beat)=> sum += (beat.duration*1000), 0) / beats.length : 0
+                    }
+                    segments={segments}
+                    segmentAvgLength={
+                        (segments) ? segments.reduce((sum, segment)=> sum += (segment.duration*1000), 0) / segments.length : 0
+                    }
+                />
             </div>
         );
     }
@@ -66,7 +76,8 @@ class Player extends Component {
 
 const mapStateToProps = (state) => ({
     isPlayback:state.playState.isPlayState, 
-    currSongPlayback:state.currSongPlayback
+    currSongPlayback:state.currSongPlayback,
+    currSongAnalysis:state.songAnalysis
 })
 
 const enhance = compose(
