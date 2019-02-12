@@ -5,7 +5,7 @@ const querystring = require('querystring');
 module.exports = {
     async fetchSongAnalysis(req, res) {
         try {
-            const response = await axios.get('https://api.spotify.com/v1/audio-analysis/06AKEBrKUckW0KREUWRnvT', 
+            const response = await axios.get(`https://api.spotify.com/v1/audio-analysis/${req.params.songid}`, 
             applyHeader(req.user.spotifyAccessToken))
             res.status(200).json(response.data)
         } catch(e) {

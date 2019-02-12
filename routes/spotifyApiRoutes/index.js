@@ -13,7 +13,7 @@ const express = require('express'),
 
 
 router.get("/api/fetch-curr-playback", ensureAuth, spotifyTokenVerification, fetchUserCurrentPlayback)
-router.get('/api/get-song-analysis', ensureAuth, spotifyTokenVerification, fetchSongAnalysis);
+router.get('/api/get-song-analysis/:songid', ensureAuth, spotifyTokenVerification, fetchSongAnalysis);
 router.get("/api/available-devices", ensureAuth, spotifyTokenVerification,fetchUsersAvailableDevices)
 
 router.put("/api/pause-playblack", ensureAuth, spotifyTokenVerification, pausePlayersPlayback);
