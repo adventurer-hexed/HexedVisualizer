@@ -12,9 +12,6 @@ export default connect(null, { deviceStateListener, fetchAvailableDevices, fetch
                 name: "Visualizer",
                 getOAuthToken: cb => { cb(this.props.token); }
                 });
-
-                // Set the player reference to be passed to other components
-                this.props.setPlayerReference(player);
         
                 // Error handling
                 player.addListener('initialization_error', ({ message }) => { console.error(message); });

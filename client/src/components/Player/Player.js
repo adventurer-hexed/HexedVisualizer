@@ -40,8 +40,7 @@ class Player extends Component {
     }
 
     renderPlayer() {
-        const { isPlayback, playerReference } = this.props
-        console.log(playerReference);
+        const { isPlayback } = this.props
         return (
             <button className="btn_reset" onClick={ isPlayback ? this.stopPlayback : this.playPlayback }>
                { isPlayback
