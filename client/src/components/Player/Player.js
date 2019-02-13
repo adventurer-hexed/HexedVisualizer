@@ -5,6 +5,7 @@ import { compose } from "redux"
 import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from "../../actions"
 import { FaPlay, FaPause, FaGrinBeamSweat } from 'react-icons/fa';
 import PlayerAudioProgress from "./PlayerAudioProgress"
+import Search from "../Search/Search";
 import withDevice from "../HOC/withDevice"
 import Visualizer from "../Visualizer/Visualizer"
 
@@ -57,6 +58,7 @@ class Player extends Component {
         return (
             <div>
                 <h1>Home Page</h1>
+                <Search />
                 { this.renderPlayer() }
                 <PlayerAudioProgress />
                 <Visualizer 
