@@ -65,7 +65,7 @@ module.exports = {
 
     async searchAll(req, res) {
         try {
-            const response = await axios.get(`https://api.spotify.com/v1/search?q=${req.params.searchterms}&type=album,artist,playlist,track`, applyHeader(req.user.spotifyAccessToken))
+            const response = await axios.get(`https://api.spotify.com/v1/search?q=${req.params.searchterms}&type=album,artist,playlist,track&limit=5`, applyHeader(req.user.spotifyAccessToken))
             res.status(200).json(response.data)
         } catch(e) {
             res.status(401).json({err: "Failed to fetch users devices"})
