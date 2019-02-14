@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import axios from 'axios'
 import SearchBar from './SearchBar'
 import ResultsMenu from './ResultsMenu'
+import { connect } from 'react-redux'
+import { playPlayback } from "../../actions"
 import "./Search.css"
 
 class Search extends Component {
@@ -20,14 +22,24 @@ class Search extends Component {
         })
     }
 
+    playSong = async (trackURI)=>{
+        this.props.playPlayback(trackURI)
+    }
+
     render(){
         return(
             <div className="searchMenu">
                 <SearchBar updateSearchResults={this.updateSearch} />
                 <ResultsMenu results={this.state.results}/>
+                <button onClick={()=>{this.playSong("spotify:track:0Ult84lvFuqNvbyXwyRQ58")}}>Test</button>
             </div>
         )
     }
 }
 
-export default Search
+const mapStateToProps = (state) => ({
+    deviceId:state.device.id
+})
+
+
+export default connect(mapStateToProps, {playPlayback})(Search)

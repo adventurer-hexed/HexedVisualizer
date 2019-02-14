@@ -1,4 +1,5 @@
 import React from 'react'
+import Search from '../Search/Search'
 import connectionImg from "../../assets/images/needConnect.png"
 export default () => (
     <div className="need_connection_container">
@@ -15,6 +16,7 @@ export default () => (
                 <p>Connect with your device</p>
                 <p>Device name: Visualizer</p>
             </figcaption>
+            <Search />
         </figure>
     </div>
 )

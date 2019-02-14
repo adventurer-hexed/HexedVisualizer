@@ -9,7 +9,9 @@ import { SIGN_IN,
         CURRENT_PROGRESS,
         SEEK_PLAYER_PROGRESS,
         // DEVICE_STATE_LISTENER,
-        FETCH_AVAILABLE_DEVICES  } from "./types";
+        FETCH_AVAILABLE_DEVICES,
+        UPDATE_CURR_DEVICE_ID,
+          } from "./types";
 
 
 export const signIn = id => async dispatch => {
@@ -66,9 +68,9 @@ export const fetchAnalysis = (currentSongID) => async (dispatch, getState) => {
     }
 }
 
-export const playPlayback = () => async (dispatch, getState) => {
-    if(!getState().playState.isPlayState) {
-        await axios.put("/api/play-playback",{something:"nothinghere"})
+export const playPlayback = (songURI) => async (dispatch, getState) => {
+    if(!getState().playState.isPlayState || songURI) {
+        await axios.put(`/api/play-playback?deviceid=${getState().device.id}`,(songURI)?{uris:JSON.stringify([songURI])}:{})
         dispatch({ type:PLAY_STATE_ON, payload: true })
     }
 }
@@ -88,4 +90,10 @@ export const updateProgress = (ms) => {
 export const seekProgressPlayback = (ms) => async dispatch => {
     await axios.put("/api/seek-player-position", {time:ms})
     dispatch({type:SEEK_PLAYER_PROGRESS, payload:ms})
+}
+
+export const updateCurrentDeviceId = (id)=> {
+    return{
+        type: UPDATE_CURR_DEVICE_ID, payload: id
+    }
 }

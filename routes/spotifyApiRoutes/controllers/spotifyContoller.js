@@ -24,6 +24,18 @@ module.exports = {
     },
     
     async playPlayersPlayback(req, res) {
+        console.log(req.query)
+        console.log(req.body)
+        try {
+            await axios.put(`https://api.spotify.com/v1/me/player/play?device_id=${req.query.deviceid}`,(req.body.uris)?{uris: JSON.parse(req.body.uris)}: {}, applyHeader(req.user.spotifyAccessToken))
+            res.status(200).json({success:"Successfully played"})
+        } catch(e) {
+            // console.log(e)
+            res.status(401).json({err: "Unauthorized"})
+        }
+    },    
+    
+    async playPlayersPlaybackSpecific(req, res) {
         try {
             await axios.put("https://api.spotify.com/v1/me/player/play",{}, applyHeader(req.user.spotifyAccessToken))
             res.status(200).json({success:"Successfully played"})
@@ -65,7 +77,7 @@ module.exports = {
 
     async searchAll(req, res) {
         try {
-            const response = await axios.get(`https://api.spotify.com/v1/search?q=${req.params.searchterms}&type=album,artist,playlist,track&limit=5`, applyHeader(req.user.spotifyAccessToken))
+            const response = await axios.get(`https://api.spotify.com/v1/search?q=${req.params.searchterms}&type=album,artist,playlist,track&limit=10`, applyHeader(req.user.spotifyAccessToken))
             res.status(200).json(response.data)
         } catch(e) {
             res.status(401).json({err: "Failed to find results for your search terms"})
