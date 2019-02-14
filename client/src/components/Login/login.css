@@ -28,11 +28,11 @@
     margin-top: 30px;
     display: flex;
     justify-content: center;
-    transform: rotate(0deg);
+    transform: scale(.8);
     transition: all 0.5s;
 }
 
 .logo_container:hover {
-    transform: rotate(45deg);
+    transform: scale(.85);
     cursor: pointer;
 }

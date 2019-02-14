@@ -11,7 +11,7 @@ import { SIGN_IN,
         // DEVICE_STATE_LISTENER,
         FETCH_AVAILABLE_DEVICES,
         UPDATE_CURR_DEVICE_ID,
-          } from "./types";
+        FETCH_SEARCH_RESULTS  } from "./types";
 
 
 export const signIn = id => async dispatch => {
@@ -96,4 +96,9 @@ export const updateCurrentDeviceId = (id)=> {
     return{
         type: UPDATE_CURR_DEVICE_ID, payload: id
     }
+}
+
+export const fetchSearchResults = (searchterms) => async (dispatch) => {
+    const res = await axios.get(`/api/search/${encodeURIComponent(searchterms)}`)
+    dispatch({ type: FETCH_SEARCH_RESULTS, payload: res.data})
 }
