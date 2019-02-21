@@ -33,14 +33,14 @@ export const deviceStateListener = (isPaused) => async (dispatch, getState) => {
     }
 }
 
-export const getUser = () => async dispatch => {
+export const getUser = (path) => async (dispatch, getState) => {
     try {
         const res = await axios.get("/current_user");
         dispatch({
             type: SIGN_IN,
             payload: { isSignedIn: true, id: res.data.id, accessToken: res.data.spotifyAccessToken }
         });
-        
+        history.push(path)
     } catch(e) {
         history.push("/login");
     }

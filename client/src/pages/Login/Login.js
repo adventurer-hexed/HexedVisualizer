@@ -9,7 +9,7 @@ import "./login.css";
 
 class Login extends Component {
     componentDidMount() {
-        this.props.getUser()
+        this.props.getUser("/")
     }
     signIn = () => {
         this.props.signIn();
@@ -27,7 +27,13 @@ class Login extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        auth: state.auth
+    }
+}
+
 export default connect(
-    null,
+    mapStateToProps,
     { signIn, getUser }
 )(Login);
