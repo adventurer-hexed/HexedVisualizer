@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import SearchBar from './SearchBar'
-import ResultsMenu from './ResultsMenu'
+import ResultsDropdown from '../Results/ResultsDropdown'
 import { connect } from 'react-redux'
 import { playPlayback, fetchSearchResults } from "../../actions"
 import "./Search.css"
@@ -15,11 +15,11 @@ class Search extends Component {
     }
 
     render(){
+        let displayResults = this.props.displayResults || true
         return(
             <div className="searchMenu">
                 <SearchBar updateSearchResults={this.updateSearch} />
-                <ResultsMenu results={this.props.searchResults} playSong={this.playSong} />
-                <button onClick={()=>{this.playSong("spotify:track:0Ult84lvFuqNvbyXwyRQ58")}}>Test</button>
+                {displayResults? <ResultsDropdown results={this.props.searchResults} playSong={(this.props.songClickHandler)? this.props.songClickHandler : this.playSong} /> : null}
             </div>
         )
     }

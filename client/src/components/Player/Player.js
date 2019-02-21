@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import requireAuth from "../HOC/requireAuth";
+import React, { Component } from "react"
+import requireAuth from "../HOC/requireAuth"
+import SpotifyScript from '../SpotifyScript'
 import { connect } from "react-redux"
 import { compose } from "redux"
 import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from "../../actions"
 import { FaPlay, FaPause, FaGrinBeamSweat } from 'react-icons/fa';
 import PlayerAudioProgress from "./PlayerAudioProgress"
 import Search from "../Search/Search";
-import withDevice from "../HOC/withDevice"
 import Visualizer from "../Visualizer/Visualizer"
 
 class Player extends Component {
@@ -29,7 +29,7 @@ class Player extends Component {
                 const durMs = this.props.currSongPlayback.item.duration_ms
                 this.props.updateProgress(progressMs/durMs * 100)
             }
-        }, 1500)
+        }, 250)
     }
 
     onProgressChange(e) {
@@ -38,6 +38,12 @@ class Player extends Component {
 
     componentWillUnmount() {
         clearInterval(this.progressInterval)
+    }
+
+    componentDidMount(){
+        if(this.props.isPlayback){
+            this.playSongProgression()
+        }
     }
 
     renderPlayer() {
@@ -57,6 +63,9 @@ class Player extends Component {
         let {beats, segments} = this.props.currSongAnalysis;
         return (
             <div>
+                <SpotifyScript 
+                    token={this.props.auth.accessToken}
+                />
                 <h1>Home Page</h1>
                 <Search />
                 { this.renderPlayer() }
@@ -77,14 +86,14 @@ class Player extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     isPlayback:state.playState.isPlayState, 
     currSongPlayback:state.currSongPlayback,
     currSongAnalysis:state.songAnalysis
 })
 
 const enhance = compose(
-    requireAuth,
-    withDevice
+    requireAuth
 )
 
 const EnhancedComponent = connect(mapStateToProps,

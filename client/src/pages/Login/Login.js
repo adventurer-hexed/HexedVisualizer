@@ -4,9 +4,13 @@ import { signIn } from "../../actions/";
 import Particles from "react-particles-js";
 import particles from "./particles.json";
 import LoginForm from "./LoginForm";
+import { getUser } from "../../actions"
 import "./login.css";
 
 class Login extends Component {
+    componentDidMount() {
+        this.props.getUser()
+    }
     signIn = () => {
         this.props.signIn();
     };
@@ -25,5 +29,5 @@ class Login extends Component {
 
 export default connect(
     null,
-    { signIn }
+    { signIn, getUser }
 )(Login);

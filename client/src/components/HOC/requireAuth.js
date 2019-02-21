@@ -10,7 +10,6 @@ export default ChildComponent => {
         };
         
         componentDidMount() {
-            this.props.getUser();
             if (!this.props.auth.isSignedIn && !this.props.auth.id) {
                 history.push("/login");
             } else {
