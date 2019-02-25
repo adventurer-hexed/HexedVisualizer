@@ -7,7 +7,7 @@ import Search from '../../components/Search/Search'
 import ResultsGrid from '../../components/Results/ResultsGrid'
 import Player from '../../components/Player/NewPlayer'
 import SpotifyScript from '../../components/SpotifyScript'
-import history from "../../history";
+import history from "../../history"
 import { Link } from "react-router-dom"
 import './Home.css'
 
@@ -16,10 +16,11 @@ const Home = (props) => (
         <SpotifyScript 
             token={props.auth.accessToken}
         />
-        <Search displayResults={true} songClickHandler={(songURI)=>{
-            props.playPlayback(songURI)
-            // history.push('/visualizer')
-        }}/>
+        <Search displayResults={true} 
+            songClickHandler={(songURI)=>{
+                props.playPlayback(songURI)
+            }
+        }/>
         <ResultsGrid 
         results={props.searchResults}
         playSong={(songURI)=>{
