@@ -5,6 +5,7 @@ import { compose } from "redux"
 import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from "../../actions"
 import Search from '../../components/Search/Search'
 import ResultsGrid from '../../components/Results/ResultsGrid'
+import Player from '../../components/Player/NewPlayer'
 import SpotifyScript from '../../components/SpotifyScript'
 import history from "../../history";
 import './Home.css'
@@ -16,7 +17,7 @@ const Home = (props) => (
         />
         <Search displayResults={true} songClickHandler={(songURI)=>{
             props.playPlayback(songURI)
-            history.push('/visualizer')
+            // history.push('/visualizer')
         }}/>
         <ResultsGrid 
         results={props.searchResults}
@@ -25,6 +26,7 @@ const Home = (props) => (
             history.push( '/visualizer')
         }} 
         />
+        <Player />
     </div>
 )
 

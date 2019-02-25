@@ -1,0 +1,182 @@
+/* body{
+    padding: 0;
+    margin: 0;
+    font-family: Roboto, sans-serif;
+  } */
+  .player{
+    width: calc(100% - 20px);
+    padding: 5px 10px;
+    background: #2c2c2c;
+    color: #fff;
+    border-top: 3px solid #121212;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
+  }
+  
+  .playbackInfo, .playbackControls, .volume {
+    flex: 1 100%;
+    text-align: center;
+  }
+  
+  .playbackInfo{
+    min-height: 30px;
+    padding: 2px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .songImage{
+    display: none;
+    height: 56px;
+    width: 56px;
+    margin-right: 5px;
+  }
+  
+  .albumCover{
+    height: 56px;
+    width: 56px;
+    background: #fff;
+  }
+  
+  .songName{
+    font-size: 14px;
+  }
+  
+  .songArtist{
+    font-size: 12px;
+    color: #b6b6b6;
+  }
+  
+  .progress, .volume{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px 0;
+    position: relative;
+  }
+  
+  .volume i{
+    padding: 5px 10px 5px 5px;
+  }
+  
+  .volume{
+    display: none;
+  }
+  
+  /* The slider itself */
+  .slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; 
+    height: 2px; 
+    border-radius: 2px;
+    background: #fff; 
+    outline: none; 
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 15px; 
+    height: 15px; 
+    border-radius: 15px;
+    background: #ae63e4; 
+    cursor: pointer; 
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 15px; 
+    height: 15px; 
+    border-radius: 15px;
+    background: #ae63e4; 
+    cursor: pointer; 
+  }
+  
+  .volume .slider{
+    background: #ae63e4; 
+  }
+  
+  .volume .slider::-webkit-slider-thumb {
+    background: #fff;
+  }
+  
+  .volume .slider::-moz-range-thumb {
+    background: #fff;
+  }
+  
+  .playbackControls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+  }
+  
+  .playButton, .lastButton, .nextButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: #b6b6b6;
+    margin: 5px 10px 5px 10px;
+    transition: all 50ms;
+  }
+  
+  .playButton{
+    width: 40px;
+    max-width: calc(50% - 6px);
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid #b6b6b6;
+  }
+  
+  .playButton i{
+    margin-left: 3px;
+  }
+  
+  .lastButton, .nextButton{
+    width: 40px;
+    max-width: calc(25% - 6px);
+    height: 40px;
+  }
+  
+  
+  .playButton:hover, .lastButton:hover, .nextButton:hover{
+    color: #fff;
+    border-color: #fff;
+    width: 42px;
+    height: 42px;
+    margin: 4px 9px 4px 9px;
+  }
+  
+  @media only screen and (min-width : 1200px) {
+    .playbackInfo {
+      flex: 1 0%;
+      order: 1;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .playbackControls {
+      flex: 4 0%;
+      order: 2;
+    }
+    .volume{
+      flex: 1 0%;
+      order: 3;
+      display: flex;
+    }
+    .songImage{
+      display: block;
+    }
+    .songInfo{
+      text-align: left;
+    }
+  }

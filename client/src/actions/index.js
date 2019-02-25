@@ -40,7 +40,7 @@ export const getUser = () => async dispatch => {
             type: SIGN_IN,
             payload: { isSignedIn: true, id: res.data.id, accessToken: res.data.spotifyAccessToken }
         });
-        
+        history.push('/')
     } catch(e) {
         history.push("/login");
     }

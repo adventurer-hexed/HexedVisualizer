@@ -29,7 +29,7 @@ class Player extends Component {
                 const durMs = this.props.currSongPlayback.item.duration_ms
                 this.props.updateProgress(progressMs/durMs * 100)
             }
-        }, 250)
+        }, 100)
     }
 
     onProgressChange(e) {
