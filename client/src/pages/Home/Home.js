@@ -8,10 +8,11 @@ import ResultsGrid from '../../components/Results/ResultsGrid'
 import Player from '../../components/Player/NewPlayer'
 import SpotifyScript from '../../components/SpotifyScript'
 import history from "../../history";
+import { Link } from "react-router-dom"
 import './Home.css'
 
 const Home = (props) => (
-    <div className="home">
+    <div className="home">        
         <SpotifyScript 
             token={props.auth.accessToken}
         />
