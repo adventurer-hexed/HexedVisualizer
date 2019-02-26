@@ -1,4 +1,5 @@
 import React from 'react'
+import SideNav from "../../components/SideNav/SideNav"
 import requireAuth from "../../components/HOC/requireAuth"
 import { connect } from "react-redux"
 import { compose } from "redux"
@@ -12,7 +13,7 @@ import { Link } from "react-router-dom"
 import './Home.css'
 
 const Home = (props) => (
-    <div className="home">        
+    <div className="push_content home">        
         <SpotifyScript 
             token={props.auth.accessToken}
         />
@@ -21,6 +22,9 @@ const Home = (props) => (
                 props.playPlayback(songURI)
             }
         }/>
+
+        <SideNav />
+
         <ResultsGrid 
         results={props.searchResults}
         playSong={(songURI)=>{

@@ -1,6 +1,6 @@
 .home {
     width: 100%;
     height: 100vh;
-    background: rgb(24, 24, 24);
+    background-image: linear-gradient(to bottom right, #000000, #ea5c90);
     position: relative;
 }

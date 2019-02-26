@@ -5,6 +5,7 @@ import Home from "../pages/Home/Home"
 import Player from "./Player/Player";
 import history from "../history";
 import Test from "./Test";
+import Selection from "../pages/Selection/Selection";
 
 export default class App extends Component {
     render() {
@@ -14,7 +15,7 @@ export default class App extends Component {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/visualizer" component={Player} />
                     <Route exact path="/login" component={Login} />
-                    <Route exact path="/test" component={Test} />
+                    <Route exact path="/search/:somesong" component={Selection} />
                 </div>
             </Router>
         );

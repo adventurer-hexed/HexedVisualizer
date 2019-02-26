@@ -49,29 +49,31 @@ class Player extends Component {
     render() {
         let { albumCover, songName, artistName, isPlayback, currentTime, totalTime, currentVolume } = this.props
         return (
-            <div className="player">
-                <div className="playbackInfo">
-                    <div className="songImage">
-                        {(albumCover) ? <img src={albumCover} className="albumCover" alt="Album Cover" /> : null}
+            <div className="player_container">
+                <div className="player">
+                    <div className="playbackInfo">
+                        <div className="songImage">
+                            {(albumCover) ? <img src={albumCover} className="albumCover" alt="Album Cover" /> : null}
+                        </div>
+                        <div className="songInfo">
+                            <div className="songName">{songName}</div>
+                            <div className="songArtist">{artistName}</div>
+                        </div>
                     </div>
-                    <div className="songInfo">
-                        <div className="songName">{songName}</div>
-                        <div className="songArtist">{artistName}</div>
+                    <div className="playbackControls">
+                        <div className="lastButton"><FaBackward /></div>
+                        <div className="playButton" onClick={this.handlePlayButtonClick}>{(isPlayback) ? <FaPause /> : <FaPlay />}</div>
+                        <div className="nextButton"><FaForward /></div>
+                        <div className="progress">
+                            <input type="range" min="0" max={totalTime} value={currentTime} className="slider" onChange={this.handleProgressChange} />
+                        </div>
                     </div>
-                </div>
-                <div className="playbackControls">
-                    <div className="lastButton"><FaBackward /></div>
-                    <div className="playButton" onClick={this.handlePlayButtonClick}>{(isPlayback) ? <FaPause /> : <FaPlay />}</div>
-                    <div className="nextButton"><FaForward /></div>
-                    <div className="progress">
-                        <input type="range" min="0" max={totalTime} value={currentTime} className="slider" onChange={this.handleProgressChange} />
+                    <div className="volume">
+                        <FaVolume />
+                        <input type="range" min="0" max="100" value={currentVolume} className="slider" onChange={this.handleVolumeChange} />
                     </div>
-                </div>
-                <div className="volume">
-                    <FaVolume />
-                    <input type="range" min="0" max="100" value={currentVolume} className="slider" onChange={this.handleVolumeChange} />
-                </div>
-            </div >
+                </div >
+            </div>
         )
     }
 }

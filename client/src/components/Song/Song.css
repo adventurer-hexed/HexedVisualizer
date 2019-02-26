@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans+Condensed:300');
+
+.song_container {
+    padding: 10px;
+    margin: 0 auto;
+    color: white;
+    font-weight: lighter;
+    font-family: 'Open Sans Condensed', sans-serif;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.song_container:hover {
+    background: black;
+    opacity: .3;
+}
+
+.song_artist_text {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    color: #b5b5b5;
+    font-size: 12px;
+    height: 20px;
+
+}
+
+.song_album_text {
+    display: none;
+}
+
+.song_time_text {
+    display: none;
+}
+
+.song_header {
+    display: none;;
+}
+
+@media screen and (min-width: 750px) {
+    .song_wrapper {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .song_header {
+        display: block;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3)
+    }
+
+    .song_container_header {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        margin: 0 auto;
+        color: white;
+        font-weight: lighter;
+        font-family: 'Open Sans Condensed', sans-serif;
+        transition: 0.4s;
+    }
+    
+
+    .song_container {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    .song_text {
+        flex: 2;
+        /* border: 1px solid red; */
+    }
+    
+    .song_artist_text {
+        display: block;
+        color: white;
+        font-size: 16px;
+        flex: 1;
+        /* border: 2px solid red; */
+    
+    }
+    
+    .song_album_text {
+        display: block;
+        flex: 1;
+        /* border: 1px solid blue; */
+    }
+    
+    .song_time_text {
+        display: block;
+        text-align: center;
+        flex: 1;
+        /* display: flex; */
+        /* justify-content: flex-end; */
+        /* border: 1px solid purple; */
+    }
+}

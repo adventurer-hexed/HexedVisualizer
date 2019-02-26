@@ -4,6 +4,10 @@
     font-family: sans-serif;
 }
 
+.push_content {
+    padding-left: 60px;
+}
+
 a {
     text-decoration: none;
     color: #000;
@@ -58,11 +62,6 @@ body {
     background: black;
 }
 
-@keyframes spinner {
-    from { transform: rotate(0deg) }
-    to { transform: rotate(360deg) }
-}
-
 
 .need_connection_container {
     width: 100%;
@@ -87,4 +86,16 @@ body {
 
 .connectionImg {
     width: 150px;
+}
+
+
+
+@media only screen and (min-width:750px) {
+    
+}
+
+@media only screen and (min-width: 1024px) {
+    .push_content {
+        padding-left: 230px;
+    }
 }
