@@ -14,12 +14,13 @@
   .player{
     width: 95%;
     margin:auto;
-    height: 70px;
+    height: 120px;
     color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-flow: row wrap;
+    transition: 0.4s;
   }
   
   .playbackInfo, .playbackControls, .volume {
@@ -161,7 +162,10 @@
     margin: 4px 9px 4px 9px;
   }
   
-  @media only screen and (min-width : 1200px) {
+  @media only screen and (min-width : 1024px) {
+    .player{
+      height: 75px;
+    }
     .playbackInfo {
       flex: 1 0%;
       order: 1;
