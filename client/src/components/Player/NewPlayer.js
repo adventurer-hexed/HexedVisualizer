@@ -28,8 +28,8 @@ class Player extends Component {
     playSongProgression = () => {
         this.progressInterval = setInterval(() => {
             this.props.fetchCurrPlayback()
-            if (this.props.currSongPlayback) {
-                if (Object.keys(this.props.currSongPlayback).length > 0) {
+            if (this.props.currSongPlayback.item) {
+                if (Object.keys(this.props.currSongPlayback.item).length > 0) {
                     const progressMs = this.props.currSongPlayback.progress_ms
                     const durMs = this.props.currSongPlayback.item.duration_ms
                     this.props.updateProgress(progressMs / durMs * 100)
@@ -79,22 +79,25 @@ class Player extends Component {
 }
 
 const mapStateToProps = (state) => {
-    if (Object.keys(state.currSongPlayback).length > 0) {
-        return {
-            albumCover: state.currSongPlayback.item.album.images[2].url,
-            songName: state.currSongPlayback.item.name,
-            artistName: state.currSongPlayback.item.artists.reduce((out, artist) => {
-                if(out === ""){
-                    out = artist.name
-                }else{
-                    out += `, ${artist.name}`
-                }
-                return out
-            }, ""),
-            isPlayback: state.playState.isPlayState,
-            currentTime: state.currSongPlayback.progress_ms,
-            totalTime: state.currSongPlayback.item.duration_ms,
-            currentVolume: 100
+    if (state.currSongPlayback.item) {
+        if (Object.keys(state.currSongPlayback.item).length > 0) {
+            return {
+                albumCover: state.currSongPlayback.item.album.images[2].url,
+                songName: state.currSongPlayback.item.name,
+                artistName: state.currSongPlayback.item.artists.reduce((out, artist) => {
+                    if (out === "") {
+                        out = artist.name
+                    } else {
+                        out += `, ${artist.name}`
+                    }
+                    return out
+                }, ""),
+                isPlayback: state.playState.isPlayState,
+                currentTime: state.currSongPlayback.progress_ms,
+                totalTime: state.currSongPlayback.item.duration_ms,
+                currentVolume: 100,
+                currSongPlayback: state.currSongPlayback
+            }
         }
     }
     return {

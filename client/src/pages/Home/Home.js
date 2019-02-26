@@ -13,24 +13,26 @@ import { Link } from "react-router-dom"
 import './Home.css'
 
 const Home = (props) => (
-    <div className="push_content home">        
-        <SpotifyScript 
+    <div className="home">
+        <SpotifyScript
             token={props.auth.accessToken}
         />
-        <Search displayResults={true} 
-            songClickHandler={(songURI)=>{
-                props.playPlayback(songURI)
-            }
-        }/>
+        <div className="push_content contentContainer">
+            <Search displayResults={true}
+                songClickHandler={(songURI) => {
+                    props.playPlayback(songURI)
+                }
+                } />
+        </div>
 
         <SideNav />
 
-        <ResultsGrid 
-        results={props.searchResults}
-        playSong={(songURI)=>{
-            props.playPlayback(songURI)
-            history.push( '/visualizer')
-        }} 
+        <ResultsGrid
+            results={props.searchResults}
+            playSong={(songURI) => {
+                props.playPlayback(songURI)
+                history.push('/visualizer')
+            }}
         />
         <Player />
     </div>
@@ -38,20 +40,20 @@ const Home = (props) => (
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    isPlayback:state.playState.isPlayState, 
-    currSongPlayback:state.currSongPlayback,
-    currSongAnalysis:state.songAnalysis,
-    searchResults:state.searchResults
+    isPlayback: state.playState.isPlayState,
+    currSongPlayback: state.currSongPlayback,
+    currSongAnalysis: state.songAnalysis,
+    searchResults: state.searchResults
 })
 
 const enhance = compose(requireAuth)
 
 const EnhancedComponent = connect(mapStateToProps,
     {
-        playPlayback, 
+        playPlayback,
         stopPlayback,
         updateProgress,
         fetchCurrPlayback
     })(Home)
 
-    export default enhance(EnhancedComponent)
+export default enhance(EnhancedComponent)
