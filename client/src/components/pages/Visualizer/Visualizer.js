@@ -16,7 +16,7 @@ class Visualizer extends React.Component {
 
     componentDidMount() {
         document.title = "Visualizer"
-        window.addEventListener("resize", this.handleWindowResize.bind(this))
+        window.addEventListener("resize", this.handleWindowResize)
         this._canvas.current.width = window.innerWidth
         this._canvas.current.height = window.innerHeight
         this._ctx = this._canvas.current.getContext("2d")
@@ -24,22 +24,25 @@ class Visualizer extends React.Component {
 
         this.animate()
     }
-
+    
     componentWillUnmount() {
-        window.removeEventListener("resize", this.handleWindowResize.bind(this))
+        window.cancelAnimationFrame(this.animationFrame)
+        window.removeEventListener("resize", this.handleWindowResize)
     }
 
 
-    handleWindowResize(e) {
+    handleWindowResize = (e) => {
         this._canvas.current.width = window.innerWidth
         this._canvas.current.height = window.innerHeight
+        this._completeCircle._canvasHeight = this._canvas.current.height
+        this._completeCircle._canvasWidth = this._canvas.current.width
     }
 
     animate(currentTime) {
         if(!this.state.startingTime) this.state.startingTime = currentTime;
         if(!this.state.lastTime) this.state.lastTime=currentTime += 20
         this.state.totalElapsedTime = (currentTime - this.state.startingTime);
-        requestAnimationFrame(this.animate.bind(this))
+        this.animationFrame = requestAnimationFrame(this.animate.bind(this))
         this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
         this._completeCircle.update(this.state.totalElapsedTime, music.beats, music.tatums)
         
