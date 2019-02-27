@@ -1,7 +1,7 @@
 import React from "react"
 import Script from "react-load-script"
 import { connect } from "react-redux"
-import { deviceStateListener, fetchAvailableDevices, fetchAnalysis, updateCurrentDeviceId } from "../actions"
+import { deviceStateListener, fetchAvailableDevices, fetchAnalysis, updateCurrentDeviceId } from "../../actions"
 
 export default connect(null, { deviceStateListener, fetchAvailableDevices, fetchAnalysis, updateCurrentDeviceId})(
 

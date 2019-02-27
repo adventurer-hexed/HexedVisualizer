@@ -1,13 +1,13 @@
 import React from "react"
 import { connect } from "react-redux"
-// import requireAuth from "../components/HOC/requireAuth"
-import Song from "../../components/Song/Song"
-import SideNav from "../../components/SideNav/SideNav";
+import requireAuth from "../../common/HOC/requireAuth"
+import Song from "../../common/Song/Song"
+import SideNav from "../../common/SideNav/SideNav";
 import "./Song_Page.css"
-import SongHeader from "../../components/Song/SongHeader";
-import Search from "../../components/Search/Search"
+import SongHeader from "../../common/Song/SongHeader";
+import Search from "../../common/Search/Search"
 import NoResults from "./NoResults";
-import Player from "../../components/Player/NewPlayer"
+import Player from "../../common/Player/NewPlayer"
 
 class Selection extends React.Component {
 
@@ -68,4 +68,7 @@ const mapStateToProps = (state) => {
         searchResults: Object.values(state.searchResults)
     }
 }
-export default connect(mapStateToProps, {})(Selection);
+
+
+
+export default requireAuth(connect(mapStateToProps, {})(Selection));

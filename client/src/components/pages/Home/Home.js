@@ -1,14 +1,14 @@
 import React from 'react'
-import SideNav from "../../components/SideNav/SideNav"
-import requireAuth from "../../components/HOC/requireAuth"
+import SideNav from "../../common/SideNav/SideNav"
+import requireAuth from "../../common/HOC/requireAuth"
 import { connect } from "react-redux"
 import { compose } from "redux"
-import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from "../../actions"
-import Search from '../../components/Search/Search'
-import ResultsGrid from '../../components/Results/ResultsGrid'
-import Player from '../../components/Player/NewPlayer'
-import SpotifyScript from '../../components/SpotifyScript'
-import history from "../../history"
+import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from "../../../actions"
+import Search from '../../common/Search/Search'
+import ResultsGrid from '../../common/Results/ResultsGrid'
+import Player from '../../common/Player/NewPlayer'
+import SpotifyScript from '../../common/SpotifyScript'
+import history from "../../../history"
 import { Link } from "react-router-dom"
 import './Home.css'
 

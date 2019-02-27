@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import history from "../../history";
-import { getUser } from "../../actions";
+import history from "../../../history";
+import { getUser } from "../../../actions";
 
 export default ChildComponent => {
     class ComposedComponent extends Component {

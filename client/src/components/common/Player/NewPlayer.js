@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
-import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback, seekProgressPlayback } from "../../actions"
+import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback, seekProgressPlayback } from "../../../actions"
 import { FaBackward, FaForward, FaPlay, FaPause, FaVolume } from 'react-icons/fa'
 import './Player.css'
 

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { signIn } from "../../actions/";
 import Particles from "react-particles-js";
 import particles from "./particles.json";
 import LoginForm from "./LoginForm";
-import { getUser } from "../../actions"
+import { getUser, signIn } from "../../../actions"
 import "./login.css";
 
 class Login extends Component {

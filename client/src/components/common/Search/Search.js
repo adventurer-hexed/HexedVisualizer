@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import SearchBar from './SearchBar'
 import ResultsDropdown from '../Results/ResultsDropdown'
 import { connect } from 'react-redux'
-import { playPlayback, fetchSearchResults } from "../../actions"
+import { playPlayback, fetchSearchResults } from "../../../actions"
 import "./Search.css"
 
 class Search extends Component {
