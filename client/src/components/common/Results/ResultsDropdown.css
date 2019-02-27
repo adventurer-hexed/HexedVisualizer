@@ -1,0 +1,47 @@
+.searchResults{
+    display: none;
+    position: absolute;
+    width: calc(100% - 20px);
+    list-style-type: none;
+    left: 0;
+    top: 0;
+    margin: 37px 10px 10px 10px;
+    padding: 27px 0 0 0;
+    background: rgba(0,0,0,.9);
+    color: #fff;
+    font-size: 18px;
+    z-index: 0;
+}
+
+.searchMenu:focus-within .searchResults, .searchResults:hover{    
+    display: block;
+}
+
+.searchResults .resultItem{
+    margin: 10px;
+    padding-bottom: 10px;
+    background: rgba(255,255,255,.05);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.searchResults .resultItem:last-child{
+    border-bottom: none;
+}
+
+.searchResults .songImage{
+    margin-right: 10px;
+}
+
+.searchResults .songImage img{
+    width: 40px;
+    height: 40px;
+}
+
+.searchResults .songName{
+    font-size: 14px;
+}
+.searchResults .songArtist{
+    font-size: 12px;
+}
