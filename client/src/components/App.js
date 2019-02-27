@@ -6,6 +6,7 @@ import Player from "./common/Player/NewPlayer";
 import history from "../history";
 import Test from "./Test";
 import Selection from "./pages/Selection/Selection";
+import Visualizer from "./pages/Visualizer/Visualizer";
 
 export default class App extends Component {
     render() {
@@ -13,7 +14,7 @@ export default class App extends Component {
             <Router history={history}>
                 <div>
                     <Route exact path="/" component={Home} />
-                    <Route exact path="/visualizer" component={Player} />
+                    <Route exact path="/visualizer" component={Visualizer} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/search" component={Selection} />
                 </div>
