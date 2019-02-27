@@ -32,8 +32,16 @@ class Player extends Component {
                 if (Object.keys(this.props.currSongPlayback.item).length > 0) {
                     const progressMs = this.props.currSongPlayback.progress_ms
                     const durMs = this.props.currSongPlayback.item.duration_ms
-                    this.props.updateProgress(progressMs / durMs * 100)
+                    if (progressMs === 0) {
+                        clearInterval(this.progressInterval)
+                        this.props.stopPlayback()
+                    } else {
+                        this.props.updateProgress(progressMs / durMs * 100)
+                    }
                 }
+            } else {
+                clearInterval(this.progressInterval)
+                this.props.stopPlayback()
             }
         }, 250)
     }
