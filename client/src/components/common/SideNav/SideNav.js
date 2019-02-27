@@ -6,24 +6,25 @@ import "./SideNav.css"
 import NavLink from "./NavLink";
 import LogoutBtn from "./LogoutBtn";
 
+const navLinks = [
+    { path: "/", text: "Home", component: IoIosSearch },
+    { path: "/visualizer", text: "Visualizer", component: IoMdMusicalNote },
+    { path: "/search", text: "Search", component: IoIosSearch }
+]
+
 export default (props) => ReactDOM.createPortal(
-   <div className="side_nav">
+    <div className="side_nav">
         <section>
-            <NavLink path="/" text={"Home"}>
-                <IoIosHome size={"2em"} color="white" />
-            </NavLink>
-
-            <NavLink path="/visualizer" text={"Visualizer"}>
-                <IoMdMusicalNote size={"2em"} color="white"/>
-            </NavLink>
-
-            <NavLink path="/search" text={"Search"}>
-                <IoIosSearch size={"2em"} color="white" />
-            </NavLink>
+            {
+                navLinks.map( a => (
+                    <NavLink path={a.path} text={a.text}>
+                        <a.component size={"2em"} color="color" />
+                    </NavLink>
+                ))
+            }
         </section>
-            
+
         <LogoutBtn />
-        
-   </div>,
+    </div>,
    document.getElementById("sideNav")
 )
