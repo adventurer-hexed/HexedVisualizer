@@ -11,8 +11,8 @@
     color: #a0a0a0;
 }
 .song_image {
-    width: 350px;
-    height: 350px;
+    width: 330px;
+    height: 330px;
     background-position: center;
     background-size: cover;
 
@@ -55,7 +55,7 @@
 
 @media screen and (min-width: 1400px) {
     .song_image {
-        width: 450px;
-        height: 450px;;
+        width: 385px;
+        height: 385px;;
     }
 }
