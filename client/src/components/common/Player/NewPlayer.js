@@ -5,10 +5,17 @@ import { FaBackward, FaForward, FaPlay, FaPause, FaVolume } from 'react-icons/fa
 import './Player.css'
 
 class Player extends Component {
+    constructor() {
+        super()
+        this.state = {
+            inc: 0
+        }
+    }
 
     handleProgressChange = (event) => {
         let newProgress = event.target.value
         this.props.seekProgressPlayback(newProgress)
+        // this.props.fetchCurrPlayback();
     }
 
     handleVolumeChange = (event) => {
@@ -18,43 +25,58 @@ class Player extends Component {
 
     handlePlayButtonClick = (event) => {
         if (this.props.isPlayback) {
-            clearInterval(this.progressInterval)
+            clearInterval(this._progressInterval)
+            this.props.fetchCurrPlayback()
             this.props.stopPlayback()
+        } else {
+            this.props.fetchCurrPlayback()
+            this.props.playPlayback()
+            this.playSongProgression()
         }
-        this.props.playPlayback()
-        this.playSongProgression()
     }
+
+    // playSongProgression = () => {
+    //     this.progressInterval = setInterval(() => {
+            // this.props.fetchCurrPlayback()
+    //         if (this.props.currSongPlayback.item) {
+    //             if (Object.keys(this.props.currSongPlayback.item).length > 0) {
+    //                 const progressMs = this.props.currSongPlayback.progress_ms
+    //                 const durMs = this.props.currSongPlayback.item.duration_ms
+    //                 if (progressMs === 0) {
+    //                     clearInterval(this.progressInterval)
+    //                     this.props.stopPlayback()
+    //                 } else {
+    //                     this.props.updateProgress(progressMs / durMs * 100)
+    //                 }
+    //             }
+    //         } else {
+    //             clearInterval(this.progressInterval)
+    //             this.props.stopPlayback()
+    //         }
+    //     }, 250)
+    // }
 
     playSongProgression = () => {
-        this.progressInterval = setInterval(() => {
-            this.props.fetchCurrPlayback()
-            if (this.props.currSongPlayback.item) {
-                if (Object.keys(this.props.currSongPlayback.item).length > 0) {
-                    const progressMs = this.props.currSongPlayback.progress_ms
-                    const durMs = this.props.currSongPlayback.item.duration_ms
-                    if (progressMs === 0) {
-                        clearInterval(this.progressInterval)
-                        this.props.stopPlayback()
-                    } else {
-                        this.props.updateProgress(progressMs / durMs * 100)
-                    }
-                }
-            } else {
-                clearInterval(this.progressInterval)
-                this.props.stopPlayback()
-            }
-        }, 250)
-    }
+        let start = new Date().getTime();
+        this._progressInterval = setInterval(() => {
+            let now = new Date().getTime();
+            this.setState({
+                inc: ((this.props.currentTime + (now - start)))
+            })
+        }, 1);
+    } 
+
 
     componentWillUnmount() {
-        clearInterval(this.progressInterval)
+        clearInterval(this._progressInterval)
     }
 
-    componentDidMount() {
-        this.playSongProgression()
-    }
+    // componentDidMount() {
+        // this.playSongProgression()
+    // }
 
     render() {
+        // console.log(this.state)
         let { albumCover, songName, artistName, isPlayback, currentTime, totalTime, currentVolume } = this.props
         return (
             <div className="player_container">
@@ -73,12 +95,28 @@ class Player extends Component {
                         <div className="playButton" onClick={this.handlePlayButtonClick}>{(isPlayback) ? <FaPause /> : <FaPlay />}</div>
                         <div className="nextButton"><FaForward /></div>
                         <div className="progress">
-                            <input type="range" min="0" max={totalTime} value={currentTime} className="slider" onChange={this.handleProgressChange} />
+                            <input 
+                                className="slider" 
+                                type="range" 
+                                min="0" 
+                                max={totalTime} 
+                                onChange={this.handleProgressChange} 
+                                value={this.state.inc} 
+                            />
                         </div>
                     </div>
                     <div className="volume">
+
                         <FaVolume />
-                        <input type="range" min="0" max="100" value={currentVolume} className="slider" onChange={this.handleVolumeChange} />
+                        <input 
+                            className="slider" 
+                            type="range" 
+                            min="0" 
+                            max="100" 
+                            value={currentVolume} 
+                            onChange={this.handleVolumeChange} 
+                        />
+
                     </div>
                 </div >
             </div>

@@ -1,10 +1,13 @@
 import Circle from "./Circle";
-
+// rgb(250,250,250)
+// rgb(0,212,103)
+// rgb(234,92,144)
+// rgb(25,176,221)
 const colorOpacity = (opacity) => [
-    `rgba(250,250,250, ${opacity})`,
-    `rgba(0,212,103, ${opacity})`,
-    `rgba(234,92,144, ${opacity})`,
-    `rgba(25,176,221,${opacity})`
+    `rgba(250,250,250, ${opacity})`, // Grey
+    `rgba(0,212,103, ${opacity})`, // Green
+    `rgba(234,92,144, ${opacity})`, // Pinkish Red
+    `rgba(25,176,221,${opacity})` // Light Blue
 ]
 
 export default class RippleCircle extends Circle {
