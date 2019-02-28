@@ -22,7 +22,7 @@ export default class CompleteRipple {
           const confidence = beats[this._currBeatIndex].confidence
             const rippleCircle = new RippleCircle(
                 this._ctx,
-              ripple_x, ripple_y, 5, "black", false, 
+              ripple_x, ripple_y, 1, "black", false, 
               confidence, confidence
             )
             this._rippleBeats.push(rippleCircle)
@@ -40,7 +40,7 @@ export default class CompleteRipple {
           const confidence = tatums[this._currTatumIndex].confidence
           const rippleCircle = new RippleCircle(
             this._ctx,
-            ripple_x, ripple_y, 5, "black", false, 
+            ripple_x, ripple_y, 1, "black", false, 
             confidence, confidence
           )
           this._rippleTatums.push(rippleCircle)
