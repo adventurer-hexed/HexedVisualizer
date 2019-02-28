@@ -93,7 +93,7 @@
     width: 15px; 
     height: 15px; 
     border-radius: 15px;
-    background: #ae63e4; 
+    background: #ea5c90; 
     cursor: pointer; 
   }
   
@@ -101,12 +101,12 @@
     width: 15px; 
     height: 15px; 
     border-radius: 15px;
-    background: #ae63e4; 
+    background: #ea5c90; 
     cursor: pointer; 
   }
   
   .player .volume .slider{
-    background: #ae63e4; 
+    background: #ea5c90; 
   }
   
   .player .volume .slider::-webkit-slider-thumb {
