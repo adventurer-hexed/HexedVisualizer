@@ -1,7 +1,7 @@
 {
     "development": {
         "username": "root",
-        "password": "Fifty5@jimmy",
+        "password": "",
         "database": "vispi",
         "host": "localhost",
         "port": 3306,

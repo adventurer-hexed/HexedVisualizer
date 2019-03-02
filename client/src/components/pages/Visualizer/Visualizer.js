@@ -2,7 +2,7 @@ import React from "react"
 import CompleteRipple from "./vis_one/CompleteRipple"
 import music from "./music.json"
 import { connect } from "react-redux"
-import { playPlayback, fetchAnalysis, fetchCurrPlayback } from "../../../actions"
+import { playPlayback, fetchAnalysis, fetchCurrPlayback, deviceStateListener } from "../../../actions"
 
 class Visualizer extends React.Component {
     constructor(props) {
@@ -97,7 +97,7 @@ const mapStateToProps = (state) => {
     }
 
     if(Object.values(state.currSongPlayback).length > 0) {
-        progress = state.currSongPlayback.progress_ms
+        progress = state.deviceState.position
         total_dur = state.currSongPlayback.item.duration_ms
         console.log("STORE", state.currSongPlayback)
     } 
@@ -112,4 +112,4 @@ const mapStateToProps = (state) => {
         
     }
 }
-export default connect(mapStateToProps, { fetchCurrPlayback, playPlayback, fetchAnalysis })(Visualizer)
+export default connect(mapStateToProps, { fetchCurrPlayback, playPlayback, fetchAnalysis, deviceStateListener })(Visualizer)

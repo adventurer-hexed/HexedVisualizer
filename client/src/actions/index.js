@@ -9,7 +9,7 @@ import {
     FETCH_CURR_PLAYBACK,
     CURRENT_PROGRESS,
     SEEK_PLAYER_PROGRESS,
-    // DEVICE_STATE_LISTENER,
+    DEVICE_STATE_LISTENER,
     FETCH_AVAILABLE_DEVICES,
     UPDATE_CURR_DEVICE_ID,
     FETCH_SEARCH_RESULTS
@@ -27,13 +27,13 @@ export const signOut = () => async dispatch => {
     history.push("/login");
 };
 
-export const deviceStateListener = (isPaused) => async (dispatch, getState) => {
-    if (isPaused) {
-        stopPlayback()
-    } else {
-        playPlayback()
-    }
-}
+// export const deviceStateListener = (isPaused) => async (dispatch, getState) => {
+//     if (isPaused) {
+//         stopPlayback()
+//     } else {
+//         playPlayback()
+//     }
+// }
 
 export const getUser = (path) => async (dispatch, getState) => {
     try {
@@ -73,9 +73,11 @@ export const fetchAnalysis = (currentSongID) => async (dispatch, getState) => {
 }
 
 export const playPlayback = (songURI) => async (dispatch, getState) => {
+
     if (!getState().playState.isPlayState || songURI) {
         await axios.put(`/api/play-playback?deviceid=${getState().device.id}`, (songURI) ? { uris: JSON.stringify([songURI]) } : {})
         dispatch({ type: PLAY_STATE_ON, payload: true })
+        history.push("/visualizer")
     }
 }
 
@@ -105,4 +107,8 @@ export const updateCurrentDeviceId = (id) => {
 export const fetchSearchResults = (searchterms) => async (dispatch) => {
     const res = await axios.get(`/api/search/${encodeURIComponent(searchterms)}`)
     dispatch({ type: FETCH_SEARCH_RESULTS, payload: res.data })
+}
+
+export const deviceStateListener = (deviceState) => {
+    return {type: DEVICE_STATE_LISTENER, payload:deviceState}
 }

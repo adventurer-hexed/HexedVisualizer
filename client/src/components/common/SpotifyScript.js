@@ -23,10 +23,11 @@ export default connect(null, { deviceStateListener, fetchAvailableDevices, fetch
                 player.addListener('player_state_changed', state => {
                     console.log(state);
                     if (state) {
-                        this.props.deviceStateListener(state.paused)
+                        // this.props.deviceStateListener(state.paused)
+                        this.props.deviceStateListener(state);
+                        this.props.fetchAnalysis(state.track_window.current_track.id)
+                        this.props.fetchAvailableDevices()
                     }
-                    this.props.fetchAnalysis(state.track_window.current_track.id)
-                    this.props.fetchAvailableDevices()
                 });
 
                 // Ready
