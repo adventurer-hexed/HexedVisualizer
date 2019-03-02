@@ -2,6 +2,7 @@ import React from "react"
 import CompleteRipple from "./vis_one/CompleteRipple"
 import music from "./music.json"
 import { connect } from "react-redux"
+import { playPlayback, fetchAnalysis, fetchCurrPlayback } from "../../../actions"
 
 class Visualizer extends React.Component {
     constructor(props) {
@@ -13,6 +14,8 @@ class Visualizer extends React.Component {
 
     componentDidMount() {
         document.title = "Visualizer"
+        this.props.fetchCurrPlayback()
+        this.props.playPlayback();
         window.addEventListener("resize", this.handleWindowResize)
         this._canvas.current.width = window.innerWidth
         this._canvas.current.height = window.innerHeight
@@ -49,7 +52,14 @@ class Visualizer extends React.Component {
 
         this._animationFrame = requestAnimationFrame(this.animate)
         this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-        this._completeCircle.update(this.props.progress + (totalElapsedTime - 1.5) , this.props.beats, this.props.tatums)
+        // if(this.props.progress + totalElapsedTime < this.props.total_dur) {
+            this._completeCircle.update(
+                this.props.progress + (totalElapsedTime),
+                this.props.total_dur,
+                this.props.beats,
+                this.props.tatums,
+                this.props.sections)
+        // }
 
 
     }
@@ -59,6 +69,7 @@ class Visualizer extends React.Component {
 
         
     render() {
+        console.log(this.props)
         return (
             <div>
                 <canvas style={{background:"black"}} ref={this._canvas} />
@@ -71,11 +82,14 @@ class Visualizer extends React.Component {
 const mapStateToProps = (state) => {
     let beats = []
     let tatums = []
+    let sections = []
     let progress = 0
+    let total_dur = 0;
     let isPlayback = false;
     if(Object.values(state.songAnalysis).length > 0) {
         beats = state.songAnalysis.beats
         tatums = state.songAnalysis.tatums
+        sections = state.songAnalysis.sections
     } 
 
     if(Object.values(state.currSongPlayback).length > 0) {
@@ -84,13 +98,18 @@ const mapStateToProps = (state) => {
 
     if(Object.values(state.currSongPlayback).length > 0) {
         progress = state.currSongPlayback.progress_ms
+        total_dur = state.currSongPlayback.item.duration_ms
+        console.log("STORE", state.currSongPlayback)
     } 
 
     return {
         progress,
         beats,
         tatums,
-        isPlayback
+        sections,
+        isPlayback,
+        total_dur
+        
     }
 }
-export default connect(mapStateToProps, {})(Visualizer)
+export default connect(mapStateToProps, { fetchCurrPlayback, playPlayback, fetchAnalysis })(Visualizer)

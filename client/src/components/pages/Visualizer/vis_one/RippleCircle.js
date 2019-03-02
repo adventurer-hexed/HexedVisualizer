@@ -16,6 +16,7 @@ export default class RippleCircle extends Circle {
       this._ctx = ctx
       this._opacity = opacity
       this._confidence = confidence
+      this._isFill = isFill
     }
       draw() {
           this._ctx.beginPath()
@@ -29,15 +30,23 @@ export default class RippleCircle extends Circle {
           } else {
             color = colorOpacity(this._opacity)[0]
           }
+
           this._ctx.strokeStyle = color
-          this._ctx.lineWidth = 5
+          
+          if(this._isFill) {
+            this._ctx.fillStyle = color
+          }
+          this._ctx.lineWidth = 10
           this._ctx.arc(this._x, this._y, this._rad, 0, Math.PI * 2, false)
           this._ctx.stroke()
+          if(this._isFill) {
+            this._ctx.fill()
+          }
       }
   
       update() {
           this._rad += 1
-          this._opacity -= .003
+          this._opacity -= .005
           if(this._opacity <= 0) {
             this._opacity = 0
           }
@@ -45,4 +54,3 @@ export default class RippleCircle extends Circle {
           this.draw()
       }
 }
-  
