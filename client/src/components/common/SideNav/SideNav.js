@@ -17,7 +17,7 @@ export default (props) => ReactDOM.createPortal(
         <section>
             {
                 navLinks.map( ({path, text, Component}) => (
-                    <NavLink path={path} text={text}>
+                    <NavLink key={text} path={path} text={text}>
                         <Component size={"2em"} color="white" />
                     </NavLink>
                 ))
