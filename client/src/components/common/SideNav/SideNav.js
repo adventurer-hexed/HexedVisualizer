@@ -7,7 +7,7 @@ import NavLink from "./NavLink";
 import LogoutBtn from "./LogoutBtn";
 
 const navLinks = [
-    { path: "/", text: "Home", Component: IoIosSearch },
+    { path: "/", text: "Home", Component: IoIosHome },
     { path: "/visualizer", text: "Visualizer", Component: IoMdMusicalNote },
     { path: "/search", text: "Search", Component: IoIosSearch }
 ]
