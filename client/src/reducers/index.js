@@ -8,6 +8,7 @@ import availableDeviceReducer from "./availableDeviceReducer";
 import spotifyCurrIdReducer from "./spotifyCurrIdReducer";
 import spotifySearchReducer from "./spotifySearchReducer";
 import deviceListener from "./deviceListener";
+import deviceStateConter from "./deviceStateConter";
 
 export default combineReducers({
     auth: authReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     availableDevices: availableDeviceReducer,
     device: spotifyCurrIdReducer,
     searchResults: spotifySearchReducer,
-    currDeviceState: deviceListener
+    currDeviceState: deviceListener,
+    deviceCounter:deviceStateConter
 });

@@ -12,7 +12,9 @@ import {
     DEVICE_STATE_LISTENER,
     FETCH_AVAILABLE_DEVICES,
     UPDATE_CURR_DEVICE_ID,
-    FETCH_SEARCH_RESULTS
+    FETCH_SEARCH_RESULTS,
+    INCREMENT_DEVICE_STATE_COUNTER,
+    ZERO_DEVICE_STATE_COUNTER
 } from "./types";
 
 
@@ -67,16 +69,18 @@ export const fetchAnalysis = (currentSongID) => async (dispatch, getState) => {
             }
         }
     } else {
+        console.log("BEFORE RES")
         const res = await axios.get(`/api/get-song-analysis/${currentSongID}`)
+        console.log("GOT THE RES")
         dispatch({ type: FETCH_SONG_ANALYSIS, payload: res.data })
     }
 }
 
-export const playPlayback = (songURI) => async (dispatch, getState) => {
+export const playPlayback = (songURI, songId) => async (dispatch, getState) => {
     if (!getState().playState.isPlayState || songURI) {
+        dispatch(fetchAnalysis(songId))
         await axios.put(`/api/play-playback?deviceid=${getState().device.id}`, (songURI) ? { uris: JSON.stringify([songURI]) } : {})
         dispatch({ type: PLAY_STATE_ON, payload: true })
-        history.push("/visualizer")
     }
 }
 
@@ -109,9 +113,18 @@ export const fetchSearchResults = (searchterms) => async (dispatch) => {
 }
 
 export const deviceStateListener = (deviceState) => (dispatch, getState) => {
-    if(Object.values(getState().deviceState).length <= 0 ) {
+    if(deviceState.position == 0) {
+        dispatch({type:INCREMENT_DEVICE_STATE_COUNTER})
+        console.log("ACTION", getState())
+        if(getState().deviceCounter.counter >= 2) {
+            history.push("/visualizer")
+            dispatch({type:ZERO_DEVICE_STATE_COUNTER})
+        }
+    }
+    if(Object.values(getState().deviceState).length <= 0) {
         dispatch({type: DEVICE_STATE_LISTENER, payload:deviceState})
     }
+
     if(getState().deviceState.paused !== deviceState.paused) {
         dispatch({type: DEVICE_STATE_LISTENER, payload:deviceState})
     }

@@ -14,13 +14,15 @@ class Visualizer extends React.Component {
 
     componentDidMount() {
         document.title = "Visualizer"
-        this.props.fetchCurrPlayback()
-        this.props.playPlayback();
         window.addEventListener("resize", this.handleWindowResize)
         this._canvas.current.width = window.innerWidth
         this._canvas.current.height = window.innerHeight
         this._ctx = this._canvas.current.getContext("2d")
-        this._completeCircle = new CompleteRipple(this._ctx, this._canvas.current.width, this._canvas.current.height)
+        this._completeCircle = new CompleteRipple(
+            this._ctx,
+            this._canvas.current.width, 
+            this._canvas.current.height
+        )
 
         this.animate()
     }
@@ -53,23 +55,15 @@ class Visualizer extends React.Component {
 
         this._animationFrame = requestAnimationFrame(this.animate)
         this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-        // if(this.props.progress + totalElapsedTime < this.props.total_dur) {
-            this._completeCircle.update(
-                this.props.progress + (totalElapsedTime),
-                this.props.total_dur,
-                this.props.beats,
-                this.props.tatums,
-                this.props.sections
-            )
-        // }
-
-
+        this._completeCircle.update(
+            this.props.progress + (totalElapsedTime),
+            this.props.total_dur,
+            this.props.beats,
+            this.props.tatums,
+            this.props.sections
+        )
     }
-
-
-
-
-        
+    
     render() {
         return (
             <div>
@@ -112,7 +106,8 @@ const mapStateToProps = (state) => {
         tatums,
         sections,
         isPlayback,
-        total_dur
+        total_dur,
+        deviceCounter: state.deviceCounter.counter
         
     }
 }

@@ -6,12 +6,12 @@ import { playPlayback, fetchSearchResults } from "../../../actions"
 import "./Search.css"
 
 class Search extends Component {
-    updateSearch = async (searchTerms)=>{
+    updateSearch = (searchTerms)=> {
         this.props.fetchSearchResults(searchTerms)
     }
 
-    playSong = async (trackURI)=>{
-        this.props.playPlayback(trackURI)
+    playSong = (trackURI, songId) => {
+        this.props.playPlayback(trackURI, songId)
     }
 
     render(){
@@ -19,7 +19,14 @@ class Search extends Component {
         return(
             <div className="searchMenu">
                 <SearchBar updateSearchResults={this.updateSearch} />
-                {displayResults? <ResultsDropdown results={this.props.searchResults} playSong={(this.props.songClickHandler)? this.props.songClickHandler : this.playSong} /> : null}
+                {
+                    displayResults 
+                    ? <ResultsDropdown 
+                            results={this.props.searchResults} 
+                            playSong={this.playSong} 
+                    /> 
+                    : null
+                }
             </div>
         )
     }

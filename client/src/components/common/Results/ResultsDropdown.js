@@ -12,9 +12,11 @@ class ResultsDropdown extends Component {
                     onClick={
                         (event) => {
                             console.log(song.uri)
-                            playSong(song.uri)
+                            console.log(song.id)
+                            playSong(song.uri, song.id)
                         }
                     }>
+
                     <div className="songImage">
                         <img src={song.album.images[2].url} alt="Album Cover" />
                     </div>
