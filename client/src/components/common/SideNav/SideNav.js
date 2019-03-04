@@ -1,10 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-<<<<<<< HEAD
-import {  IoIosSearch, IoIosHome, IoMdMusicalNote } from "react-icons/io"
-=======
 import { IoIosSearch, IoIosHome, IoMdMusicalNote } from "react-icons/io"
->>>>>>> 70ed6131e9eb73853c5a186905ebb3ee0878739f
 import "./SideNav.css"
 import NavLink from "./NavLink";
 import LogoutBtn from "./LogoutBtn";
