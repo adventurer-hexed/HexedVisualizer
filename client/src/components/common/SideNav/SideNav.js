@@ -1,9 +1,14 @@
 import React from "react"
 import ReactDOM from "react-dom"
+<<<<<<< HEAD
 import {  IoIosSearch, IoIosHome, IoMdMusicalNote } from "react-icons/io"
+=======
+import { IoIosSearch, IoIosHome, IoMdMusicalNote } from "react-icons/io"
+>>>>>>> 70ed6131e9eb73853c5a186905ebb3ee0878739f
 import "./SideNav.css"
 import NavLink from "./NavLink";
 import LogoutBtn from "./LogoutBtn";
+import Logo from '../Logo/Logo';
 
 const navLinks = [
     { path: "/", text: "Home", Component: IoIosHome },
@@ -15,7 +20,10 @@ export default (props) => ReactDOM.createPortal(
     <div className="side_nav">
         <section>
             {
-                navLinks.map( ({path, text, Component}) => (
+                (window.innerWidth > 1024) ? <Logo large={true} light={true} height="40px" /> : <Logo large={false} light={true} height="40px" />
+            }
+            {
+                navLinks.map(({ path, text, Component }) => (
                     <NavLink key={text} path={path} text={text}>
                         <Component size={"2em"} color="white" />
                     </NavLink>
@@ -25,5 +33,5 @@ export default (props) => ReactDOM.createPortal(
 
         <LogoutBtn />
     </div>,
-   document.getElementById("sideNav")
+    document.getElementById("sideNav")
 )
