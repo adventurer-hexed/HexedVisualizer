@@ -29,6 +29,7 @@ class Visualizer extends React.Component {
         window.cancelAnimationFrame(this._animationFrame)
         window.removeEventListener("resize", this.handleWindowResize)
     }
+    
 
 
     handleWindowResize = (e) => {
@@ -58,7 +59,8 @@ class Visualizer extends React.Component {
                 this.props.total_dur,
                 this.props.beats,
                 this.props.tatums,
-                this.props.sections)
+                this.props.sections
+            )
         // }
 
 
@@ -69,7 +71,6 @@ class Visualizer extends React.Component {
 
         
     render() {
-        console.log(this.props)
         return (
             <div>
                 <canvas style={{background:"black"}} ref={this._canvas} />
@@ -95,12 +96,15 @@ const mapStateToProps = (state) => {
     if(Object.values(state.currSongPlayback).length > 0) {
         isPlayback = state.playState.isPlayState
     }
-
-    if(Object.values(state.currSongPlayback).length > 0) {
+    
+    if(Object.values(state.deviceState).length > 0) {
         progress = state.deviceState.position
-        total_dur = state.currSongPlayback.item.duration_ms
-        console.log("STORE", state.currSongPlayback)
-    } 
+        total_dur = state.deviceState.duration
+        // ms = state.deviceState.ms
+    }
+    // if(Object.values(state.currSongPlayback).length > 0) {
+    //     // total_dur = state.currSongPlayback.item.duration_ms
+    // } 
 
     return {
         progress,

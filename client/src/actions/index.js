@@ -73,7 +73,6 @@ export const fetchAnalysis = (currentSongID) => async (dispatch, getState) => {
 }
 
 export const playPlayback = (songURI) => async (dispatch, getState) => {
-
     if (!getState().playState.isPlayState || songURI) {
         await axios.put(`/api/play-playback?deviceid=${getState().device.id}`, (songURI) ? { uris: JSON.stringify([songURI]) } : {})
         dispatch({ type: PLAY_STATE_ON, payload: true })
@@ -109,6 +108,11 @@ export const fetchSearchResults = (searchterms) => async (dispatch) => {
     dispatch({ type: FETCH_SEARCH_RESULTS, payload: res.data })
 }
 
-export const deviceStateListener = (deviceState) => {
-    return {type: DEVICE_STATE_LISTENER, payload:deviceState}
+export const deviceStateListener = (deviceState) => (dispatch, getState) => {
+    if(Object.values(getState().deviceState).length <= 0 ) {
+        dispatch({type: DEVICE_STATE_LISTENER, payload:deviceState})
+    }
+    if(getState().deviceState.paused !== deviceState.paused) {
+        dispatch({type: DEVICE_STATE_LISTENER, payload:deviceState})
+    }
 }
