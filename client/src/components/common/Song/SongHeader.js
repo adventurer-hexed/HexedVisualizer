@@ -1,5 +1,4 @@
 import React from "react"
-import Song from "./Song";
 import "./Song.css"
 
 export default () => (

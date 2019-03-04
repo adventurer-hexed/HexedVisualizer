@@ -29,14 +29,6 @@ export const signOut = () => async dispatch => {
     history.push("/login");
 };
 
-// export const deviceStateListener = (isPaused) => async (dispatch, getState) => {
-//     if (isPaused) {
-//         stopPlayback()
-//     } else {
-//         playPlayback()
-//     }
-// }
-
 export const getUser = (path) => async (dispatch, getState) => {
     try {
         const res = await axios.get("/current_user");
@@ -113,9 +105,8 @@ export const fetchSearchResults = (searchterms) => async (dispatch) => {
 }
 
 export const deviceStateListener = (deviceState) => (dispatch, getState) => {
-    if(deviceState.position == 0) {
+    if(deviceState.position === 0) {
         dispatch({type:INCREMENT_DEVICE_STATE_COUNTER})
-        console.log("ACTION", getState())
         if(getState().deviceCounter.counter >= 2) {
             history.push("/visualizer")
             dispatch({type:ZERO_DEVICE_STATE_COUNTER})

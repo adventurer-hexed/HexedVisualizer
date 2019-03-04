@@ -1,8 +1,9 @@
 import React from "react"
 import CompleteRipple from "./vis_one/CompleteRipple"
-import music from "./music.json"
+// import music from "./music.json"
 import { connect } from "react-redux"
 import { playPlayback, fetchAnalysis, fetchCurrPlayback, deviceStateListener } from "../../../actions"
+import requreAuth from "../../common/HOC/requireAuth"
 
 class Visualizer extends React.Component {
     constructor(props) {
@@ -111,4 +112,10 @@ const mapStateToProps = (state) => {
         
     }
 }
-export default connect(mapStateToProps, { fetchCurrPlayback, playPlayback, fetchAnalysis, deviceStateListener })(Visualizer)
+export default connect(
+    mapStateToProps, 
+    { 
+        fetchCurrPlayback, 
+        playPlayback, 
+        fetchAnalysis, 
+        deviceStateListener })(requreAuth(Visualizer))
