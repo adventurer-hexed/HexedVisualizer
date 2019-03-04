@@ -1,0 +1,31 @@
+.logo{
+    /* height: 50px;
+    font-size: 30px; */
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.logo img{
+    height: 100%;
+}
+
+.logo .logo-text{
+    color: rgb(25,25,25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo .logo-text.light{
+    color: rgb(255,255,255);
+}
+
+.logo .right-bracket{
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
