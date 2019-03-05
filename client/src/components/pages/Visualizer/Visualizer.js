@@ -100,14 +100,10 @@ const mapStateToProps = (state) => {
     let progress = 0
     let total_dur = 0;
     let isPlayback = false;
-<<<<<<< HEAD
-    if (Object.values(state.songAnalysis).length > 0) {
-=======
     let songName = ""
     let artist = ""
 
-    if(Object.values(state.songAnalysis).length > 0) {
->>>>>>> b5a5780eb7fff00f9da1b5b9a8328c312ac7519f
+    if (Object.values(state.songAnalysis).length > 0) {
         beats = state.songAnalysis.beats
         tatums = state.songAnalysis.tatums
         sections = state.songAnalysis.sections
@@ -131,15 +127,11 @@ const mapStateToProps = (state) => {
         sections,
         isPlayback,
         total_dur,
-<<<<<<< HEAD
-        deviceCounter: state.deviceCounter.counter,
-        currSongPlayback: state.currSongPlayback
-=======
         artist,
         songName,
-        deviceCounter: state.deviceCounter.counter
+        deviceCounter: state.deviceCounter.counter,
+        currSongPlayback: state.currSongPlayback
 
->>>>>>> b5a5780eb7fff00f9da1b5b9a8328c312ac7519f
     }
 }
 export default connect(
