@@ -3,12 +3,13 @@ import CompleteRipple from "./vis_one/CompleteRipple"
 import { connect } from "react-redux"
 import {
     playPlayback,
-    fetchAnalysis,
+    // fetchAnalysis,
     fetchCurrPlayback,
     deviceStateListener,
     zeroPlayBack,
     zeroDeviceStateCounter
 } from "../../../actions"
+import history from "../../../history"
 import requreAuth from "../../common/HOC/requireAuth"
 import BackBtn from "../../common/BackBtn/BackBtn";
 
@@ -37,6 +38,8 @@ class Visualizer extends React.Component {
     componentWillUnmount() {
         window.cancelAnimationFrame(this._animationFrame)
         window.removeEventListener("resize", this.handleWindowResize)
+        this.props.zeroPlayBack()
+        this.props.zeroDeviceStateCounter()
     }
 
 
@@ -53,6 +56,9 @@ class Visualizer extends React.Component {
         if (!this._lastTime) this._lastTime = currentTime
 
         const totalElapsedTime = (currentTime - this._startingTime);
+        if(totalElapsedTime === 0) {
+            console.log("ZERO")
+        }
         // this._animationFrame = requestAnimationFrame(this.animate.bind(this))
         // this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
 
@@ -72,12 +78,14 @@ class Visualizer extends React.Component {
 
         if (this.props.progress + totalElapsedTime >= this.props.total_dur + 10000) {
             window.cancelAnimationFrame(this._animationFrame)
+            history.push("/")
             this.props.zeroPlayBack()
             this.props.zeroDeviceStateCounter()
         }
     }
 
     render() {
+        console.log("THIS PROPS", this.props)
         document.title = `${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.name : ''
             }`
         return (
@@ -85,7 +93,7 @@ class Visualizer extends React.Component {
                 <canvas style={{ zIndex: 1 }} ref={this._canvas} />
                 <BackBtn
                     artist={this.props.artist}
-                    song={'"' + this.props.songName + '"'}
+                    song={this.props.songName}
                 />
             </div>
         )
@@ -139,7 +147,7 @@ export default connect(
     {
         fetchCurrPlayback,
         playPlayback,
-        fetchAnalysis,
+        // fetchAnalysis,
         zeroPlayBack,
         zeroDeviceStateCounter,
         deviceStateListener
