@@ -1,5 +1,4 @@
 import React from "react"
-import NavLink from "./NavLink";
 import { IoIosPower } from "react-icons/io"
 
 export default () => (

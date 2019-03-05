@@ -14,6 +14,7 @@ import {
     UPDATE_CURR_DEVICE_ID,
     FETCH_SEARCH_RESULTS,
     INCREMENT_DEVICE_STATE_COUNTER,
+    ZERO_CURR_PLAYBACK,
     ZERO_DEVICE_STATE_COUNTER
 } from "./types";
 
@@ -28,14 +29,6 @@ export const signOut = () => async dispatch => {
     dispatch({ type: SIGN_OUT, payload: res.data });
     history.push("/login");
 };
-
-// export const deviceStateListener = (isPaused) => async (dispatch, getState) => {
-//     if (isPaused) {
-//         stopPlayback()
-//     } else {
-//         playPlayback()
-//     }
-// }
 
 export const getUser = (path) => async (dispatch, getState) => {
     try {
@@ -119,8 +112,8 @@ export const fetchSearchResults = (searchterms) => async (dispatch) => {
 export const deviceStateListener = (deviceState) => (dispatch, getState) => {
     if (deviceState.position === 0) {
         dispatch({ type: INCREMENT_DEVICE_STATE_COUNTER })
-        console.log("ACTION", getState())
         if (getState().deviceCounter.counter >= 2) {
+            dispatch(fetchCurrPlayback())
             history.push("/visualizer")
             dispatch({ type: ZERO_DEVICE_STATE_COUNTER })
         }
@@ -132,4 +125,12 @@ export const deviceStateListener = (deviceState) => (dispatch, getState) => {
     if (getState().deviceState.paused !== deviceState.paused) {
         dispatch({ type: DEVICE_STATE_LISTENER, payload: deviceState })
     }
+}
+
+export const zeroDeviceStateCounter = () => {
+    return { type: ZERO_DEVICE_STATE_COUNTER }
+}
+
+export const zeroPlayBack = () => {
+    return { type: ZERO_CURR_PLAYBACK }
 }

@@ -1,8 +1,16 @@
 import React from "react"
 import CompleteRipple from "./vis_one/CompleteRipple"
-import music from "./music.json"
 import { connect } from "react-redux"
-import { playPlayback, fetchAnalysis, fetchCurrPlayback, deviceStateListener } from "../../../actions"
+import {
+    playPlayback,
+    fetchAnalysis,
+    fetchCurrPlayback,
+    deviceStateListener,
+    zeroPlayBack,
+    zeroDeviceStateCounter
+} from "../../../actions"
+import requreAuth from "../../common/HOC/requireAuth"
+import BackBtn from "../../common/BackBtn/BackBtn";
 
 class Visualizer extends React.Component {
     constructor(props) {
@@ -61,14 +69,24 @@ class Visualizer extends React.Component {
             this.props.tatums,
             this.props.sections
         )
+
+        if (this.props.progress + totalElapsedTime >= this.props.total_dur + 10000) {
+            window.cancelAnimationFrame(this._animationFrame)
+            this.props.zeroPlayBack()
+            this.props.zeroDeviceStateCounter()
+        }
     }
 
     render() {
         document.title = `Hexed | Visualizer | ${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.name : ''
             }`
         return (
-            <div>
-                <canvas style={{ background: "black" }} ref={this._canvas} />
+            <div style={{ margin: 0, background: "black", padding: 0, position: "relative" }}>
+                <canvas style={{ zIndex: 1 }} ref={this._canvas} />
+                <BackBtn
+                    artist={this.props.artist}
+                    song={'"' + this.props.songName + '"'}
+                />
             </div>
         )
     }
@@ -82,7 +100,14 @@ const mapStateToProps = (state) => {
     let progress = 0
     let total_dur = 0;
     let isPlayback = false;
+<<<<<<< HEAD
     if (Object.values(state.songAnalysis).length > 0) {
+=======
+    let songName = ""
+    let artist = ""
+
+    if(Object.values(state.songAnalysis).length > 0) {
+>>>>>>> b5a5780eb7fff00f9da1b5b9a8328c312ac7519f
         beats = state.songAnalysis.beats
         tatums = state.songAnalysis.tatums
         sections = state.songAnalysis.sections
@@ -90,16 +115,14 @@ const mapStateToProps = (state) => {
 
     if (Object.values(state.currSongPlayback).length > 0) {
         isPlayback = state.playState.isPlayState
+        artist = state.currSongPlayback.item.artists[0].name
+        songName = state.currSongPlayback.item.name
     }
 
     if (Object.values(state.deviceState).length > 0) {
         progress = state.deviceState.position
         total_dur = state.deviceState.duration
-        // ms = state.deviceState.ms
     }
-    // if(Object.values(state.currSongPlayback).length > 0) {
-    //     // total_dur = state.currSongPlayback.item.duration_ms
-    // } 
 
     return {
         progress,
@@ -108,8 +131,24 @@ const mapStateToProps = (state) => {
         sections,
         isPlayback,
         total_dur,
+<<<<<<< HEAD
         deviceCounter: state.deviceCounter.counter,
         currSongPlayback: state.currSongPlayback
+=======
+        artist,
+        songName,
+        deviceCounter: state.deviceCounter.counter
+
+>>>>>>> b5a5780eb7fff00f9da1b5b9a8328c312ac7519f
     }
 }
-export default connect(mapStateToProps, { fetchCurrPlayback, playPlayback, fetchAnalysis, deviceStateListener })(Visualizer)
+export default connect(
+    mapStateToProps,
+    {
+        fetchCurrPlayback,
+        playPlayback,
+        fetchAnalysis,
+        zeroPlayBack,
+        zeroDeviceStateCounter,
+        deviceStateListener
+    })(requreAuth(Visualizer))

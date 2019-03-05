@@ -1,4 +1,4 @@
-import { FETCH_CURR_PLAYBACK, CURRENT_PROGRESS, SEEK_PLAYER_PROGRESS } from "../actions/types"
+import { FETCH_CURR_PLAYBACK, CURRENT_PROGRESS, SEEK_PLAYER_PROGRESS, ZERO_CURR_PLAYBACK } from "../actions/types"
 
 export default (state={}, action) => {
     switch(action.type) {
@@ -10,6 +10,9 @@ export default (state={}, action) => {
 
         case SEEK_PLAYER_PROGRESS:
             return { ...state, currentDuration: action.payload }
+        
+        case ZERO_CURR_PLAYBACK: 
+            return {}
         default:
             return state;
     }
