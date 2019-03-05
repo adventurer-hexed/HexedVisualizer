@@ -1,13 +1,13 @@
 import React from "react"
 import CompleteRipple from "./vis_one/CompleteRipple"
 import { connect } from "react-redux"
-import { 
-    playPlayback, 
-    fetchAnalysis, 
-    fetchCurrPlayback, 
-    deviceStateListener, 
-    zeroPlayBack, 
-    zeroDeviceStateCounter 
+import {
+    playPlayback,
+    fetchAnalysis,
+    fetchCurrPlayback,
+    deviceStateListener,
+    zeroPlayBack,
+    zeroDeviceStateCounter
 } from "../../../actions"
 import requreAuth from "../../common/HOC/requireAuth"
 import BackBtn from "../../common/BackBtn/BackBtn";
@@ -27,18 +27,18 @@ class Visualizer extends React.Component {
         this._ctx = this._canvas.current.getContext("2d")
         this._completeCircle = new CompleteRipple(
             this._ctx,
-            this._canvas.current.width, 
+            this._canvas.current.width,
             this._canvas.current.height
         )
 
         this.animate()
     }
-    
+
     componentWillUnmount() {
         window.cancelAnimationFrame(this._animationFrame)
         window.removeEventListener("resize", this.handleWindowResize)
     }
-    
+
 
 
     handleWindowResize = (e) => {
@@ -49,16 +49,16 @@ class Visualizer extends React.Component {
     }
 
     animate = (currentTime) => {
-        if(!this._startingTime) this._startingTime = currentTime;
-        if(!this._lastTime) this._lastTime = currentTime
+        if (!this._startingTime) this._startingTime = currentTime;
+        if (!this._lastTime) this._lastTime = currentTime
 
         const totalElapsedTime = (currentTime - this._startingTime);
         // this._animationFrame = requestAnimationFrame(this.animate.bind(this))
         // this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
 
-        
+
         // this._completeCircle.update(this.state.totalElapsedTime, music.beats, music.tatums)
-        
+
 
         this._animationFrame = requestAnimationFrame(this.animate)
         this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
@@ -70,21 +70,22 @@ class Visualizer extends React.Component {
             this.props.sections
         )
 
-        if(this.props.progress + totalElapsedTime >= this.props.total_dur + 10000) {
+        if (this.props.progress + totalElapsedTime >= this.props.total_dur + 10000) {
             window.cancelAnimationFrame(this._animationFrame)
             this.props.zeroPlayBack()
             this.props.zeroDeviceStateCounter()
         }
     }
-    
+
     render() {
-        document.title =  this.props.artist + " " + this.props.songName
+        document.title = `${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.name : ''
+            }`
         return (
-            <div style={{margin:0, background:"black", padding:0, position:"relative"}}>
-                <canvas style={{zIndex:1}} ref={this._canvas} />
-                <BackBtn 
-                    artist={this.props.artist} 
-                    song= {'"' + this.props.songName + '"'} 
+            <div style={{ margin: 0, background: "black", padding: 0, position: "relative" }}>
+                <canvas style={{ zIndex: 1 }} ref={this._canvas} />
+                <BackBtn
+                    artist={this.props.artist}
+                    song={'"' + this.props.songName + '"'}
                 />
             </div>
         )
@@ -102,19 +103,19 @@ const mapStateToProps = (state) => {
     let songName = ""
     let artist = ""
 
-    if(Object.values(state.songAnalysis).length > 0) {
+    if (Object.values(state.songAnalysis).length > 0) {
         beats = state.songAnalysis.beats
         tatums = state.songAnalysis.tatums
         sections = state.songAnalysis.sections
-    } 
+    }
 
-    if(Object.values(state.currSongPlayback).length > 0) {
+    if (Object.values(state.currSongPlayback).length > 0) {
         isPlayback = state.playState.isPlayState
         artist = state.currSongPlayback.item.artists[0].name
         songName = state.currSongPlayback.item.name
     }
-    
-    if(Object.values(state.deviceState).length > 0) {
+
+    if (Object.values(state.deviceState).length > 0) {
         progress = state.deviceState.position
         total_dur = state.deviceState.duration
     }
@@ -128,16 +129,18 @@ const mapStateToProps = (state) => {
         total_dur,
         artist,
         songName,
-        deviceCounter: state.deviceCounter.counter
-        
+        deviceCounter: state.deviceCounter.counter,
+        currSongPlayback: state.currSongPlayback
+
     }
 }
 export default connect(
-    mapStateToProps, 
-    { 
-        fetchCurrPlayback, 
-        playPlayback, 
-        fetchAnalysis, 
+    mapStateToProps,
+    {
+        fetchCurrPlayback,
+        playPlayback,
+        fetchAnalysis,
         zeroPlayBack,
         zeroDeviceStateCounter,
-        deviceStateListener })(requreAuth(Visualizer))
+        deviceStateListener
+    })(requreAuth(Visualizer))

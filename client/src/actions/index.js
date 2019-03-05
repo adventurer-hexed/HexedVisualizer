@@ -71,9 +71,12 @@ export const fetchAnalysis = (currentSongID) => async (dispatch, getState) => {
 
 export const playPlayback = (songURI, songId) => async (dispatch, getState) => {
     if (!getState().playState.isPlayState || songURI) {
-        dispatch(fetchAnalysis(songId))
+        if (songURI) {
+            dispatch(fetchAnalysis(songId))
+        }
         await axios.put(`/api/play-playback?deviceid=${getState().device.id}`, (songURI) ? { uris: JSON.stringify([songURI]) } : {})
         dispatch({ type: PLAY_STATE_ON, payload: true })
+        dispatch(fetchCurrPlayback())
     }
 }
 
@@ -92,6 +95,7 @@ export const updateProgress = (ms) => {
 export const seekProgressPlayback = (ms) => async dispatch => {
     await axios.put("/api/seek-player-position", { time: ms })
     dispatch({ type: SEEK_PLAYER_PROGRESS, payload: ms })
+    dispatch(fetchCurrPlayback())
 }
 
 export const updateCurrentDeviceId = (id) => {
@@ -106,20 +110,20 @@ export const fetchSearchResults = (searchterms) => async (dispatch) => {
 }
 
 export const deviceStateListener = (deviceState) => (dispatch, getState) => {
-    if(deviceState.position === 0) {
-        dispatch({type:INCREMENT_DEVICE_STATE_COUNTER})
-        if(getState().deviceCounter.counter >= 2) {
+    if (deviceState.position === 0) {
+        dispatch({ type: INCREMENT_DEVICE_STATE_COUNTER })
+        if (getState().deviceCounter.counter >= 2) {
             dispatch(fetchCurrPlayback())
             history.push("/visualizer")
-            dispatch({type:ZERO_DEVICE_STATE_COUNTER})
+            dispatch({ type: ZERO_DEVICE_STATE_COUNTER })
         }
     }
-    if(Object.values(getState().deviceState).length <= 0) {
-        dispatch({type: DEVICE_STATE_LISTENER, payload:deviceState})
+    if (Object.values(getState().deviceState).length <= 0) {
+        dispatch({ type: DEVICE_STATE_LISTENER, payload: deviceState })
     }
 
-    if(getState().deviceState.paused !== deviceState.paused) {
-        dispatch({type: DEVICE_STATE_LISTENER, payload:deviceState})
+    if (getState().deviceState.paused !== deviceState.paused) {
+        dispatch({ type: DEVICE_STATE_LISTENER, payload: deviceState })
     }
 }
 

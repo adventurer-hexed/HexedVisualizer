@@ -16,7 +16,7 @@ export default (props) => ReactDOM.createPortal(
     <div className="side_nav">
         <section>
             {
-                (window.innerWidth > 1024) ? <Logo large={true} light={true} height="40px" /> : <Logo large={false} light={true} height="40px" />
+                (window.innerWidth > 1024) ? <Logo large={true} light={true} height="65px" textMultiplier=".8" /> : <Logo large={false} light={true} height="65px" textMultiplier=".8" />
             }
             {
                 navLinks.map(({ path, text, Component }) => (
