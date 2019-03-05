@@ -14,6 +14,7 @@ import './Home.css'
 
 class Home extends Component {
     render() {
+        document.title = "Home"
         return (
             <div className="home">
                 <SpotifyScript

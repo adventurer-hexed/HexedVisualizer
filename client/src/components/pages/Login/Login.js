@@ -10,7 +10,7 @@ import "./login.css";
 class Login extends Component {
     componentDidMount() {
         this.props.getUser("/")
-        document.title = "Hexed | Login"
+        document.title = "Login"
     }
     signIn = () => {
         this.props.signIn();

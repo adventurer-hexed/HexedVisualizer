@@ -12,12 +12,13 @@ import Player from "../../common/Player/NewPlayer"
 class Selection extends React.Component {
 
     renderSearchResults() {
-        if(this.props.searchResults.length === 0) {
+        if (this.props.searchResults.length === 0) {
             return (
                 <div className="song_page_wrapper">
                     <div className="song_featured_pic_wrapper">
                         <div className="song_image" style={{
-                            backgroundImage:`url("https://placehold.it/350")`}} 
+                            backgroundImage: `url("https://placehold.it/350")`
+                        }}
                         />
                         <div className="song_featured">
                             <h1>Featured</h1>
@@ -29,14 +30,14 @@ class Selection extends React.Component {
 
                     <div className="song_wrapper">
                         <SongHeader />
-                        <Song 
+                        <Song
                             song={"Gods Plan"}
                             artist={"Drake"}
                             album={"Album"}
                             timestamp={"4.29"}
                         />
 
-                        <Song 
+                        <Song
                             song={"Gods Plan"}
                             artist={"Drake"}
                             album={"Album"}
@@ -47,17 +48,18 @@ class Selection extends React.Component {
             )
         } else {
             return (
-                <NoResults userInput={"UserInput"}/>
+                <NoResults userInput={"UserInput"} />
             )
         }
     }
     render() {
+        document.title = "Search"
         return (
             <div className="push_content song_page">
-            <SideNav />
-            <Search />
-            {this.renderSearchResults()}
-            <Player />
+                <SideNav />
+                <Search />
+                {this.renderSearchResults()}
+                <Player />
             </div>
         )
     }
