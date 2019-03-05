@@ -78,7 +78,7 @@ class Visualizer extends React.Component {
     }
 
     render() {
-        document.title = `Hexed | Visualizer | ${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.name : ''
+        document.title = `${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.name : ''
             }`
         return (
             <div style={{ margin: 0, background: "black", padding: 0, position: "relative" }}>
