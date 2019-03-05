@@ -1,8 +1,16 @@
 import React from "react"
 import CompleteRipple from "./vis_one/CompleteRipple"
-import music from "./music.json"
 import { connect } from "react-redux"
-import { playPlayback, fetchAnalysis, fetchCurrPlayback } from "../../../actions"
+import { 
+    playPlayback, 
+    fetchAnalysis, 
+    fetchCurrPlayback, 
+    deviceStateListener, 
+    zeroPlayBack, 
+    zeroDeviceStateCounter 
+} from "../../../actions"
+import requreAuth from "../../common/HOC/requireAuth"
+import BackBtn from "../../common/BackBtn/BackBtn";
 
 class Visualizer extends React.Component {
     constructor(props) {
@@ -13,14 +21,15 @@ class Visualizer extends React.Component {
     }
 
     componentDidMount() {
-        document.title = "Visualizer"
-        this.props.fetchCurrPlayback()
-        this.props.playPlayback();
         window.addEventListener("resize", this.handleWindowResize)
         this._canvas.current.width = window.innerWidth
         this._canvas.current.height = window.innerHeight
         this._ctx = this._canvas.current.getContext("2d")
-        this._completeCircle = new CompleteRipple(this._ctx, this._canvas.current.width, this._canvas.current.height)
+        this._completeCircle = new CompleteRipple(
+            this._ctx,
+            this._canvas.current.width, 
+            this._canvas.current.height
+        )
 
         this.animate()
     }
@@ -29,6 +38,7 @@ class Visualizer extends React.Component {
         window.cancelAnimationFrame(this._animationFrame)
         window.removeEventListener("resize", this.handleWindowResize)
     }
+    
 
 
     handleWindowResize = (e) => {
@@ -52,27 +62,30 @@ class Visualizer extends React.Component {
 
         this._animationFrame = requestAnimationFrame(this.animate)
         this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-        // if(this.props.progress + totalElapsedTime < this.props.total_dur) {
-            this._completeCircle.update(
-                this.props.progress + (totalElapsedTime),
-                this.props.total_dur,
-                this.props.beats,
-                this.props.tatums,
-                this.props.sections)
-        // }
+        this._completeCircle.update(
+            this.props.progress + (totalElapsedTime),
+            this.props.total_dur,
+            this.props.beats,
+            this.props.tatums,
+            this.props.sections
+        )
 
-
+        if(this.props.progress + totalElapsedTime >= this.props.total_dur + 10000) {
+            window.cancelAnimationFrame(this._animationFrame)
+            this.props.zeroPlayBack()
+            this.props.zeroDeviceStateCounter()
+        }
     }
-
-
-
-
-        
+    
     render() {
-        console.log(this.props)
+        document.title =  this.props.artist + " " + this.props.songName
         return (
-            <div>
-                <canvas style={{background:"black"}} ref={this._canvas} />
+            <div style={{margin:0, background:"black", padding:0, position:"relative"}}>
+                <canvas style={{zIndex:1}} ref={this._canvas} />
+                <BackBtn 
+                    artist={this.props.artist} 
+                    song= {'"' + this.props.songName + '"'} 
+                />
             </div>
         )
     }
@@ -86,6 +99,9 @@ const mapStateToProps = (state) => {
     let progress = 0
     let total_dur = 0;
     let isPlayback = false;
+    let songName = ""
+    let artist = ""
+
     if(Object.values(state.songAnalysis).length > 0) {
         beats = state.songAnalysis.beats
         tatums = state.songAnalysis.tatums
@@ -94,13 +110,14 @@ const mapStateToProps = (state) => {
 
     if(Object.values(state.currSongPlayback).length > 0) {
         isPlayback = state.playState.isPlayState
+        artist = state.currSongPlayback.item.artists[0].name
+        songName = state.currSongPlayback.item.name
     }
-
-    if(Object.values(state.currSongPlayback).length > 0) {
-        progress = state.currSongPlayback.progress_ms
-        total_dur = state.currSongPlayback.item.duration_ms
-        console.log("STORE", state.currSongPlayback)
-    } 
+    
+    if(Object.values(state.deviceState).length > 0) {
+        progress = state.deviceState.position
+        total_dur = state.deviceState.duration
+    }
 
     return {
         progress,
@@ -108,8 +125,19 @@ const mapStateToProps = (state) => {
         tatums,
         sections,
         isPlayback,
-        total_dur
+        total_dur,
+        artist,
+        songName,
+        deviceCounter: state.deviceCounter.counter
         
     }
 }
-export default connect(mapStateToProps, { fetchCurrPlayback, playPlayback, fetchAnalysis })(Visualizer)
+export default connect(
+    mapStateToProps, 
+    { 
+        fetchCurrPlayback, 
+        playPlayback, 
+        fetchAnalysis, 
+        zeroPlayBack,
+        zeroDeviceStateCounter,
+        deviceStateListener })(requreAuth(Visualizer))

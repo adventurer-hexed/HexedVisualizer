@@ -10,7 +10,6 @@ import Player from '../../common/Player/NewPlayer'
 import SpotifyScript from '../../common/SpotifyScript'
 import Track from "../../common/Track/Track"
 import history from "../../../history"
-import { Link } from "react-router-dom"
 import './Home.css'
 
 class Home extends Component {

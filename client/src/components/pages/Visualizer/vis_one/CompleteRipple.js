@@ -139,8 +139,8 @@ export default class CompleteRipple {
             const ripple_x4 = this._canvasWidth - 100
             const ripple_y4 = this._canvasHeight - 100
 
-            const ripple_x5 = this._canvasWidth / 2
-            const ripple_y5 = this._canvasHeight / 2
+            // const ripple_x5 = this._canvasWidth / 2
+            // const ripple_y5 = this._canvasHeight / 2
 
             
             const confidence = arr[this[index]].confidence

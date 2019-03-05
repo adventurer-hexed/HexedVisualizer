@@ -77,7 +77,7 @@ class Player extends Component {
 
     render() {
         // console.log(this.state)
-        let { albumCover, songName, artistName, isPlayback, currentTime, totalTime, currentVolume } = this.props
+        let { albumCover, songName, artistName, isPlayback, totalTime, currentVolume } = this.props
         return (
             <div className="player_container">
                 <div className="player">

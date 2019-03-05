@@ -24,8 +24,6 @@ module.exports = {
     },
     
     async playPlayersPlayback(req, res) {
-        console.log(req.query)
-        console.log(req.body)
         try {
             await axios.put(`https://api.spotify.com/v1/me/player/play?device_id=${req.query.deviceid}`,(req.body.uris)?{uris: JSON.parse(req.body.uris)}: {}, applyHeader(req.user.spotifyAccessToken))
             res.status(200).json({success:"Successfully played"})

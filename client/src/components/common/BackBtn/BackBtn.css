@@ -1,0 +1,18 @@
+.back_btn {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    z-index: 999;
+}
+
+.back_btn_text {
+    color: white;
+    font-size: 15px;
+    line-height: 150%;
+    text-transform: capitalize;
+}
