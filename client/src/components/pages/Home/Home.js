@@ -32,204 +32,27 @@ class Home extends Component {
 
                     <h2 className="tracks_header">Recently Played</h2>
                     
-                    <div className="track_container">
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                    </div>
-                        
-                    <h2 className="tracks_header">Albums</h2>
+                    <Track
+                    results={this.props.searchResults}
+                    playSong={(songURI) => {
+                        this.props.playPlayback(songURI)
+                        history.push('/visualizer')
+                    }}
+                     />
                     
-                    <div className="track_container">
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                    </div>
-
-                    <h2 className="tracks_header">Playlists</h2>   
-         
-                    <div className="track_container">
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                        <Track
-                            song={"God's Plan"}
-                            artist={"Drake"}
-                        />
-                    </div>
-
-        <h2 className="tracks_header">Artists</h2>   
-         
-         <div className="track_container">
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-             <Track
-                 song={"God's Plan"}
-                 artist={"Drake"}
-             />
-         </div>
                 </div>
 
                 
 
                 <SideNav />
 
-                <ResultsGrid
+                {/* <ResultsGrid
                     results={this.props.searchResults}
                     playSong={(songURI) => {
                         this.props.playPlayback(songURI)
                         history.push('/visualizer')
                     }}
-                />
+                /> */}
                 <Player />
             </div>
         )
