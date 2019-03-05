@@ -79,7 +79,7 @@ class Visualizer extends React.Component {
 
     render() {
         document.title = `${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.name : 'No Song Playing'
-            } - ${(this.props.currSongPlayback.item.artists) ? this.props.currSongPlayback.item.artists.reduce((final, artist) => {
+            } - ${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.artists.reduce((final, artist) => {
                 return `${final}${(final === '') ? "" : ", "}${artist.name}`
             }, '') : ''
             }`

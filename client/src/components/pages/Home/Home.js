@@ -20,25 +20,25 @@ class Home extends Component {
                     token={this.props.auth.accessToken}
                 />
                 <div className="push_content contentContainer push_content_bottom">
-                    <Search displayResults={true}
+                    <Search displayResults={false}
                         songClickHandler={(songURI) => {
                             this.props.playPlayback(songURI)
                         }
                         } />
 
                     <h2 className="tracks_header">Recently Played</h2>
-                    
+
                     <Track
-                    results={this.props.searchResults}
-                    playSong={(songURI, songID) => {
-                        this.props.playPlayback(songURI, songID)
-                        history.push('/visualizer')
-                    }}
-                     />
-                    
+                        results={this.props.searchResults}
+                        playSong={(songURI, songID) => {
+                            this.props.playPlayback(songURI, songID)
+                            history.push('/visualizer')
+                        }}
+                    />
+
                 </div>
 
-                
+
 
                 <SideNav />
                 <Player />
