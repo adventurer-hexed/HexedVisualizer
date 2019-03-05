@@ -11,7 +11,7 @@ class Track extends Component{
                     onClick={
                         (event)=>{
                             console.log(song.uri)
-                            playSong(song.uri)
+                            playSong(song.uri, song.id)
                         }
                 }>
                 <img className="track_image" src={song.album.images[0].url}/>

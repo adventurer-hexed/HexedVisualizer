@@ -13,9 +13,6 @@ import history from "../../../history"
 import './Home.css'
 
 class Home extends Component {
-    generateTracks = () => {
-
-    }
     render() {
         return (
             <div className="home">
