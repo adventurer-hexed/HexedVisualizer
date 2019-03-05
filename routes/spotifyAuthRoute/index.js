@@ -28,14 +28,14 @@ router.get(
     ensureAuth,
     spotifyTokenVerification,
     (req, res) => {
-        const { id, spotifyAccessToken} = req.user
-        res.json({id,spotifyAccessToken})
+        const { id, spotifyAccessToken } = req.user
+        res.json({ id, spotifyAccessToken })
     }
 );
 
 router.get("/api/logout", (req, res) => {
     req.logout();
-    res.send("User has logged out");
+    res.redirect("/");
 });
 
 module.exports = router;
