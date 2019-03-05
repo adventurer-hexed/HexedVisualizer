@@ -12,31 +12,34 @@ import history from "../../../history"
 import { Link } from "react-router-dom"
 import './Home.css'
 
-const Home = (props) => (
-    <div className="home">
-        <SpotifyScript
-            token={props.auth.accessToken}
-        />
-        <div className="push_content contentContainer">
-            <Search displayResults={true}
-                songClickHandler={(songURI) => {
+const Home = (props) => {
+    document.title = "Hexed | Home"
+    return (
+        <div className="home">
+            <SpotifyScript
+                token={props.auth.accessToken}
+            />
+            <div className="push_content contentContainer">
+                <Search displayResults={true}
+                    songClickHandler={(songURI) => {
+                        props.playPlayback(songURI)
+                    }
+                    } />
+            </div>
+
+            <SideNav />
+
+            <ResultsGrid
+                results={props.searchResults}
+                playSong={(songURI) => {
                     props.playPlayback(songURI)
-                }
-                } />
+                    history.push('/visualizer')
+                }}
+            />
+            <Player />
         </div>
-
-        <SideNav />
-
-        <ResultsGrid
-            results={props.searchResults}
-            playSong={(songURI) => {
-                props.playPlayback(songURI)
-                history.push('/visualizer')
-            }}
-        />
-        <Player />
-    </div>
-)
+    )
+}
 
 const mapStateToProps = (state) => ({
     auth: state.auth,

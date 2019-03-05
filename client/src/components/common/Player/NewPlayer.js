@@ -15,7 +15,9 @@ class Player extends Component {
     handleProgressChange = (event) => {
         let newProgress = event.target.value
         this.props.seekProgressPlayback(newProgress)
-        // this.props.fetchCurrPlayback();
+        // clearInterval(this._progressInterval)
+        // this.playSongProgression()
+
     }
 
     handleVolumeChange = (event) => {
@@ -37,7 +39,7 @@ class Player extends Component {
 
     // playSongProgression = () => {
     //     this.progressInterval = setInterval(() => {
-            // this.props.fetchCurrPlayback()
+    // this.props.fetchCurrPlayback()
     //         if (this.props.currSongPlayback.item) {
     //             if (Object.keys(this.props.currSongPlayback.item).length > 0) {
     //                 const progressMs = this.props.currSongPlayback.progress_ms
@@ -64,16 +66,28 @@ class Player extends Component {
                 inc: ((this.props.currentTime + (now - start)))
             })
         }, 1);
-    } 
+    }
 
 
     componentWillUnmount() {
         clearInterval(this._progressInterval)
     }
 
-    // componentDidMount() {
-        // this.playSongProgression()
-    // }
+    componentDidMount() {
+        clearInterval(this._progressInterval)
+        if (this.props.isPlayback) {
+            this.props.fetchCurrPlayback()
+            this.playSongProgression()
+        }
+    }
+
+    componentDidUpdate() {
+        clearInterval(this._progressInterval)
+        if (this.props.isPlayback) {
+            this.props.fetchCurrPlayback()
+            this.playSongProgression()
+        }
+    }
 
     render() {
         // console.log(this.state)
@@ -95,26 +109,26 @@ class Player extends Component {
                         <div className="playButton" onClick={this.handlePlayButtonClick}>{(isPlayback) ? <FaPause /> : <FaPlay />}</div>
                         <div className="nextButton"><FaForward /></div>
                         <div className="progress">
-                            <input 
-                                className="slider" 
-                                type="range" 
-                                min="0" 
-                                max={totalTime} 
-                                onChange={this.handleProgressChange} 
-                                value={this.state.inc} 
+                            <input
+                                className="slider"
+                                type="range"
+                                min="0"
+                                max={totalTime}
+                                onChange={this.handleProgressChange}
+                                value={this.state.inc}
                             />
                         </div>
                     </div>
                     <div className="volume">
 
                         <FaVolume />
-                        <input 
-                            className="slider" 
-                            type="range" 
-                            min="0" 
-                            max="100" 
-                            value={currentVolume} 
-                            onChange={this.handleVolumeChange} 
+                        <input
+                            className="slider"
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={currentVolume}
+                            onChange={this.handleVolumeChange}
                         />
 
                     </div>
