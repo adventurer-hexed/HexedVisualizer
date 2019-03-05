@@ -30,8 +30,8 @@ class Home extends Component {
                     
                     <Track
                     results={this.props.searchResults}
-                    playSong={(songURI) => {
-                        this.props.playPlayback(songURI)
+                    playSong={(songURI, songID) => {
+                        this.props.playPlayback(songURI, songID)
                         history.push('/visualizer')
                     }}
                      />
@@ -41,14 +41,6 @@ class Home extends Component {
                 
 
                 <SideNav />
-
-                {/* <ResultsGrid
-                    results={this.props.searchResults}
-                    playSong={(songURI) => {
-                        this.props.playPlayback(songURI)
-                        history.push('/visualizer')
-                    }}
-                /> */}
                 <Player />
             </div>
         )
