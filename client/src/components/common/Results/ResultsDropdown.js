@@ -11,8 +11,8 @@ class ResultsDropdown extends Component {
                     key={i}
                     onClick={
                         (event) => {
-                            console.log(song.uri)
-                            console.log(song.id)
+                            // console.log(song.uri)
+                            // console.log(song.id)
                             playSong(song.uri, song.id)
                         }
                     }>

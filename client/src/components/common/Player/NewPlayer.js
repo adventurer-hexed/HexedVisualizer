@@ -83,10 +83,10 @@ class Player extends Component {
 
     componentDidUpdate() {
         clearInterval(this._progressInterval)
-        if (this.props.isPlayback) {
-            this.props.fetchCurrPlayback()
-            this.playSongProgression()
-        }
+        // if (this.props.isPlayback) {
+        //     this.props.fetchCurrPlayback()
+        //     this.playSongProgression()
+        // }
     }
 
     render() {
