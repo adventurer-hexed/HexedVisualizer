@@ -1,0 +1,55 @@
+
+
+.tracks_header{
+    color: white;
+    text-align: center;
+}
+
+.track_item{
+    margin: 15px;
+    height: 120px;
+    width: 120px;
+    /* border: white solid 1px; */
+    display: inline-block;
+    text-align: center;
+}
+
+.track_image{
+    height: 120px;
+    width: 120px;
+    /* padding: 0px; */
+    background-position: center;
+    background-size: cover;
+}
+
+.track_info{
+    margin-top: 0px;
+}
+
+.track_name{
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+.track_artist{
+    font-size: 12px;
+    color: #b6b6b6;
+    font-family: sans-serif;
+
+}
+
+@media only screen and (min-width: 1024px){
+    .track_item{
+        margin: 10px;
+        height: 140px;
+        width: 140px;
+        /* border: white solid 1px; */
+        display: inline-block;
+    }
+
+    .tracks_header{
+        text-align: left;
+        margin: 20px;
+    }
+    
+}

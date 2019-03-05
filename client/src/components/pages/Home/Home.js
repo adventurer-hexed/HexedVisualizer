@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from "react";
 import SideNav from "../../common/SideNav/SideNav"
 import requireAuth from "../../common/HOC/requireAuth"
 import { connect } from "react-redux"
@@ -8,37 +8,47 @@ import Search from '../../common/Search/Search'
 import ResultsGrid from '../../common/Results/ResultsGrid'
 import Player from '../../common/Player/NewPlayer'
 import SpotifyScript from '../../common/SpotifyScript'
+import Track from "../../common/Track/Track"
 import history from "../../../history"
 import './Home.css'
 
-const Home = (props) => {
-    document.title = "Hexed | Home"
-    return (
-        <div className="home">
-            <SpotifyScript
-                token={props.auth.accessToken}
-            />
-            <div className="push_content contentContainer">
-                <Search displayResults={true}
-                    songClickHandler={(songURI) => {
-                        props.playPlayback(songURI)
-                    }
-                    } />
+class Home extends Component {
+    render() {
+        return (
+            <div className="home">
+                <SpotifyScript
+                    token={this.props.auth.accessToken}
+                />
+                <div className="push_content contentContainer push_content_bottom">
+                    <Search displayResults={true}
+                        songClickHandler={(songURI) => {
+                            this.props.playPlayback(songURI)
+                        }
+                        } />
+
+                    <h2 className="tracks_header">Recently Played</h2>
+                    
+                    <Track
+                    results={this.props.searchResults}
+                    playSong={(songURI, songID) => {
+                        this.props.playPlayback(songURI, songID)
+                        history.push('/visualizer')
+                    }}
+                     />
+                    
+                </div>
+
+                
+
+                <SideNav />
+                <Player />
             </div>
-
-            <SideNav />
-
-            <ResultsGrid
-                results={props.searchResults}
-                playSong={(songURI) => {
-                    props.playPlayback(songURI)
-                    history.push('/visualizer')
-                }}
-            />
-            <Player />
-        </div>
-    )
+        )
+    }
 }
+// } (props) => (
+
+// )
 
 const mapStateToProps = (state) => ({
     auth: state.auth,

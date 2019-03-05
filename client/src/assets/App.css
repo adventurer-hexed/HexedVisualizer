@@ -88,6 +88,13 @@ body {
     width: 150px;
 }
 
+.push_content_bottom {
+    height: calc(100vh - 120px);
+    /* border: 2px solid blue; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 
 
 @media only screen and (min-width:750px) {
@@ -97,5 +104,10 @@ body {
 @media only screen and (min-width: 1024px) {
     .push_content {
         padding-left: 230px;
+    }
+    .push_content_bottom {
+        padding-bottom: calc(100vh - 75px);
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 }
