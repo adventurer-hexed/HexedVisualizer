@@ -3,7 +3,6 @@ import CompleteRipple from "./vis_one/CompleteRipple"
 import { connect } from "react-redux"
 import {
     playPlayback,
-    // fetchAnalysis,
     fetchCurrPlayback,
     deviceStateListener,
     zeroPlayBack,
@@ -56,9 +55,6 @@ class Visualizer extends React.Component {
         if (!this._lastTime) this._lastTime = currentTime
 
         const totalElapsedTime = (currentTime - this._startingTime);
-        if (totalElapsedTime === 0) {
-            console.log("ZERO")
-        }
         // this._animationFrame = requestAnimationFrame(this.animate.bind(this))
         // this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
 
@@ -76,7 +72,7 @@ class Visualizer extends React.Component {
             this.props.sections
         )
 
-        if (this.props.progress + totalElapsedTime >= this.props.total_dur + 10000) {
+        if (totalElapsedTime >= this.props.total_dur + 10000) {
             window.cancelAnimationFrame(this._animationFrame)
             history.push("/")
             this.props.zeroPlayBack()
@@ -149,7 +145,6 @@ export default connect(
     {
         fetchCurrPlayback,
         playPlayback,
-        // fetchAnalysis,
         zeroPlayBack,
         zeroDeviceStateCounter,
         deviceStateListener

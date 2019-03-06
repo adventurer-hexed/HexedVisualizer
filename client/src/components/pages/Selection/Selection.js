@@ -13,7 +13,6 @@ class Selection extends React.Component {
     
     renderTracks() {
         if (Object.values(this.props.tracks).length > 0) {
-            console.log(this.props.tracks.items[0].album.name)
             return this.props.tracks.items.map ((a) => (
                 <Song
                 key={a.id}
@@ -88,4 +87,3 @@ const mapStateToProps = (state) => {
 
 
 export default requireAuth(connect(mapStateToProps, {})(Selection));
-// this.props.searchResults.tracks.items[0].album.images[0].url

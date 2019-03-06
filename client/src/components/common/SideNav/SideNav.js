@@ -7,45 +7,12 @@ import LogoutBtn from "./LogoutBtn";
 import Logo from '../Logo/Logo';
 import { connect } from "react-redux"
 import { playPlayback } from "../../../actions"
-import history from "../../../history"
 
 const navLinks = [
     { path: "/", text: "Home", Component: IoIosHome },
     { path: "/search", text: "Search", Component: IoIosSearch }
 ]
 
-// export default (props) => ReactDOM.createPortal(
-//     <div className="side_nav">
-//         <section>
-//             {
-//                 (window.innerWidth > 1024) ? <Logo large={true} light={true} height="65px" textMultiplier=".8" /> : <Logo large={false} light={true} height="65px" textMultiplier=".8" />
-//             }
-
-//             {
-//                 navLinks.map(({ path, text, Component }) => (
-//                     <NavLink key={text} path={path} text={text}>
-//                         <Component size={"2em"} color="white" />
-//                     </NavLink>
-//                 ))
-//             }
-//         </section>
-
-//         <LogoutBtn />
-//     </div>,
-//     document.getElementById("sideNav")
-// )
-
-
-// export const playPlayback = (songURI, songId) => async (dispatch, getState) => {
-//     if (!getState().playState.isPlayState || songURI) {
-//         if (songURI) {
-//             dispatch(fetchAnalysis(songId))
-//         }
-//         await axios.put(`/api/play-playback?deviceid=${getState().device.id}`, (songURI) ? { uris: JSON.stringify([songURI]) } : {})
-//         dispatch({ type: PLAY_STATE_ON, payload: true })
-//         dispatch(fetchCurrPlayback())
-//     }
-// }
 const mapStateToProps = state => {
     return {
         currSongInfo: state.currSongInfo
@@ -57,6 +24,21 @@ export default connect(mapStateToProps, { playPlayback })(
         state = {
             largeLogo: true
         }
+
+        componentDidMount() {
+            if (window.innerWidth < 1024) {
+                this.setState({
+                    largeLogo: false
+                })
+            }
+            window.addEventListener('resize', this.resizeHandler)
+        }
+
+        componentWillUnmount() {
+            window.removeEventListener('resize', this.resizeHandler)
+        }
+
+        
         playSong = () => {
             const { URI, songId } = this.props.currSongInfo
             if (URI === "" || songId === "") {
@@ -80,6 +62,7 @@ export default connect(mapStateToProps, { playPlayback })(
                 </div>
             )
         }
+
         resizeHandler = () => {
             if (window.innerWidth < 1024) {
                 this.setState({
@@ -90,18 +73,6 @@ export default connect(mapStateToProps, { playPlayback })(
                     largeLogo: true
                 })
             }
-        }
-        componentDidMount() {
-            if (window.innerWidth < 1024) {
-                this.setState({
-                    largeLogo: false
-                })
-            }
-            window.addEventListener('resize', this.resizeHandler)
-        }
-
-        componentWillUnmount() {
-            window.removeEventListener('resize', this.resizeHandler)
         }
 
         render() {
