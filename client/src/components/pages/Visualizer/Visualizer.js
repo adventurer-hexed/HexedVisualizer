@@ -52,7 +52,6 @@ class Visualizer extends React.Component {
 
     animate = (currentTime) => {
         if (!this._startingTime) this._startingTime = currentTime;
-        if (!this._lastTime) this._lastTime = currentTime
 
         const totalElapsedTime = (currentTime - this._startingTime);
         // this._animationFrame = requestAnimationFrame(this.animate.bind(this))
@@ -65,7 +64,7 @@ class Visualizer extends React.Component {
         this._animationFrame = requestAnimationFrame(this.animate)
         this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
         this._completeCircle.update(
-            this.props.progress + (totalElapsedTime),
+            totalElapsedTime,
             this.props.total_dur,
             this.props.beats,
             this.props.tatums,
@@ -149,3 +148,6 @@ export default connect(
         zeroDeviceStateCounter,
         deviceStateListener
     })(requreAuth(Visualizer))
+
+
+    
