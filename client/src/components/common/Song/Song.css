@@ -39,7 +39,7 @@
 
 @media screen and (min-width: 750px) {
     .song_wrapper {
-        width: 50%;
+        width: 60%;
     }
 }
 
@@ -60,6 +60,11 @@
         transition: 0.4s;
     }
     
+    .ellipse {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
 
     .song_container {
         padding: 20px;
@@ -69,7 +74,8 @@
 
 
     .song_text {
-        flex: 2;
+        flex: 1;
+        margin-right: 30px;
         /* border: 1px solid red; */
     }
     

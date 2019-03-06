@@ -3,6 +3,7 @@ import history from "../history";
 import {
     SIGN_IN,
     SIGN_OUT,
+    SEARCH_CHANGE,
     PLAY_STATE_ON,
     PLAY_STATE_OFF,
     FETCH_SONG_ANALYSIS,
@@ -30,6 +31,10 @@ export const signOut = () => async dispatch => {
     dispatch({ type: SIGN_OUT, payload: res.data });
     history.push("/login");
 };
+
+export const searchChange = (char) => {
+    return { type: SEARCH_CHANGE, payload: char }
+}
 
 export const getUser = (path) => async (dispatch, getState) => {
     try {

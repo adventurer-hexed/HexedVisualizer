@@ -10,9 +10,11 @@ import spotifySearchReducer from "./spotifySearchReducer";
 import deviceListener from "./deviceListener";
 import deviceStateConter from "./deviceStateConter";
 import spotifyCurrInfo from "./spotifyCurrInfo";
+import searchChange  from "./searchChange";
 
 export default combineReducers({
     auth: authReducer,
+    searchText: searchChange,
     playState: spotifyPlayerReducer,
     songAnalysis: spotifySongReducer,
     currSongPlayback: spotifyCurrPlaybackReducer,

@@ -10,50 +10,59 @@ import NoResults from "./NoResults";
 import Player from "../../common/Player/NewPlayer"
 
 class Selection extends React.Component {
+    
+    renderTracks() {
+        if (Object.values(this.props.tracks).length > 0) {
+            console.log(this.props.tracks.items[0].album.name)
+            return this.props.tracks.items.map ((a) => (
+                <Song
+                key={a.id}
+                songId={a.id}
+                uri={a.uri}
+                song={a.name}
+                artist={a.artists[0].name}
+                album={a.album.name}
+                timestamp={(a.duration_ms / 60000).toFixed(2)}
+            />
+            ))
+        } 
+    }
 
     renderSearchResults() {
-        if (this.props.searchResults.length === 0) {
-            return (
-                <div className="song_page_wrapper">
-                    <div className="song_featured_pic_wrapper">
-                        <div className="song_image" style={{
-                            backgroundImage: `url("https://placehold.it/350")`
-                        }}
-                        />
-                        <div className="song_featured">
-                            <h1>Featured</h1>
-                            <h1>Song</h1>
-                            <h2>Artist</h2>
+        if (Object.values(this.props.tracks).length > 0) {
+            if(this.props.tracks.items.length > 0) {
+                return (
+                    <div className="song_page_wrapper">
+                        <div className="song_featured_pic_wrapper">
+                            <div className="song_image" style={{
+                                backgroundImage: `url("${this.props.tracks.items[0].album.images[0].url}")`
+                            }}
+                            />
+                            <div className="song_featured">
+                                <h1>Featured</h1>
+                                <h1>{this.props.tracks.items[0].name}</h1>
+                                <h2>{this.props.tracks.items[0].artists[0].name}</h2>
+                            </div>
+                        </div>
+    
+    
+                        <div className="song_wrapper">
+                            <SongHeader />
+                            {this.renderTracks()}
                         </div>
                     </div>
-
-
-                    <div className="song_wrapper">
-                        <SongHeader />
-                        <Song
-                            song={"Gods Plan"}
-                            artist={"Drake"}
-                            album={"Album"}
-                            timestamp={"4.29"}
-                        />
-
-                        <Song
-                            song={"Gods Plan"}
-                            artist={"Drake"}
-                            album={"Album"}
-                            timestamp={"4.29"}
-                        />
-                    </div>
-                </div>
-            )
+                )
+            } else {
+                return <NoResults userInput={this.props.userSearch} />
+            }
         } else {
             return (
-                <NoResults userInput={"UserInput"} />
+                <NoResults userInput={this.props.userSearch} />
             )
         }
     }
     render() {
-        document.title = "Search"
+        document.title = this.props.userSearch
         return (
             <div className="push_content song_page">
                 <SideNav />
@@ -66,11 +75,17 @@ class Selection extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    let tracks = {}
+    if(Object.values(state.searchResults).length > 0) {
+        tracks = state.searchResults.tracks
+    }
     return {
-        searchResults: Object.values(state.searchResults)
+        tracks,
+        userSearch: state.searchText.chars
     }
 }
 
 
 
 export default requireAuth(connect(mapStateToProps, {})(Selection));
+// this.props.searchResults.tracks.items[0].album.images[0].url
