@@ -17,6 +17,7 @@ import {
     INCREMENT_DEVICE_STATE_COUNTER,
     ZERO_CURR_PLAYBACK,
     ZERO_DEVICE_STATE_COUNTER,
+    ZERO_ANALYSIS,
     CURR_URI
 } from "./types";
 
@@ -60,23 +61,16 @@ export const fetchCurrPlayback = () => async dispatch => {
 }
 
 export const fetchAnalysis = (currentSongID) => async (dispatch, getState) => {
-    if (getState().currSongPlayback.item) {
-        if (Object.keys(getState().currSongPlayback.item).length > 0) {
-            if (currentSongID !== getState().currSongPlayback.item.id) {
-                const res = await axios.get(`/api/get-song-analysis/${currentSongID}`)
-                dispatch({ type: FETCH_SONG_ANALYSIS, payload: res.data })
-            }
-        }
-    } else {
-
         const res = await axios.get(`/api/get-song-analysis/${currentSongID}`)
         dispatch({ type: FETCH_SONG_ANALYSIS, payload: res.data })
-    }
 }
 
 export const playPlayback = (songURI, songId) => async (dispatch, getState) => {
     if (!getState().playState.isPlayState || songURI) {
-        dispatch(fetchAnalysis(songId))
+        // dispatch(fetchAnalysis(songId))
+        dispatch({type: ZERO_ANALYSIS})
+        const res = await axios.get(`/api/get-song-analysis/${songId}`)
+        dispatch({ type: FETCH_SONG_ANALYSIS, payload: res.data })
         await axios.put(`/api/play-playback?deviceid=${getState().device.id}`, (songURI) ? { uris: JSON.stringify([songURI]) } : {})
         dispatch(fetchCurrPlayback())
         dispatch(updateCurrSongInfo({URI:songURI, songId}))
