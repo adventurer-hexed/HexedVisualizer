@@ -56,7 +56,7 @@ class Visualizer extends React.Component {
         if (!this._lastTime) this._lastTime = currentTime
 
         const totalElapsedTime = (currentTime - this._startingTime);
-        if(totalElapsedTime === 0) {
+        if (totalElapsedTime === 0) {
             console.log("ZERO")
         }
         // this._animationFrame = requestAnimationFrame(this.animate.bind(this))

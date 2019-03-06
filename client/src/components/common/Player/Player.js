@@ -23,25 +23,24 @@ class Player extends Component {
 
     playSongProgression() {
         this.progressInterval = setInterval(() => {
-            this.props.fetchCurrPlayback()            
-            if(Object.keys(this.props.currSongPlayback).length > 0) {
+            this.props.fetchCurrPlayback()
+            if (Object.keys(this.props.currSongPlayback).length > 0) {
                 const progressMs = this.props.currSongPlayback.progress_ms
                 const durMs = this.props.currSongPlayback.item.duration_ms
-                this.props.updateProgress(progressMs/durMs * 100)
+                this.props.updateProgress(progressMs / durMs * 100)
             }
         }, 100)
     }
 
     onProgressChange(e) {
-        console.log(e)
     }
 
     componentWillUnmount() {
         clearInterval(this.progressInterval)
     }
 
-    componentDidMount(){
-        if(this.props.isPlayback){
+    componentDidMount() {
+        if (this.props.isPlayback) {
             this.playSongProgression()
         }
     }
@@ -49,35 +48,35 @@ class Player extends Component {
     renderPlayer() {
         const { isPlayback } = this.props
         return (
-            <button className="btn_reset" onClick={ isPlayback ? this.stopPlayback : this.playPlayback }>
-               { isPlayback
-                ? <FaPause size="3em" color="red" />
-                : <FaPlay size="3em" color="#4285f4" />
+            <button className="btn_reset" onClick={isPlayback ? this.stopPlayback : this.playPlayback}>
+                {isPlayback
+                    ? <FaPause size="3em" color="red" />
+                    : <FaPlay size="3em" color="#4285f4" />
                 }
             </button>
         )
     }
-    
-    
+
+
     render() {
-        let {beats, segments} = this.props.currSongAnalysis;
+        let { beats, segments } = this.props.currSongAnalysis;
         return (
             <div>
-                <SpotifyScript 
+                <SpotifyScript
                     token={this.props.auth.accessToken}
                 />
                 <h1>Home Page</h1>
                 <Search />
-                { this.renderPlayer() }
+                {this.renderPlayer()}
                 <PlayerAudioProgress />
-                <Visualizer 
+                <Visualizer
                     beats={beats}
                     beatAvgLength={
-                        (beats) ? beats.reduce((sum, beat)=> sum += (beat.duration*1000), 0) / beats.length : 0
+                        (beats) ? beats.reduce((sum, beat) => sum += (beat.duration * 1000), 0) / beats.length : 0
                     }
                     segments={segments}
                     segmentAvgLength={
-                        (segments) ? segments.reduce((sum, segment)=> sum += (segment.duration*1000), 0) / segments.length : 0
+                        (segments) ? segments.reduce((sum, segment) => sum += (segment.duration * 1000), 0) / segments.length : 0
                     }
                 />
             </div>
@@ -87,9 +86,9 @@ class Player extends Component {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    isPlayback:state.playState.isPlayState, 
-    currSongPlayback:state.currSongPlayback,
-    currSongAnalysis:state.songAnalysis
+    isPlayback: state.playState.isPlayState,
+    currSongPlayback: state.currSongPlayback,
+    currSongAnalysis: state.songAnalysis
 })
 
 const enhance = compose(
@@ -97,11 +96,11 @@ const enhance = compose(
 )
 
 const EnhancedComponent = connect(mapStateToProps,
-     { 
-        playPlayback, 
+    {
+        playPlayback,
         stopPlayback,
         updateProgress,
-        fetchCurrPlayback 
+        fetchCurrPlayback
     })(Player)
 
 export default enhance(EnhancedComponent)

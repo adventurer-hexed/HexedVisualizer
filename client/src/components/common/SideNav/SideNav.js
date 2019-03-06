@@ -20,7 +20,7 @@ const navLinks = [
 //             {
 //                 (window.innerWidth > 1024) ? <Logo large={true} light={true} height="65px" textMultiplier=".8" /> : <Logo large={false} light={true} height="65px" textMultiplier=".8" />
 //             }
-            
+
 //             {
 //                 navLinks.map(({ path, text, Component }) => (
 //                     <NavLink key={text} path={path} text={text}>
@@ -57,7 +57,7 @@ export default connect(mapStateToProps, { playPlayback })(
 
         playSong = () => {
             const { URI, songId } = this.props.currSongInfo
-            if(URI === "" || songId === "" ) {
+            if (URI === "" || songId === "") {
                 console.log("You have not selected any song")
             } else {
 
@@ -67,7 +67,7 @@ export default connect(mapStateToProps, { playPlayback })(
 
         renderSongToVis() {
             return (
-                <div 
+                <div
                     className={`side_nav_icon_container`}
                     onClick={this.playSong}
                 >
@@ -85,9 +85,9 @@ export default connect(mapStateToProps, { playPlayback })(
                     <div className="side_nav">
                         <section>
                             {
-                                (window.innerWidth > 1024) 
-                                ? <Logo large={true} light={true} height="65px" textMultiplier=".8" /> 
-                                : <Logo large={false} light={true} height="65px" textMultiplier=".8" />
+                                (window.innerWidth > 1024)
+                                    ? <Logo large={true} light={true} height="65px" textMultiplier=".8" />
+                                    : <Logo large={false} light={true} height="65px" textMultiplier=".8" />
                             }
 
                             {
@@ -97,13 +97,13 @@ export default connect(mapStateToProps, { playPlayback })(
                                     </NavLink>
                                 ))
                             }
-                            { this.renderSongToVis() }
+                            {this.renderSongToVis()}
                         </section>
-                
+
                         <LogoutBtn />
                     </div>,
                     document.getElementById("sideNav")
                 )
             )
         }
-})
+    })

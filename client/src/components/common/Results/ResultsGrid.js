@@ -1,25 +1,24 @@
 import React, { Component } from "react"
 
-class ResultsMenu extends Component{
-    generateCards = ()=>{
-        const {results, playSong} = this.props
+class ResultsMenu extends Component {
+    generateCards = () => {
+        const { results, playSong } = this.props
 
-        return results.tracks.items.map((song, i)=>{
-            return(
-                <li className="resultItem" 
+        return results.tracks.items.map((song, i) => {
+            return (
+                <li className="resultItem"
                     key={i}
                     onClick={
-                        (event)=>{
-                            console.log(song.uri)
+                        (event) => {
                             playSong(song.uri)
                         }
-                }>
+                    }>
                     <div className="songName">
                         Title: {song.name}
                     </div>
                     <div className="songArtist">
-                        Artist: {song.artists.reduce((out, artist)=>{
-                            if(out === ""){
+                        Artist: {song.artists.reduce((out, artist) => {
+                            if (out === "") {
                                 return artist.name
                             }
                             return out += `, ${artist.name}`
@@ -29,14 +28,14 @@ class ResultsMenu extends Component{
             )
         })
     }
-    render(){
+    render() {
         let { results } = this.props
-        return(
-            (results.tracks)?
-            <ul className="searchResults">
-                {this.generateCards()}
-            </ul>
-            : ""
+        return (
+            (results.tracks) ?
+                <ul className="searchResults">
+                    {this.generateCards()}
+                </ul>
+                : ""
         )
     }
 }
