@@ -61,8 +61,9 @@ class Player extends Component {
         let start = new Date().getTime();
         this._progressInterval = setInterval(() => {
             let now = new Date().getTime();
+            var curr = this.props.currentTime
             this.setState({
-                inc: ((this.props.currentTime + (now - start)))
+                inc: ((curr + (now - start)))
             })
         }, 1);
     }

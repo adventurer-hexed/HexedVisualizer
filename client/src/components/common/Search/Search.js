@@ -18,7 +18,7 @@ class Search extends Component {
         let displayResults = this.props.displayResults || false
         return (
             <div className="searchMenu">
-                <SearchBar updateSearchResults={this.updateSearch} />
+                <SearchBar pushToSearch={this.props.pushToSearch || false} updateSearchResults={this.updateSearch} />
                 {
                     (displayResults) ? <ResultsDropdown
                         results={this.props.searchResults}

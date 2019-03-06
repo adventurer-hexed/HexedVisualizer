@@ -10,7 +10,10 @@ import NoResults from "./NoResults";
 import Player from "../../common/Player/NewPlayer"
 
 class Selection extends React.Component {
-
+    componentDidMount() {
+        document.getElementById("searchInput").focus();
+        document.getElementById("searchInput").select();
+    }
     renderSearchResults() {
         if (this.props.searchResults.length === 0) {
             return (
