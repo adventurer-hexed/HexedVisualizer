@@ -9,7 +9,7 @@ import spotifyCurrIdReducer from "./spotifyCurrIdReducer";
 import spotifySearchReducer from "./spotifySearchReducer";
 import deviceListener from "./deviceListener";
 import deviceStateConter from "./deviceStateConter";
-
+import spotifyRecentlyPlayedReducer from "./spotifyRecentlyPlayedReducer"
 export default combineReducers({
     auth: authReducer,
     playState: spotifyPlayerReducer,
@@ -20,5 +20,6 @@ export default combineReducers({
     device: spotifyCurrIdReducer,
     searchResults: spotifySearchReducer,
     currDeviceState: deviceListener,
-    deviceCounter:deviceStateConter
+    deviceCounter:deviceStateConter,
+    recentlyPlayed: spotifyRecentlyPlayedReducer
 });

@@ -3,7 +3,7 @@ import SideNav from "../../common/SideNav/SideNav"
 import requireAuth from "../../common/HOC/requireAuth"
 import { connect } from "react-redux"
 import { compose } from "redux"
-import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback } from "../../../actions"
+import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback, getRecentlyPlayed } from "../../../actions"
 import Search from '../../common/Search/Search'
 import ResultsGrid from '../../common/Results/ResultsGrid'
 import Player from '../../common/Player/NewPlayer'
@@ -13,6 +13,9 @@ import history from "../../../history"
 import './Home.css'
 
 class Home extends Component {
+    componentDidMount(){
+        this.props.getRecentlyPlayed();
+    }
     render() {
         return (
             <div className="home">
@@ -29,7 +32,7 @@ class Home extends Component {
                     <h2 className="tracks_header">Recently Played</h2>
                     
                     <Track
-                    results={this.props.searchResults}
+                    results={this.props.recentlyPlayed}
                     playSong={(songURI, songID) => {
                         this.props.playPlayback(songURI, songID)
                         history.push('/visualizer')
@@ -50,13 +53,20 @@ class Home extends Component {
 
 // )
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => {
+    let recentlyPlayed = []
+    if(Object.values(state.recentlyPlayed).length > 0){
+        recentlyPlayed = state.recentlyPlayed
+    }
+    return {
     auth: state.auth,
     isPlayback: state.playState.isPlayState,
     currSongPlayback: state.currSongPlayback,
     currSongAnalysis: state.songAnalysis,
-    searchResults: state.searchResults
-})
+    searchResults: state.searchResults,
+    recentlyPlayed
+    }
+}
 
 const enhance = compose(requireAuth)
 
@@ -65,7 +75,8 @@ const EnhancedComponent = connect(mapStateToProps,
         playPlayback,
         stopPlayback,
         updateProgress,
-        fetchCurrPlayback
+        fetchCurrPlayback,
+        getRecentlyPlayed
     })(Home)
 
 export default enhance(EnhancedComponent)

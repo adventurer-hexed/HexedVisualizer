@@ -1,55 +1,80 @@
-
-
+.track_containe{
+    display: inline-block;
+    width: 45%;
+    margin-left: .4em;
+    margin-right: .4em;
+}
 .tracks_header{
     color: white;
     text-align: center;
 }
 
 .track_item{
-    margin: 15px;
-    height: 120px;
-    width: 120px;
+    margin: 15px 15px 0px 15px;
+    height: 140px;
+    width: 140px;
     /* border: white solid 1px; */
     display: inline-block;
     text-align: center;
-}
-
-.track_image{
-    height: 120px;
-    width: 120px;
-    /* padding: 0px; */
     background-position: center;
     background-size: cover;
 }
 
+
 .track_info{
-    margin-top: 0px;
+    margin: auto;
+    text-align: center;
+    width: 120px;
+    /* line-height: 180%; */
+
 }
 
 .track_name{
     font-size: 14px;
-    font-family: sans-serif;
+    height: 1em;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .track_artist{
     font-size: 12px;
     color: #b6b6b6;
-    font-family: sans-serif;
-
+    height: 1em;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 @media only screen and (min-width: 1024px){
     .track_item{
-        margin: 10px;
-        height: 140px;
-        width: 140px;
+        margin: 0px 10px 0px 0px;
+        height: 250px;
+        width: 100%;
         /* border: white solid 1px; */
         display: inline-block;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .track_info{
+        width: 250px;
+        /* line-height: 180%; */
+    
     }
 
     .tracks_header{
         text-align: left;
         margin: 20px;
     }
+
+    .track_image{
+        height: 250px;
+        width: 250px;
+    }
     
+    .track_containe{
+        display: inline-block;
+        width: 23%;
+    }
 }

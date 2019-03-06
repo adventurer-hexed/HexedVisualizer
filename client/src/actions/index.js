@@ -15,7 +15,8 @@ import {
     FETCH_SEARCH_RESULTS,
     INCREMENT_DEVICE_STATE_COUNTER,
     ZERO_CURR_PLAYBACK,
-    ZERO_DEVICE_STATE_COUNTER
+    ZERO_DEVICE_STATE_COUNTER,
+    FETCH_RECENTLY_PLAYED
 } from "./types";
 
 
@@ -133,4 +134,18 @@ export const zeroDeviceStateCounter = () => {
 
 export const zeroPlayBack = () => {
     return { type: ZERO_CURR_PLAYBACK }
+}
+
+export const getRecentlyPlayed = () => async dispatch => {
+    // return { type: FETCH_RECENTLY_PLAYED}
+    console.log("WOOOHHHOOOOO")
+    try{
+        const res = await axios.get(`/api/get-recent`)
+        // console.log("WOOOHHHOOOOO",res.data)
+        dispatch({ type: FETCH_RECENTLY_PLAYED, payload: res.data })
+    } catch (e) {
+        console.log(e)
+    }
+   
+
 }

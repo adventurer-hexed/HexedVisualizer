@@ -11,7 +11,8 @@ const scope = [
     "app-remote-control",
     "user-read-playback-state",
     "streaming",
-    "user-library-read"
+    "user-library-read",
+    "user-read-recently-played"
 ];
 
 router.get("/auth/spotify", passport.authenticate("spotify", { scope }));

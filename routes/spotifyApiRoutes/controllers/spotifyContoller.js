@@ -80,5 +80,24 @@ module.exports = {
         } catch (e) {
             res.status(401).json({ err: "Failed to find results for your search terms" })
         }
+    },
+
+    async getRecent(req,res){
+        try{
+            const response = await axios.get("https://api.spotify.com/v1/me/player/recently-played?limit=24", applyHeader(req.user.spotifyAccessToken));
+            console.log(response.data)
+            let unique = new Set();
+            response.data.items = response.data.items.reduce((outArr, item)=>{
+                if(!unique.has(item.track.id)){
+                    unique.add(item.track.id)
+                    outArr = [...outArr, item]
+                }
+                return outArr
+            },[])
+            res.status(200).json(response.data)
+        } catch (e) {
+            console.log(e)
+            res.status(401).json({ err: "Failed to find results for your search terms" })
+        }
     }
 }
