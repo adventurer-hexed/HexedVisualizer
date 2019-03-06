@@ -54,7 +54,9 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, { playPlayback })(
     class SideNav extends React.Component {
-
+        state = {
+            largeLogo: true
+        }
         playSong = () => {
             const { URI, songId } = this.props.currSongInfo
             if (URI === "" || songId === "") {
@@ -78,17 +80,36 @@ export default connect(mapStateToProps, { playPlayback })(
                 </div>
             )
         }
+        resizeHandler = () => {
+            if (window.innerWidth < 1024) {
+                this.setState({
+                    largeLogo: false
+                })
+            } else {
+                this.setState({
+                    largeLogo: true
+                })
+            }
+        }
+        componentDidMount() {
+            if (window.innerWidth < 1024) {
+                this.setState({
+                    largeLogo: false
+                })
+            }
+            window.addEventListener('resize', this.resizeHandler)
+        }
+
+        componentWillUnmount() {
+            window.removeEventListener('resize', this.resizeHandler)
+        }
 
         render() {
             return (
                 ReactDOM.createPortal(
                     <div className="side_nav">
                         <section>
-                            {
-                                (window.innerWidth > 1024)
-                                    ? <Logo large={true} light={true} height="65px" textMultiplier=".8" />
-                                    : <Logo large={false} light={true} height="65px" textMultiplier=".8" />
-                            }
+                            <Logo large={this.state.largeLogo} light={true} height={(this.state.largeLogo) ? "65px" : "40px"} textMultiplier=".6" />
 
                             {
                                 navLinks.map(({ path, text, Component }) => (
