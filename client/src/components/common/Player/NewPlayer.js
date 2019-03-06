@@ -22,7 +22,6 @@ class Player extends Component {
 
     handleVolumeChange = (event) => {
         let newVolume = event.target.value
-        console.log(newVolume)
     }
 
     handlePlayButtonClick = (event) => {
@@ -62,8 +61,9 @@ class Player extends Component {
         let start = new Date().getTime();
         this._progressInterval = setInterval(() => {
             let now = new Date().getTime();
+            var curr = this.props.currentTime
             this.setState({
-                inc: ((this.props.currentTime + (now - start)))
+                inc: ((curr + (now - start)))
             })
         }, 1);
     }
@@ -81,16 +81,7 @@ class Player extends Component {
         }
     }
 
-    componentDidUpdate() {
-        clearInterval(this._progressInterval)
-        // if (this.props.isPlayback) {
-        //     this.props.fetchCurrPlayback()
-        //     this.playSongProgression()
-        // }
-    }
-
     render() {
-        // console.log(this.state)
         let { albumCover, songName, artistName, isPlayback, totalTime, currentVolume } = this.props
         return (
             <div className="player_container">

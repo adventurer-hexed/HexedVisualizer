@@ -22,7 +22,6 @@ export default connect(null, { deviceStateListener, fetchAvailableDevices, updat
                 // Playback status updates
                 player.addListener('player_state_changed', state => {
                     if (state) {
-                        console.log(state)
                         // this.props.deviceStateListener(state.paused)
                         this.props.deviceStateListener(state);
                         // this.props.fetchAnalysis(state.track_window.current_track.id)
@@ -32,7 +31,6 @@ export default connect(null, { deviceStateListener, fetchAvailableDevices, updat
 
                 // Ready
                 player.addListener('ready', ({ device_id }) => {
-                    console.log(device_id)
                     this.props.updateCurrentDeviceId(device_id)
                 });
 

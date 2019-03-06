@@ -10,9 +10,9 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, { searchChange })(
 class SearchBar extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state={
+        this.state = {
             searchDelayed: false
         }
     }
