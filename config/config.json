@@ -10,6 +10,6 @@
         "logging": false
     },
     "production": {
-        "use_env_variable": ""
+        "use_env_variable": "JAWSDB_URL"
     }
 }
