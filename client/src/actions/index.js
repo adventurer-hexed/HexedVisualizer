@@ -118,11 +118,7 @@ export const deviceStateListener = (deviceState) => (dispatch, getState) => {
         dispatch({ type: DEVICE_STATE_LISTENER, payload: deviceState })
     }
 
-    if (getState().deviceState.paused !== deviceState.paused) {
-        dispatch({ type: DEVICE_STATE_LISTENER, payload: deviceState })
-    }
-
-    if (deviceState.position === 0) {
+    if (deviceState.position === 0 && !deviceState.paused) {
         dispatch({ type: INCREMENT_DEVICE_STATE_COUNTER })
         if (getState().deviceCounter.counter >= 2) {
             dispatch(fetchCurrPlayback())
