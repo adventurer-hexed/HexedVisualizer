@@ -81,7 +81,6 @@ module.exports = {
     async getRecent(req,res){
         try{
             const response = await axios.get("https://api.spotify.com/v1/me/player/recently-played?limit=24", applyHeader(req.user.spotifyAccessToken));
-            console.log(response.data)
             let unique = new Set();
             response.data.items = response.data.items.reduce((outArr, item)=>{
                 if(!unique.has(item.track.id)){
