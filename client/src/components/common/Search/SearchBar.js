@@ -15,6 +15,8 @@ class SearchBar extends Component {
         this.state = {
             searchDelayed: false
         }
+
+        this._searchRef = React.createRef()
     }
 
 
@@ -35,11 +37,17 @@ class SearchBar extends Component {
         }
     }
 
+    componentDidMount() {
+        this._searchRef.current.focus()
+        this._searchRef.current.select()
+    }
+
 
     render(){
         return(
             <label onClick={() => history.push("/search")} className="searchBar">
                 <input 
+                    ref={this._searchRef}
                     type="text" 
                     placeholder="Search..." 
                     onChange={this.onTextChange}
