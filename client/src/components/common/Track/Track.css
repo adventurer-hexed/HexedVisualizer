@@ -77,5 +77,14 @@
     .track_object{
         display: inline-block;
         width: 23%;
+        margin-bottom: 25px;
+    }
+
+    .track_name{
+        font-size: 20px
+    }
+
+    .track_artist{
+        font-size: 18px;
     }
 }

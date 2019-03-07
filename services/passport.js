@@ -5,7 +5,7 @@ const uuid = require("uuid/v1");
 const refresh = require("passport-oauth2-refresh");
 const axios = require("axios");
 const db = require("../models");
-
+const callback = process.env.CALLBACK_URL || "/auth/spotify/callback";
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (id, done) => {
     const user = await db.user.findOne({ where: { id } });
@@ -17,7 +17,7 @@ passport.use(
         {
             clientID: spotifyClientID,
             clientSecret: spotifySecret,
-            callbackURL: "/auth/spotify/callback"
+            callbackURL: callback
         },
         async (accessToken, refreshToken, profile, done) => {
             const foundUser = await db.user.findOne({

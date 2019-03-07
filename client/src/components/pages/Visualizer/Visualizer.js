@@ -54,11 +54,6 @@ class Visualizer extends React.Component {
         if (!this._startingTime) this._startingTime = currentTime;
 
         const totalElapsedTime = (currentTime - this._startingTime);
-        // this._animationFrame = requestAnimationFrame(this.animate.bind(this))
-        // this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-
-
-        // this._completeCircle.update(this.state.totalElapsedTime, music.beats, music.tatums)
 
 
         this._animationFrame = requestAnimationFrame(this.animate)
@@ -71,7 +66,7 @@ class Visualizer extends React.Component {
             this.props.sections
         )
 
-        if (totalElapsedTime >= this.props.total_dur + 10000) {
+        if (totalElapsedTime >= this.props.total_dur) {
             window.cancelAnimationFrame(this._animationFrame)
             history.push("/")
             this.props.zeroPlayBack()
@@ -80,9 +75,14 @@ class Visualizer extends React.Component {
     }
 
     render() {
-        document.title = `${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.name : 'No Song Playing'
-            } - ${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.artists.reduce((final, artist) => {
-                return `${final}${(final === '') ? "" : ", "}${artist.name}`
+        document.title = `${(this.props.currSongPlayback.item) 
+            ? this.props.currSongPlayback.item.name 
+            : 'No Song Playing'
+            } - ${(this.props.currSongPlayback.item) 
+                ? this.props.currSongPlayback.item.artists.reduce((final, artist) => {
+                return `${final}${(final === '') 
+                ? "" 
+                : ", "}${artist.name}`
             }, '') : ''
             }`
         return (
@@ -102,8 +102,7 @@ const mapStateToProps = (state) => {
     let beats = []
     let tatums = []
     let sections = []
-    let progress = 0
-    let total_dur = 0;
+    let total_dur = 0
     let isPlayback = false;
     let songName = ""
     let artist = ""
@@ -112,6 +111,7 @@ const mapStateToProps = (state) => {
         beats = state.songAnalysis.beats
         tatums = state.songAnalysis.tatums
         sections = state.songAnalysis.sections
+        total_dur = state.songAnalysis.track.duration * 60000
     }
 
     if (Object.values(state.currSongPlayback).length > 0) {
@@ -120,13 +120,7 @@ const mapStateToProps = (state) => {
         songName = state.currSongPlayback.item.name
     }
 
-    if (Object.values(state.deviceState).length > 0) {
-        progress = state.deviceState.position
-        total_dur = state.deviceState.duration
-    }
-
     return {
-        progress,
         beats,
         tatums,
         sections,

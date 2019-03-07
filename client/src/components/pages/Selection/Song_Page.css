@@ -2,6 +2,11 @@
     background-image: linear-gradient(to bottom right, #000000, #ea5c90);
     display: block;
     height: 100vh;
+}
+
+.song_page_wrapper {
+    height: calc(100vh - 200px);
+    display: block;
     overflow: auto;
 }
 
@@ -53,7 +58,12 @@
 }
 
 @media screen and (min-width: 1024px) {
-    
+
+    .song_page_wrapper {
+        height: calc(100vh - 155px);
+        overflow: auto;
+    }
+
     .song_featured_pic_wrapper {
         display: block;
         margin-left: 0px;
