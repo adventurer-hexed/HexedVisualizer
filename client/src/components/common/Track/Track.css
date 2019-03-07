@@ -51,12 +51,23 @@
     .track_object{
         display: inline-block;
         width: 30%;
+        position: relative;
         margin-bottom: 25px;
     }
 
+    .track_object:before{
+        content: "";
+	    display: block;
+	    padding-top: 100%; 
+    }
+
     .track_item{
-        height: 200px;
-        margin: 0px 10px 0px 0px;
+        position:  absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height:80%;
         width: 100%;
     }
 }
@@ -64,7 +75,7 @@
 @media only screen and (min-width: 900px){
     .track_item{
         margin: 0px 10px 0px 0px;
-        height: 250px;
+        /* height: 250px; */
         width: 100%;
         /* border: white solid 1px; */
         display: inline-block;
@@ -89,9 +100,7 @@
     }
     
     .track_object{
-        display: inline-block;
         width: 23%;
-        margin-bottom: 25px;
     }
 
     .track_name{
