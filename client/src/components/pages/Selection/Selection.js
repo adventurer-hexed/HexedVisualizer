@@ -8,6 +8,7 @@ import SongHeader from "../../common/Song/SongHeader";
 import Search from "../../common/Search/Search"
 import NoResults from "./NoResults";
 import Player from "../../common/Player/NewPlayer"
+import Loader from "../../common/Loader/Loader"
 
 class Selection extends React.Component {
     
@@ -64,6 +65,11 @@ class Selection extends React.Component {
         document.title = this.props.userSearch
         return (
             <div className="push_content song_page">
+             {
+                this.props.isLoading
+                ? <Loader />
+                : ""
+            }
                 <SideNav />
                 <Search />
                 {this.renderSearchResults()}
@@ -80,7 +86,8 @@ const mapStateToProps = (state) => {
     }
     return {
         tracks,
-        userSearch: state.searchText.chars
+        userSearch: state.searchText.chars,
+        isLoading: state.isLoading
     }
 }
 

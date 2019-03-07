@@ -10,6 +10,7 @@ import Player from '../../common/Player/NewPlayer'
 import SpotifyScript from '../../common/SpotifyScript'
 import Track from "../../common/Track/Track"
 import history from "../../../history"
+import Loader from "../../common/Loader/Loader"
 import './Home.css'
 
 class Home extends Component {
@@ -23,12 +24,19 @@ class Home extends Component {
                 <SpotifyScript
                     token={this.props.auth.accessToken}
                 />
+                {
+                    this.props.isLoading
+                    ? <Loader />
+                    : ""
+                    
+                }
                 <div className="push_content contentContainer push_content_bottom">
                     <Search displayResults={false}
                         songClickHandler={(songURI) => {
                             this.props.playPlayback(songURI)
                         }
                         } />
+
 
                     <h2 className="tracks_header">Recently Played</h2>
 
@@ -50,9 +58,6 @@ class Home extends Component {
         )
     }
 }
-// } (props) => (
-
-// )
 
 const mapStateToProps = (state) => {
     let recentlyPlayed = []
@@ -65,7 +70,8 @@ const mapStateToProps = (state) => {
     currSongPlayback: state.currSongPlayback,
     currSongAnalysis: state.songAnalysis,
     searchResults: state.searchResults,
-    recentlyPlayed
+    recentlyPlayed,
+    isLoading: state.isLoading
     }
 }
 
