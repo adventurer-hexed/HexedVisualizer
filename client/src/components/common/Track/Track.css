@@ -1,8 +1,9 @@
-.track_containe{
+.track_object{
     display: inline-block;
     width: 45%;
     margin-left: .4em;
     margin-right: .4em;
+    margin-bottom: 10px;
 }
 .tracks_header{
     color: white;
@@ -10,7 +11,6 @@
 }
 
 .track_item{
-    margin: 15px 15px 0px 15px;
     height: 140px;
     width: 140px;
     /* border: white solid 1px; */
@@ -30,6 +30,7 @@
 }
 
 .track_name{
+    color: white;
     font-size: 14px;
     height: 1em;
     width: 100%;
@@ -58,7 +59,7 @@
     }
 
     .track_info{
-        width: 250px;
+        width: 100%;
         /* line-height: 180%; */
     
     }
@@ -73,7 +74,7 @@
         width: 250px;
     }
     
-    .track_containe{
+    .track_object{
         display: inline-block;
         width: 23%;
     }

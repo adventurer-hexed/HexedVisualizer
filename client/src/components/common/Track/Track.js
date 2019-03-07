@@ -1,12 +1,12 @@
 import React, { Component } from "react"
 import "./Track.css"
-class Track extends Component{
-    generateCards = ()=>{
-        const {results, playSong} = this.props
+class Track extends Component {
+    generateCards = () => {
+        const { results, playSong } = this.props
 
         return results.items.map((song, i)=>{
             return(
-                <div className="track_containe">
+                <div className="track_object">
                 <div className="track_item" style={{backgroundImage: `url('${song.track.album.images[0].url}')`}}
                     key={i}
                     onClick={
@@ -33,7 +33,7 @@ class Track extends Component{
             )
         })
     }
-    render(){
+    render() {
         let { results } = this.props
         return(
             (results.items)?
@@ -43,8 +43,7 @@ class Track extends Component{
             : ""
         )
     }
-} 
+}
 
 export default Track
-    
-   
+

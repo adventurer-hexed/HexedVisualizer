@@ -10,8 +10,12 @@ import spotifySearchReducer from "./spotifySearchReducer";
 import deviceListener from "./deviceListener";
 import deviceStateConter from "./deviceStateConter";
 import spotifyRecentlyPlayedReducer from "./spotifyRecentlyPlayedReducer"
+import spotifyCurrInfo from "./spotifyCurrInfo";
+import searchChange  from "./searchChange";
+
 export default combineReducers({
     auth: authReducer,
+    searchText: searchChange,
     playState: spotifyPlayerReducer,
     songAnalysis: spotifySongReducer,
     currSongPlayback: spotifyCurrPlaybackReducer,
@@ -21,5 +25,6 @@ export default combineReducers({
     searchResults: spotifySearchReducer,
     currDeviceState: deviceListener,
     deviceCounter:deviceStateConter,
-    recentlyPlayed: spotifyRecentlyPlayedReducer
+    recentlyPlayed: spotifyRecentlyPlayedReducer,
+    currSongInfo: spotifyCurrInfo
 });

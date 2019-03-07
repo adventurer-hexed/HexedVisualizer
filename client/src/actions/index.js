@@ -3,6 +3,7 @@ import history from "../history";
 import {
     SIGN_IN,
     SIGN_OUT,
+    SEARCH_CHANGE,
     PLAY_STATE_ON,
     PLAY_STATE_OFF,
     FETCH_SONG_ANALYSIS,
@@ -16,7 +17,8 @@ import {
     INCREMENT_DEVICE_STATE_COUNTER,
     ZERO_CURR_PLAYBACK,
     ZERO_DEVICE_STATE_COUNTER,
-    FETCH_RECENTLY_PLAYED
+    FETCH_RECENTLY_PLAYED,
+    CURR_URI
 } from "./types";
 
 
@@ -30,6 +32,10 @@ export const signOut = () => async dispatch => {
     dispatch({ type: SIGN_OUT, payload: res.data });
     history.push("/login");
 };
+
+export const searchChange = (char) => {
+    return { type: SEARCH_CHANGE, payload: char }
+}
 
 export const getUser = (path) => async (dispatch, getState) => {
     try {
@@ -63,21 +69,19 @@ export const fetchAnalysis = (currentSongID) => async (dispatch, getState) => {
             }
         }
     } else {
-        console.log("BEFORE RES")
+
         const res = await axios.get(`/api/get-song-analysis/${currentSongID}`)
-        console.log("GOT THE RES")
         dispatch({ type: FETCH_SONG_ANALYSIS, payload: res.data })
     }
 }
 
 export const playPlayback = (songURI, songId) => async (dispatch, getState) => {
     if (!getState().playState.isPlayState || songURI) {
-        if (songURI) {
-            dispatch(fetchAnalysis(songId))
-        }
+        dispatch(fetchAnalysis(songId))
         await axios.put(`/api/play-playback?deviceid=${getState().device.id}`, (songURI) ? { uris: JSON.stringify([songURI]) } : {})
-        dispatch({ type: PLAY_STATE_ON, payload: true })
         dispatch(fetchCurrPlayback())
+        dispatch(updateCurrSongInfo({URI:songURI, songId}))
+        dispatch({ type: PLAY_STATE_ON, payload: true })
     }
 }
 
@@ -111,14 +115,6 @@ export const fetchSearchResults = (searchterms) => async (dispatch) => {
 }
 
 export const deviceStateListener = (deviceState) => (dispatch, getState) => {
-    if (deviceState.position === 0) {
-        dispatch({ type: INCREMENT_DEVICE_STATE_COUNTER })
-        if (getState().deviceCounter.counter >= 2) {
-            dispatch(fetchCurrPlayback())
-            history.push("/visualizer")
-            dispatch({ type: ZERO_DEVICE_STATE_COUNTER })
-        }
-    }
     if (Object.values(getState().deviceState).length <= 0) {
         dispatch({ type: DEVICE_STATE_LISTENER, payload: deviceState })
     }
@@ -126,6 +122,15 @@ export const deviceStateListener = (deviceState) => (dispatch, getState) => {
     if (getState().deviceState.paused !== deviceState.paused) {
         dispatch({ type: DEVICE_STATE_LISTENER, payload: deviceState })
     }
+
+    if (deviceState.position === 0) {
+        dispatch({ type: INCREMENT_DEVICE_STATE_COUNTER })
+        if (getState().deviceCounter.counter >= 2) {
+            dispatch(fetchCurrPlayback())
+            dispatch({ type: ZERO_DEVICE_STATE_COUNTER })
+            history.push("/visualizer")
+        }
+    } 
 }
 
 export const zeroDeviceStateCounter = () => {
@@ -146,6 +151,9 @@ export const getRecentlyPlayed = () => async dispatch => {
     } catch (e) {
         console.log(e)
     }
+}
    
 
+export const updateCurrSongInfo = (songInfo) => {
+    return { type: CURR_URI, payload: songInfo }
 }

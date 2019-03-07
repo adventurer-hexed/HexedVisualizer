@@ -3,12 +3,12 @@ import CompleteRipple from "./vis_one/CompleteRipple"
 import { connect } from "react-redux"
 import {
     playPlayback,
-    fetchAnalysis,
     fetchCurrPlayback,
     deviceStateListener,
     zeroPlayBack,
     zeroDeviceStateCounter
 } from "../../../actions"
+import history from "../../../history"
 import requreAuth from "../../common/HOC/requireAuth"
 import BackBtn from "../../common/BackBtn/BackBtn";
 
@@ -37,6 +37,8 @@ class Visualizer extends React.Component {
     componentWillUnmount() {
         window.cancelAnimationFrame(this._animationFrame)
         window.removeEventListener("resize", this.handleWindowResize)
+        this.props.zeroPlayBack()
+        this.props.zeroDeviceStateCounter()
     }
 
 
@@ -50,7 +52,6 @@ class Visualizer extends React.Component {
 
     animate = (currentTime) => {
         if (!this._startingTime) this._startingTime = currentTime;
-        if (!this._lastTime) this._lastTime = currentTime
 
         const totalElapsedTime = (currentTime - this._startingTime);
         // this._animationFrame = requestAnimationFrame(this.animate.bind(this))
@@ -63,29 +64,33 @@ class Visualizer extends React.Component {
         this._animationFrame = requestAnimationFrame(this.animate)
         this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
         this._completeCircle.update(
-            this.props.progress + (totalElapsedTime),
+            totalElapsedTime,
             this.props.total_dur,
             this.props.beats,
             this.props.tatums,
             this.props.sections
         )
 
-        if (this.props.progress + totalElapsedTime >= this.props.total_dur + 10000) {
+        if (totalElapsedTime >= this.props.total_dur + 10000) {
             window.cancelAnimationFrame(this._animationFrame)
+            history.push("/")
             this.props.zeroPlayBack()
             this.props.zeroDeviceStateCounter()
         }
     }
 
     render() {
-        document.title = `${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.name : ''
+        document.title = `${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.name : 'No Song Playing'
+            } - ${(this.props.currSongPlayback.item) ? this.props.currSongPlayback.item.artists.reduce((final, artist) => {
+                return `${final}${(final === '') ? "" : ", "}${artist.name}`
+            }, '') : ''
             }`
         return (
             <div style={{ margin: 0, background: "black", padding: 0, position: "relative" }}>
                 <canvas style={{ zIndex: 1 }} ref={this._canvas} />
                 <BackBtn
                     artist={this.props.artist}
-                    song={'"' + this.props.songName + '"'}
+                    song={this.props.songName}
                 />
             </div>
         )
@@ -139,8 +144,10 @@ export default connect(
     {
         fetchCurrPlayback,
         playPlayback,
-        fetchAnalysis,
         zeroPlayBack,
         zeroDeviceStateCounter,
         deviceStateListener
     })(requreAuth(Visualizer))
+
+
+    
