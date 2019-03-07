@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Particles from "react-particles-js";
 import particles from "./particles.json";
 import LoginForm from "./LoginForm";
-import Logo from '../../common/Logo/Logo';
+import { Logo } from "../../common"
 import { getUser, signIn } from "../../../actions"
 import "./login.css";
 

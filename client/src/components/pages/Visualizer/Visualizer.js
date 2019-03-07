@@ -8,9 +8,8 @@ import {
     zeroPlayBack,
     zeroDeviceStateCounter
 } from "../../../actions"
+import { BackBtn, requireAuth } from "../../common"
 import history from "../../../history"
-import requreAuth from "../../common/HOC/requireAuth"
-import BackBtn from "../../common/BackBtn/BackBtn";
 
 class Visualizer extends React.Component {
     constructor(props) {
@@ -141,7 +140,7 @@ export default connect(
         zeroPlayBack,
         zeroDeviceStateCounter,
         deviceStateListener
-    })(requreAuth(Visualizer))
+    })(requireAuth(Visualizer))
 
 
     

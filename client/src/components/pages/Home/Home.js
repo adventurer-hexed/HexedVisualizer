@@ -1,29 +1,47 @@
 import React, { Component } from "react";
-import SideNav from "../../common/SideNav/SideNav"
-import requireAuth from "../../common/HOC/requireAuth"
 import { connect } from "react-redux"
 import { compose } from "redux"
-import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback, getRecentlyPlayed } from "../../../actions"
-import Search from '../../common/Search/Search'
-import ResultsGrid from '../../common/Results/ResultsGrid'
-import Player from '../../common/Player/NewPlayer'
-import SpotifyScript from '../../common/SpotifyScript'
-import Track from "../../common/Track/Track"
-import history from "../../../history"
-import Loader from "../../common/Loader/Loader"
+import { 
+    playPlayback, 
+    stopPlayback, 
+    updateProgress, 
+    fetchCurrPlayback, 
+    getRecentlyPlayed 
+} from "../../../actions"
+import {
+    SideNav,
+    requireAuth,
+    Search,
+    Player,
+    Track,
+    Loader,
+    SpotifyScript
+} from "../../common"
+
+
 import './Home.css'
 
 class Home extends Component {
+
     componentDidMount(){
         this.props.getRecentlyPlayed();
     }
+
+    playSong = (songURI, songID) => {
+        this.props.playPlayback(songURI, songID)
+    }
+
+    songClickHandler = (songURI) => {
+        this.props.playPlayback(songURI)
+    }
+
+    handleSongClick
+
     render() {
         document.title = "Home"
         return (
             <div className="home">
-                <SpotifyScript
-                    token={this.props.auth.accessToken}
-                />
+                <SpotifyScript />
                 {
                     this.props.isLoading
                     ? <Loader />
@@ -31,26 +49,18 @@ class Home extends Component {
                     
                 }
                 <div className="push_content contentContainer push_content_bottom">
-                    <Search displayResults={false}
-                        songClickHandler={(songURI) => {
-                            this.props.playPlayback(songURI)
-                        }
-                        } />
-
+                    <Search 
+                        displayResults={false}
+                        songClickHandler={this.songClickHandler} 
+                    />
 
                     <h2 className="tracks_header">Recently Played</h2>
 
                     <Track
-                    results={this.props.recentlyPlayed}
-                    playSong={(songURI, songID) => {
-                        this.props.playPlayback(songURI, songID)
-                        // history.push('/visualizer')
-                    }}
-                     />
-                    
+                        results={this.props.recentlyPlayed}
+                        playSong={this.playSong}
+                    />
                 </div>
-
-
 
                 <SideNav />
                 <Player />
@@ -65,13 +75,13 @@ const mapStateToProps = (state) => {
         recentlyPlayed = state.recentlyPlayed
     }
     return {
-    auth: state.auth,
-    isPlayback: state.playState.isPlayState,
-    currSongPlayback: state.currSongPlayback,
-    currSongAnalysis: state.songAnalysis,
-    searchResults: state.searchResults,
-    recentlyPlayed,
-    isLoading: state.isLoading
+        auth: state.auth,
+        isPlayback: state.playState.isPlayState,
+        currSongPlayback: state.currSongPlayback,
+        currSongAnalysis: state.songAnalysis,
+        searchResults: state.searchResults,
+        recentlyPlayed,
+        isLoading: state.isLoading
     }
 }
 

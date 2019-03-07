@@ -1,10 +1,17 @@
 import React from "react"
 import Script from "react-load-script"
 import { connect } from "react-redux"
-import { deviceStateListener, fetchAvailableDevices, updateCurrentDeviceId } from "../../actions"
+import { 
+    deviceStateListener, 
+    fetchAvailableDevices, 
+    updateCurrentDeviceId 
+} from "../../actions"
 
-export default connect(null, { deviceStateListener, fetchAvailableDevices, updateCurrentDeviceId })(
 
+
+const mapStateToProps = (state) => ({token:state.auth.accessToken})
+
+export default connect(mapStateToProps, { deviceStateListener, fetchAvailableDevices, updateCurrentDeviceId })(
     class SpotifyScript extends React.Component {
         setupScriptLoad = () => {
             window.onSpotifyWebPlaybackSDKReady = () => {

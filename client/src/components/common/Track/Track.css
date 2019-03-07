@@ -7,7 +7,9 @@
 }
 .tracks_header{
     color: white;
-    text-align: center;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 10px;
 }
 
 .track_item{

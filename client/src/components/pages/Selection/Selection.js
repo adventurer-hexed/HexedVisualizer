@@ -1,14 +1,16 @@
 import React from "react"
 import { connect } from "react-redux"
-import requireAuth from "../../common/HOC/requireAuth"
-import Song from "../../common/Song/Song"
-import SideNav from "../../common/SideNav/SideNav";
 import "./Song_Page.css"
-import SongHeader from "../../common/Song/SongHeader";
-import Search from "../../common/Search/Search"
 import NoResults from "./NoResults";
-import Player from "../../common/Player/NewPlayer"
-import Loader from "../../common/Loader/Loader"
+import {
+    SongHeader,
+    Song,
+    SideNav,
+    Search,
+    Player,
+    Loader,
+    requireAuth
+} from "../../common"
 
 class Selection extends React.Component {
     
@@ -16,13 +18,13 @@ class Selection extends React.Component {
         if (Object.values(this.props.tracks).length > 0) {
             return this.props.tracks.items.map ((a) => (
                 <Song
-                key={a.id}
-                songId={a.id}
-                uri={a.uri}
-                song={a.name}
-                artist={a.artists[0].name}
-                album={a.album.name}
-                timestamp={(a.duration_ms / 60000).toFixed(2)}
+                    key={a.id}
+                    songId={a.id}
+                    uri={a.uri}
+                    song={a.name}
+                    artist={a.artists[0].name}
+                    album={a.album.name}
+                    timestamp={(a.duration_ms / 60000).toFixed(2)}
             />
             ))
         } 
@@ -72,7 +74,7 @@ class Selection extends React.Component {
             }
                 <SideNav />
                 <Search />
-                {this.renderSearchResults()}
+                { this.renderSearchResults() }
                 <Player />
             </div>
         )
