@@ -47,7 +47,21 @@
     overflow: hidden;
 }
 
-@media only screen and (min-width: 1024px){
+@media screen and (min-width: 500px) {
+    .track_object{
+        display: inline-block;
+        width: 30%;
+        margin-bottom: 25px;
+    }
+
+    .track_item{
+        height: 200px;
+        margin: 0px 10px 0px 0px;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 900px){
     .track_item{
         margin: 0px 10px 0px 0px;
         height: 250px;
