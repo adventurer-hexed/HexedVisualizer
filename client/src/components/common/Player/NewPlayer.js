@@ -12,26 +12,26 @@ class Player extends Component {
         }
     }
 
-    handleProgressChange = (event) => {
+    handleProgressChange = ( event ) => {
         let newProgress = event.target.value
-        this.props.seekProgressPlayback(newProgress)
+        this.props.seekProgressPlayback( newProgress )
         // clearInterval(this._progressInterval)
         // this.playSongProgression()
 
     }
 
-    handleVolumeChange = (event) => {
+    handleVolumeChange = ( event ) => {
         let newVolume = event.target.value
     }
 
-    handlePlayButtonClick = (event) => {
-        if (this.props.isPlayback) {
-            clearInterval(this._progressInterval)
+    handlePlayButtonClick = ( event ) => {
+        if ( this.props.isPlayback ) {
+            clearInterval( this._progressInterval )
             this.props.fetchCurrPlayback()
             this.props.stopPlayback()
         } else {
             this.props.fetchCurrPlayback()
-            this.props.playPlayback()
+            this.props.playPlayback( false )
             this.playSongProgression()
         }
     }
@@ -59,36 +59,36 @@ class Player extends Component {
 
     playSongProgression = () => {
         let start = new Date().getTime();
-        this._progressInterval = setInterval(() => {
+        this._progressInterval = setInterval( () => {
             let now = new Date().getTime();
             var curr = this.props.currentTime
-            this.setState({
-                inc: ((curr + (now - start)))
-            })
-        }, 1);
+            this.setState( {
+                inc: ( ( curr + ( now - start ) ) )
+            } )
+        }, 1 );
     }
 
 
-    componentWillUnmount() {
-        clearInterval(this._progressInterval)
+    componentWillUnmount () {
+        clearInterval( this._progressInterval )
     }
 
-    componentDidMount() {
-        clearInterval(this._progressInterval)
-        if (this.props.isPlayback) {
+    componentDidMount () {
+        clearInterval( this._progressInterval )
+        if ( this.props.isPlayback ) {
             this.props.fetchCurrPlayback()
             this.playSongProgression()
         }
     }
 
-    render() {
+    render () {
         let { albumCover, songName, artistName, isPlayback, totalTime, currentVolume } = this.props
         return (
             <div className="player_container">
                 <div className="player">
                     <div className="playbackInfo">
                         <div className="songImage">
-                            {(albumCover) ? <img src={albumCover} className="albumCover" alt="Album Cover" /> : null}
+                            {( albumCover ) ? <img src={albumCover} className="albumCover" alt="Album Cover" /> : null}
                         </div>
                         <div className="songInfo">
                             <div className="songName">{songName}</div>
@@ -97,7 +97,7 @@ class Player extends Component {
                     </div>
                     <div className="playbackControls">
                         <div className="lastButton"><FaBackward /></div>
-                        <div className="playButton" onClick={this.handlePlayButtonClick}>{(isPlayback) ? <FaPause /> : <FaPlay />}</div>
+                        <div className="playButton" onClick={this.handlePlayButtonClick}>{( isPlayback ) ? <FaPause /> : <FaPlay />}</div>
                         <div className="nextButton"><FaForward /></div>
                         <div className="progress">
                             <input
@@ -105,7 +105,7 @@ class Player extends Component {
                                 type="range"
                                 min="0"
                                 max={totalTime}
-                                onChange={this.handleProgressChange}
+                                onMouseUp={this.handleProgressChange}
                                 value={this.state.inc}
                             />
                         </div>
@@ -129,20 +129,20 @@ class Player extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    if (state.currSongPlayback.item) {
-        if (Object.keys(state.currSongPlayback.item).length > 0) {
+const mapStateToProps = ( state ) => {
+    if ( state.currSongPlayback.item ) {
+        if ( Object.keys( state.currSongPlayback.item ).length > 0 ) {
             return {
                 albumCover: state.currSongPlayback.item.album.images[2].url,
                 songName: state.currSongPlayback.item.name,
-                artistName: state.currSongPlayback.item.artists.reduce((out, artist) => {
-                    if (out === "") {
+                artistName: state.currSongPlayback.item.artists.reduce( ( out, artist ) => {
+                    if ( out === "" ) {
                         out = artist.name
                     } else {
                         out += `, ${artist.name}`
                     }
                     return out
-                }, ""),
+                }, "" ),
                 isPlayback: state.playState.isPlayState,
                 currentTime: state.currSongPlayback.progress_ms,
                 totalTime: state.currSongPlayback.item.duration_ms,
@@ -164,10 +164,10 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, {
+export default connect( mapStateToProps, {
     playPlayback,
     stopPlayback,
     updateProgress,
     fetchCurrPlayback,
     seekProgressPlayback
-})(Player);
+} )( Player );

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"
 import { compose } from "redux"
-import { 
-    playPlayback, 
-    stopPlayback, 
-    updateProgress, 
-    fetchCurrPlayback, 
-    getRecentlyPlayed 
+import {
+    playPlayback,
+    stopPlayback,
+    updateProgress,
+    fetchCurrPlayback,
+    getRecentlyPlayed
 } from "../../../actions"
 import {
     SideNav,
@@ -23,35 +23,30 @@ import './Home.css'
 
 class Home extends Component {
 
-    componentDidMount(){
+    componentDidMount () {
         this.props.getRecentlyPlayed();
     }
 
-    playSong = (songURI, songID) => {
-        this.props.playPlayback(songURI, songID)
-    }
-
-    songClickHandler = (songURI) => {
-        this.props.playPlayback(songURI)
+    playSong = ( songURI, songID ) => {
+        this.props.playPlayback( true, songURI, songID )
     }
 
     handleSongClick
 
-    render() {
+    render () {
         document.title = "Home"
         return (
             <div className="home">
                 <SpotifyScript />
                 {
                     this.props.isLoading
-                    ? <Loader />
-                    : ""
-                    
+                        ? <Loader />
+                        : ""
+
                 }
                 <div className="push_content contentContainer push_content_bottom">
-                    <Search 
+                    <Search
                         displayResults={false}
-                        songClickHandler={this.songClickHandler} 
                     />
 
                     <h2 className="tracks_header">Recently Played</h2>
@@ -69,9 +64,9 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ( state ) => {
     let recentlyPlayed = []
-    if(Object.values(state.recentlyPlayed).length > 0){
+    if ( Object.values( state.recentlyPlayed ).length > 0 ) {
         recentlyPlayed = state.recentlyPlayed
     }
     return {
@@ -85,15 +80,15 @@ const mapStateToProps = (state) => {
     }
 }
 
-const enhance = compose(requireAuth)
+const enhance = compose( requireAuth )
 
-const EnhancedComponent = connect(mapStateToProps,
+const EnhancedComponent = connect( mapStateToProps,
     {
         playPlayback,
         stopPlayback,
         updateProgress,
         fetchCurrPlayback,
         getRecentlyPlayed
-    })(Home)
+    } )( Home )
 
-export default enhance(EnhancedComponent)
+export default enhance( EnhancedComponent )

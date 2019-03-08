@@ -19,37 +19,37 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { playPlayback })(
+export default connect( mapStateToProps, { playPlayback } )(
     class SideNav extends React.Component {
         state = {
             largeLogo: true
         }
 
-        componentDidMount() {
-            if (window.innerWidth < 1024) {
-                this.setState({
+        componentDidMount () {
+            if ( window.innerWidth < 1024 ) {
+                this.setState( {
                     largeLogo: false
-                })
+                } )
             }
-            window.addEventListener('resize', this.resizeHandler)
+            window.addEventListener( 'resize', this.resizeHandler )
         }
 
-        componentWillUnmount() {
-            window.removeEventListener('resize', this.resizeHandler)
+        componentWillUnmount () {
+            window.removeEventListener( 'resize', this.resizeHandler )
         }
 
-        
+
         playSong = () => {
             const { URI, songId } = this.props.currSongInfo
-            if (URI === "" || songId === "") {
-                console.log("You have not selected any song")
+            if ( URI === "" || songId === "" ) {
+                console.log( "You have not selected any song" )
             } else {
 
-                this.props.playPlayback(URI, songId)
+                this.props.playPlayback( true, URI, songId )
             }
         }
 
-        renderSongToVis() {
+        renderSongToVis () {
             return (
                 <div
                     className={`side_nav_icon_container`}
@@ -64,38 +64,38 @@ export default connect(mapStateToProps, { playPlayback })(
         }
 
         resizeHandler = () => {
-            if (window.innerWidth < 1024) {
-                this.setState({
+            if ( window.innerWidth < 1024 ) {
+                this.setState( {
                     largeLogo: false
-                })
+                } )
             } else {
-                this.setState({
+                this.setState( {
                     largeLogo: true
-                })
+                } )
             }
         }
 
-        render() {
+        render () {
             return (
                 ReactDOM.createPortal(
                     <div className="side_nav">
                         <section>
-                            <Logo large={this.state.largeLogo} light={true} height={(this.state.largeLogo) ? "65px" : "40px"} textMultiplier=".6" />
+                            <Logo large={this.state.largeLogo} light={true} height={( this.state.largeLogo ) ? "65px" : "40px"} textMultiplier=".6" />
 
                             {
-                                navLinks.map(({ path, text, Component }) => (
+                                navLinks.map( ( { path, text, Component } ) => (
                                     <NavLink key={text} path={path} text={text}>
                                         <Component size={"2em"} color="white" />
                                     </NavLink>
-                                ))
+                                ) )
                             }
                             {this.renderSongToVis()}
                         </section>
 
                         <LogoutBtn />
                     </div>,
-                    document.getElementById("sideNav")
+                    document.getElementById( "sideNav" )
                 )
             )
         }
-    })
+    } )

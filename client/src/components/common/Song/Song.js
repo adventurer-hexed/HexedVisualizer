@@ -4,12 +4,12 @@ import { playPlayback } from "../../../actions"
 import { connect } from "react-redux";
 
 
-export default connect(null, { playPlayback })(
-    (props) => (
+export default connect( null, { playPlayback } )(
+    ( props ) => (
         <div
             className="song_container"
-            onClick={() => props.playPlayback(props.uri, props.songId)}
-            >
+            onClick={() => props.playPlayback( true, props.uri, props.songId )}
+        >
             <div className="song_text ellipse">
                 <p>{props.song}</p>
             </div>
@@ -27,4 +27,4 @@ export default connect(null, { playPlayback })(
             </div>
 
         </div>
-))
+    ) )

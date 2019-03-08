@@ -7,22 +7,22 @@ import { connect } from 'react-redux'
 import "./Search.css"
 
 class Search extends Component {
-    updateSearch = (searchTerms) => {
-        this.props.fetchSearchResults(searchTerms)
-        history.push("/search")
+    updateSearch = ( searchTerms ) => {
+        this.props.fetchSearchResults( searchTerms )
+        history.push( "/search" )
     }
 
-    playSong = (trackURI, songId) => {
-        this.props.playPlayback(trackURI, songId)
+    playSong = ( trackURI, songId ) => {
+        this.props.playPlayback( true, trackURI, songId )
     }
 
-    render() {
+    render () {
         let displayResults = this.props.displayResults || false
         return (
             <div className="searchMenu">
                 <SearchBar pushToSearch={this.props.pushToSearch || false} updateSearchResults={this.updateSearch} />
                 {
-                    (displayResults) ? <ResultsDropdown
+                    ( displayResults ) ? <ResultsDropdown
                         results={this.props.searchResults}
                         playSong={this.playSong}
                         songClickHandler={this.props.songClickHandler}
@@ -33,10 +33,10 @@ class Search extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ( state ) => ( {
     deviceId: state.device.id,
     searchResults: state.searchResults
-})
+} )
 
 
-export default connect(mapStateToProps, { playPlayback, fetchSearchResults })(Search)
+export default connect( mapStateToProps, { playPlayback, fetchSearchResults } )( Search )
