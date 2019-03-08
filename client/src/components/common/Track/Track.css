@@ -4,6 +4,7 @@
     margin-left: .4em;
     margin-right: .4em;
     margin-bottom: 10px;
+    /* border: 2px solid green */
 }
 .tracks_header{
     color: white;
@@ -13,13 +14,26 @@
 }
 
 .track_item{
+    cursor: pointer;
     height: 140px;
     width: 140px;
-    /* border: white solid 1px; */
+    border: white solid 1px;
+    transition: 0.4s;
     display: inline-block;
     text-align: center;
     background-position: center;
     background-size: cover;
+}
+
+.track_item:hover {
+    transform: scaleY(1.1) scaleX(1.1);
+    z-index: 4
+}
+
+.track_item:hover:after {
+    width: 100%;
+    height: 100%;
+    background: black;
 }
 
 
