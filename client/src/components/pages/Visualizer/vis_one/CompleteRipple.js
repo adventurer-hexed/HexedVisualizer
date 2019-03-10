@@ -14,7 +14,7 @@ export default class CompleteRipple {
         this._currSectionIndex = 0
         this._isRnado = false
         this._isFill = true
-        this._occurencePos = 5;
+        this._occurencePos = 4;
     }
 
     // update(progress = 0, beats = [], tatums=[]) {
@@ -210,22 +210,26 @@ export default class CompleteRipple {
               let ripple_x = x
               let ripple_y = y
               
+              // TOP
               if(this._occurencePos % 5 === 0) {
-                ripple_x -= 200
-                // ripple_y -= 100
-              } else if(this._occurencePos % 5 === 1) {
-                ripple_x -= 100
-                // ripple_y -= 100
-              } else if(this._occurencePos % 5 === 2) {
-                ripple_x += 0
-                // ripple_y += 100
-              } else if(this._occurencePos % 5 === 3) {
-                ripple_x += 100
-                // ripple_y += 100
-              } else if(this._occurencePos % 5 === 4) {
-                ripple_x += 200
-              }
+                // ripple_x -= 200
+                ripple_y -= 200
 
+                // Left
+              } else if(this._occurencePos % 5 === 1) {
+                ripple_x -= 200
+                // ripple_y -= 200
+
+                // BOTTOM
+              } else if(this._occurencePos % 5 === 2) {
+                // ripple_x += 0
+                ripple_y += 200
+
+                // RIGHT
+              } else if(this._occurencePos % 5 === 3) {
+                ripple_x += 200
+                // ripple_y += 200
+              } 
               const confidence = arr[this[index]].confidence
               const rippleCircle = new RippleCircle(
                 this._ctx,
@@ -240,7 +244,7 @@ export default class CompleteRipple {
               this[index]++
 
               this._occurencePos++
-              this._occurencePos %= 5;
+              this._occurencePos %= 4;
 
             }
           }
