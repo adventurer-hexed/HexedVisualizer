@@ -13,6 +13,7 @@ import spotifyRecentlyPlayedReducer from "./spotifyRecentlyPlayedReducer"
 import spotifyCurrInfo from "./spotifyCurrInfo";
 import searchChange  from "./searchChange";
 import loadingReducer from "./loadingReducer";
+import volumeReducer from "./volumeReducer";
 
 export default combineReducers({
     auth: authReducer,
@@ -28,5 +29,6 @@ export default combineReducers({
     deviceCounter:deviceStateConter,
     recentlyPlayed: spotifyRecentlyPlayedReducer,
     currSongInfo: spotifyCurrInfo,
-    isLoading: loadingReducer
+    isLoading: loadingReducer,
+    volume: volumeReducer
 });

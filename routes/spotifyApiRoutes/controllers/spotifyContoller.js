@@ -94,5 +94,16 @@ module.exports = {
             console.log(e)
             res.status(401).json({ err: "Failed to find results for your search terms" })
         }
+    },
+
+    async updateVolume(req, res){
+        try {
+            await axios.put(`https://api.spotify.com/v1/me/player/volume?volume_percent=${req.body.newVolume}&device_id=${req.body.deviceid}`, {},
+                applyHeader(req.user.spotifyAccessToken))
+            res.status(200).json({ msg: "Success" })
+
+        } catch (e) {
+            res.status(401).json({ err: "Failed to update volume" })
+        }
     }
 }

@@ -21,7 +21,8 @@ import {
     ZERO_ANALYSIS,
     CURR_URI,
     LOADING_OFF,
-    LOADING_ON
+    LOADING_ON,
+    UPDATE_VOLUME
 } from "./types";
 
 
@@ -152,4 +153,16 @@ export const getRecentlyPlayed = () => async dispatch => {
 
 export const updateCurrSongInfo = ( songInfo ) => {
     return { type: CURR_URI, payload: songInfo }
+}
+
+export const updateVolume = ( newVolume ) => async (dispatch, getState) => {
+    try {
+        await axios.put( `/api/update-volume`, {
+            newVolume,
+            deviceid: getState().device.id
+        } )
+        dispatch( { type: UPDATE_VOLUME, payload: newVolume } )
+    } catch ( e ) {
+        console.log( e )
+    }
 }

@@ -30,3 +30,5 @@ export const FETCH_RECENTLY_PLAYED = "FETCH_RECENTLY_PLAYED"
 export const CURR_URI = "CURR_URI"
 
 export const SEARCH_CHANGE = "SEARCH_CHANGE" 
+
+export const UPDATE_VOLUME = "UPDATE_VOLUME"

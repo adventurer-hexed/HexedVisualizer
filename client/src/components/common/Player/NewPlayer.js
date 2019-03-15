@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
-import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback, seekProgressPlayback } from "../../../actions"
+import { playPlayback, stopPlayback, updateProgress, fetchCurrPlayback, seekProgressPlayback, updateVolume } from "../../../actions"
 import { FaBackward, FaForward, FaPlay, FaPause, FaVolume } from 'react-icons/fa'
 import './Player.css'
 
@@ -8,7 +8,8 @@ class Player extends Component {
     constructor() {
         super()
         this.state = {
-            inc: 0
+            inc: 0,
+            volume: 100
         }
     }
 
@@ -30,6 +31,13 @@ class Player extends Component {
 
     handleVolumeChange = ( event ) => {
         let newVolume = event.target.value
+        this.setState({volume: newVolume})
+    }
+
+    handleVolumeRelease = ( event ) => {
+        let newVolume = event.target.value
+        this.setState({volume: newVolume})
+        this.props.updateVolume(newVolume)
     }
 
     handlePlayButtonClick = ( event ) => {
@@ -128,8 +136,9 @@ class Player extends Component {
                             type="range"
                             min="0"
                             max="100"
-                            value={currentVolume}
+                            value={this.state.volume}
                             onChange={this.handleVolumeChange}
+                            onMouseUp={this.handleVolumeRelease}
                         />
 
                     </div>
@@ -156,7 +165,6 @@ const mapStateToProps = ( state ) => {
                 isPlayback: state.playState.isPlayState,
                 currentTime: state.currSongPlayback.progress_ms,
                 totalTime: state.currSongPlayback.item.duration_ms,
-                currentVolume: 100,
                 currSongPlayback: state.currSongPlayback
             }
         }
@@ -168,7 +176,6 @@ const mapStateToProps = ( state ) => {
         isPlayback: state.playState.isPlayState,
         currentTime: 0,
         totalTime: 100,
-        currentVolume: 100,
         currSongPlayback: state.currSongPlayback
     }
 };
@@ -179,5 +186,6 @@ export default connect( mapStateToProps, {
     stopPlayback,
     updateProgress,
     fetchCurrPlayback,
-    seekProgressPlayback
+    seekProgressPlayback,
+    updateVolume
 } )( Player );
