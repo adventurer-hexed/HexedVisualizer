@@ -12,12 +12,20 @@ class Player extends Component {
         }
     }
 
-    handleProgressChange = ( event ) => {
-        let newProgress = event.target.value
-        this.props.seekProgressPlayback( newProgress )
-        // clearInterval(this._progressInterval)
-        // this.playSongProgression()
+    handleProgressMouseDown = ( event ) => {
+        clearInterval(this._progressInterval)
+    }
 
+    handleProgressDrag = ( event ) => {
+        let newProgress = event.target.value
+        this.setState({inc: newProgress})
+    }
+
+    handleProgressMouseUp = ( event ) => {
+        let newProgress = event.target.value
+        this.setState({inc: newProgress})
+        this.playSongProgression()
+        this.props.seekProgressPlayback( newProgress )
     }
 
     handleVolumeChange = ( event ) => {
@@ -105,7 +113,9 @@ class Player extends Component {
                                 type="range"
                                 min="0"
                                 max={totalTime}
-                                onMouseUp={this.handleProgressChange}
+                                onMouseDown={this.handleProgressMouseDown}
+                                onMouseUp={this.handleProgressMouseUp}
+                                onChange={this.handleProgressDrag}
                                 value={this.state.inc}
                             />
                         </div>
