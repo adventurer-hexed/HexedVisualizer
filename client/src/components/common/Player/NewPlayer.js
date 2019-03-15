@@ -52,27 +52,6 @@ class Player extends Component {
         }
     }
 
-    // playSongProgression = () => {
-    //     this.progressInterval = setInterval(() => {
-    // this.props.fetchCurrPlayback()
-    //         if (this.props.currSongPlayback.item) {
-    //             if (Object.keys(this.props.currSongPlayback.item).length > 0) {
-    //                 const progressMs = this.props.currSongPlayback.progress_ms
-    //                 const durMs = this.props.currSongPlayback.item.duration_ms
-    //                 if (progressMs === 0) {
-    //                     clearInterval(this.progressInterval)
-    //                     this.props.stopPlayback()
-    //                 } else {
-    //                     this.props.updateProgress(progressMs / durMs * 100)
-    //                 }
-    //             }
-    //         } else {
-    //             clearInterval(this.progressInterval)
-    //             this.props.stopPlayback()
-    //         }
-    //     }, 250)
-    // }
-
     playSongProgression = () => {
         let start = new Date().getTime();
         this._progressInterval = setInterval( () => {
