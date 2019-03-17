@@ -84,43 +84,24 @@ export default class CompleteRipple {
 
             this[index]++;
           } else {
-              let ripple_x = x
-              let ripple_y = y
-              
-              // TOP
-              if(this._occurencePos % 5 === 0) {
-                ripple_y -= 150
+            let ripple_x = x;
+            let ripple_y = y;
 
-                // Left
-              } else if(this._occurencePos % 5 === 1) {
-                ripple_x -= 150
+            // TOP
+            if (this._occurencePos % 5 === 0) {
+              ripple_y -= 150;
 
-                // BOTTOM
-              } else if(this._occurencePos % 5 === 2) {
-                ripple_y += 150
+              // Left
+            } else if (this._occurencePos % 5 === 1) {
+              ripple_x -= 150;
 
-                // RIGHT
-              } else if(this._occurencePos % 5 === 3) {
-                ripple_x += 150
-              } 
-              const confidence = arr[this[index]].confidence
-              const rippleCircle = new RippleCircle(
-                this._ctx,
-                ripple_x, 
-                ripple_y, 
-                4,
-                1, 
-                "black", 
-                this._isFill, 
-                confidence, confidence,
-                .01
-              )
-              arrToPush.push(rippleCircle)
-              this[index]++
+              // BOTTOM
+            } else if (this._occurencePos % 5 === 2) {
+              ripple_y += 150;
 
-              this._occurencePos++
-              this._occurencePos %= 4;
-
+              // RIGHT
+            } else if (this._occurencePos % 5 === 3) {
+              ripple_x += 150;
             }
             const confidence = arr[this[index]].confidence;
             const rippleCircle = new RippleCircle(
@@ -152,8 +133,8 @@ export default class CompleteRipple {
     beats = [],
     tatums = [],
     sections = [],
-    bars = [],
-) {
+    bars = []
+  ) {
     if (this._currSectionIndex < sections.length - 1) {
       if (progress < total_dur) {
         while (progress >= sections[this._currSectionIndex].start * 1000) {
@@ -205,8 +186,6 @@ export default class CompleteRipple {
 
     if (this._currBarIndex < bars.length - 1) {
       const AMOUNT_OF_DIAMONDS = 5;
-      // const ripple_x1 = 100
-      // const ripple_y1 = 100
 
       if (progress < total_dur) {
         while (progress >= bars[this._currBarIndex].start * 1000) {
@@ -227,100 +206,25 @@ export default class CompleteRipple {
               )
             );
           }
-      }
-   
-      if(this._currBarIndex < bars.length - 1) {
-        const AMOUNT_OF_DIAMONDS = 5
 
-        if(progress < total_dur) {
-
-          while(progress >= bars[this._currBarIndex].start * 1000) {
-            const confidence = bars[this._currBarIndex].confidence
-
-              // top
-              for(let i = 0; i < AMOUNT_OF_DIAMONDS; i++) {
-                this._rippleBars.push(
-                  new RippleDiamond(
-                    this._ctx,
-                    (this._canvasWidth/2 - 400) + (200 * i),
-                    100, 
-                    0, 
-                    0, 
-                    this._isFill, 
-                    confidence, 
-                    confidence
-                  )
-                )
-              }
-
-              for(let i = 0; i < AMOUNT_OF_DIAMONDS; i++) {
-                this._rippleBars.push(
-                  new RippleDiamond(
-                    this._ctx,
-                    (this._canvasWidth/2 - 400) + (200 * i),
-                    this._canvasHeight - 100, 
-                    0, 
-                    0, 
-                    this._isFill, 
-                    confidence, 
-                    confidence
-                  )
-                )
-              }
-              
-              this._currBarIndex++
-            }
+          for (let i = 0; i < AMOUNT_OF_DIAMONDS; i++) {
+            this._rippleBars.push(
+              new RippleDiamond(
+                this._ctx,
+                this._canvasWidth / 2 - 400 + 200 * i,
+                this._canvasHeight - 100,
+                0,
+                0,
+                this._isFill,
+                confidence,
+                confidence
+              )
+            );
           }
 
           this._currBarIndex++;
         }
       }
-   
-      this.pushArray(
-        beats, 
-        this._rippleBeats, 
-        "_currBeatIndex", // cannot pass by ref
-        progress, 
-        total_dur,
-        this._canvasWidth / 2,
-        this._canvasHeight / 2,
-        false,
-        !this._isRando,
-        this._isFill
-      )
-
-
-      this.pushArray(
-        tatums, 
-        this._rippleTatums, 
-        "_currTatumIndex", // cannot pass by ref
-        progress,
-        total_dur,
-        this._canvasWidth / 2,
-        this._canvasHeight / 2,
-        true,
-        false,
-        this._isFill
-      )
-
-
-      // Makes array shrink when ripple circle has a opacity of 0
-      this._rippleBeats = this._rippleBeats.filter( a => a._opacity >= 0)
-      this._rippleBeats.forEach(element => element.update());
-       
-      // Makes array shrink when ripple circle has a opacity of 0
-      this._rippleTatums = this._rippleTatums.filter( a => a._opacity >= 0)
-      this._rippleTatums.forEach(element => element.update());
-
-      // Makes array shrink when ripple circle has a opacity of 0
-      this._rippleSections = this._rippleSections.filter( a => a._opacity >= 0)
-      this._rippleSections.forEach(element => element.update());
-      
-      // Makes array shrink when ripple bars has a opacity of 0
-      this._rippleBars = this._rippleBars.filter( a => a._opacity >= 0)
-      this._rippleBars.forEach(element => element.update());
-     
-        
     }
 
     this.pushArray(
@@ -361,6 +265,7 @@ export default class CompleteRipple {
     this._rippleSections = this._rippleSections.filter(a => a._opacity >= 0);
     this._rippleSections.forEach(element => element.update());
 
+    // Makes array shrink when ripple bars has a opacity of 0
     this._rippleBars = this._rippleBars.filter(a => a._opacity >= 0);
     this._rippleBars.forEach(element => element.update());
   }
