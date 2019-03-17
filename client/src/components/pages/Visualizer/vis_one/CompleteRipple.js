@@ -122,22 +122,6 @@ export default class CompleteRipple {
               this._occurencePos %= 4;
 
             }
-            const confidence = arr[this[index]].confidence;
-            const rippleCircle = new RippleCircle(
-              this._ctx,
-              ripple_x,
-              ripple_y,
-              4,
-              'black',
-              this._isFill,
-              confidence,
-              confidence
-            );
-            arrToPush.push(rippleCircle);
-            this[index]++;
-
-            this._occurencePos++;
-            this._occurencePos %= 4;
           }
         }
       }
@@ -294,6 +278,4 @@ export default class CompleteRipple {
      
         
     }
-
-
 }
