@@ -133,6 +133,8 @@
     color: #b6b6b6;
     margin: 5px 10px 5px 10px;
     transition: all 50ms;
+    border: none;
+    background: none;
   }
   
   .player .playButton{
@@ -161,6 +163,10 @@
     height: 42px;
     margin: 4px 9px 4px 9px;
   }
+
+  .player .disabled{
+    display: none;
+  }
   
   @media only screen and (min-width : 1024px) {
     .player{
@@ -186,5 +192,8 @@
     }
     .player .songInfo{
       text-align: left;
+    }
+    .player .disabled{
+      display: none;
     }
   }
