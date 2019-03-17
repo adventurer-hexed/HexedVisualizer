@@ -163,6 +163,10 @@
     height: 42px;
     margin: 4px 9px 4px 9px;
   }
+
+  .player .disabled{
+    display: none;
+  }
   
   @media only screen and (min-width : 1024px) {
     .player{
@@ -188,5 +192,8 @@
     }
     .player .songInfo{
       text-align: left;
+    }
+    .player .disabled{
+      display: none;
     }
   }

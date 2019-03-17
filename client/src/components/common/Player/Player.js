@@ -115,7 +115,7 @@ class Player extends Component {
             </div>
           </div>
           <div className="playbackControls">
-            <div className="lastButton">
+            <div className="lastButton disabled">
               <FaBackward />
             </div>
             <button
@@ -125,7 +125,7 @@ class Player extends Component {
             >
               {isPlayback ? <FaPause /> : <FaPlay />}
             </button>
-            <div className="nextButton">
+            <div className="nextButton disabled">
               <FaForward />
             </div>
             <div className="progress">
