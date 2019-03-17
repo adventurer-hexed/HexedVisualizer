@@ -1,15 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import CompleteRipple from './vis_one/CompleteRipple';
+import React from "react"
+import CompleteRipple from "./vis_one/CompleteRipple"
+import { connect } from "react-redux"
 import {
-  playPlayback,
-  fetchCurrPlayback,
-  deviceStateListener,
-  zeroPlayBack,
-  zeroDeviceStateCounter,
-} from '../../../actions';
-import { BackBtn, requireAuth } from '../../common';
-import history from '../../../history';
+    playPlayback,
+    fetchCurrPlayback,
+    deviceStateListener,
+    zeroPlayBack,
+    zeroDeviceStateCounter
+} from "../../../actions"
+import { BackBtn, requireAuth } from "../../common"
+import history from "../../../history"
 
 class Visualizer extends React.Component {
     constructor(props) {
@@ -95,36 +95,6 @@ class Visualizer extends React.Component {
             </div>
         )
     }
-  };
-
-  render() {
-    document.title = `${
-      this.props.currSongPlayback.item
-        ? this.props.currSongPlayback.item.name
-        : 'No Song Playing'
-    } - ${
-      this.props.currSongPlayback.item
-        ? this.props.currSongPlayback.item.artists.reduce(
-            (final, artist) =>
-              `${final}${final === '' ? '' : ', '}${artist.name}`,
-            ''
-          )
-        : ''
-    }`;
-    return (
-      <div
-        style={{
-          margin: 0,
-          background: 'black',
-          padding: 0,
-          position: 'relative',
-        }}
-      >
-        <canvas style={{ zIndex: 1 }} ref={this._canvas} />
-        <BackBtn artist={this.props.artist} song={this.props.songName} />
-      </div>
-    );
-  }
 }
 
 
@@ -167,12 +137,14 @@ const mapStateToProps = (state) => {
     }
 }
 export default connect(
-  mapStateToProps,
-  {
-    fetchCurrPlayback,
-    playPlayback,
-    zeroPlayBack,
-    zeroDeviceStateCounter,
-    deviceStateListener,
-  }
-)(requireAuth(Visualizer));
+    mapStateToProps,
+    {
+        fetchCurrPlayback,
+        playPlayback,
+        zeroPlayBack,
+        zeroDeviceStateCounter,
+        deviceStateListener
+    })(requireAuth(Visualizer))
+
+
+    
