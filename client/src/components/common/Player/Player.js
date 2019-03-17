@@ -91,9 +91,9 @@ class Player extends Component {
                         </div>
                     </div>
                     <div className="playbackControls">
-                        <div className="lastButton"><FaBackward /></div>
+                        <div className="lastButton disabled"><FaBackward /></div>
                         <div className="playButton" onClick={this.handlePlayButtonClick}>{( isPlayback ) ? <FaPause /> : <FaPlay />}</div>
-                        <div className="nextButton"><FaForward /></div>
+                        <div className="nextButton disabled"><FaForward /></div>
                         <div className="progress">
                             <input
                                 className="slider"
