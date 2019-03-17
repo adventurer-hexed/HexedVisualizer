@@ -11,28 +11,50 @@ const colorOpacity = opacity => [
 ];
 
 export default class RippleCircle extends Circle {
-  constructor(ctx, x, y, rad, color, isFill, opacity, confidence) {
-    super(ctx, x, y, rad, color, isFill);
-    this._ctx = ctx;
-    this._opacity = opacity;
-    this._confidence = confidence;
-    this._isFill = isFill;
-  }
-
-  draw() {
-    this._ctx.beginPath();
-    let color;
-    if (this._confidence > 0.8) {
-      color = colorOpacity(this._opacity)[1];
-    } else if (this._confidence > 0.5) {
-      color = colorOpacity(this._opacity)[2];
-    } else if (this._confidence > 0.4) {
-      color = colorOpacity(this._opacity)[3];
-    } else {
-      color = colorOpacity(this._opacity)[0];
+    constructor(ctx, x, y, rad, dRad, color, isFill, opacity, confidence, dOpacity) {
+      super(ctx, x, y, rad, color, isFill)
+      this._ctx = ctx
+      this._opacity = opacity
+      this._confidence = confidence
+      this._isFill = isFill
+      this._dRad = dRad
+      this._dOpacity = dOpacity
     }
 
-    this._ctx.strokeStyle = color;
+          this._ctx.strokeStyle = color
+          
+          if(this._isFill) {
+            this._ctx.fillStyle = color
+          }
+          this._ctx.lineWidth = 5
+          this._ctx.arc(this._x, this._y, this._rad, 0, Math.PI * 2, false)
+          this._ctx.stroke()
+          if(this._isFill) {
+            this._ctx.fill()
+          }
+      }
+  
+      update() {
+          this._rad += this._drad
+          this._opacity -= this._dOpacity
+          if(this._opacity <= 0) {
+            this._opacity = 0
+          }
+          
+          this.draw()
+
+
+          // this._rad += 4
+          // this._opacity -= .02
+          // if(this._opacity <= 0) {
+          //   this._opacity = 0
+          // }
+
+
+          // this._rad += this.dRad
+          // this._opactiy -= this.dOpacity
+      }
+}
 
     if (this._isFill) {
       this._ctx.fillStyle = color;
@@ -45,13 +67,3 @@ export default class RippleCircle extends Circle {
     }
   }
 
-  update() {
-    this._rad += 1;
-    this._opacity -= 0.005;
-    if (this._opacity <= 0) {
-      this._opacity = 0;
-    }
-
-    this.draw();
-  }
-}
