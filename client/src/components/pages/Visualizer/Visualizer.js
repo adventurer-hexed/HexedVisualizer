@@ -62,7 +62,8 @@ class Visualizer extends React.Component {
             this.props.total_dur,
             this.props.beats,
             this.props.tatums,
-            this.props.sections
+            this.props.sections,
+            this.props.bars
         )
 
         if (totalElapsedTime >= this.props.total_dur) {
@@ -98,6 +99,7 @@ class Visualizer extends React.Component {
 
 
 const mapStateToProps = (state) => {
+    let bars = []
     let beats = []
     let tatums = []
     let sections = []
@@ -107,6 +109,7 @@ const mapStateToProps = (state) => {
     let artist = ""
 
     if (Object.values(state.songAnalysis).length > 0) {
+        bars = state.songAnalysis.bars
         beats = state.songAnalysis.beats
         tatums = state.songAnalysis.tatums
         sections = state.songAnalysis.sections
@@ -120,6 +123,7 @@ const mapStateToProps = (state) => {
     }
 
     return {
+        bars,
         beats,
         tatums,
         sections,
