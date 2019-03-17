@@ -133,6 +133,8 @@
     color: #b6b6b6;
     margin: 5px 10px 5px 10px;
     transition: all 50ms;
+    border: none;
+    background: none;
   }
   
   .player .playButton{
