@@ -3,13 +3,18 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import "./assets/App.css";
-
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
 
-const enhanceComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+let enhanceComposer;
+if(process.env.REACT_APP_ENVIROMENT === "production") {
+    enhanceComposer = compose
+} else {
+    enhanceComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+}
 const enhance = enhanceComposer(applyMiddleware(thunk));
 const store = createStore(reducers, enhance);
 

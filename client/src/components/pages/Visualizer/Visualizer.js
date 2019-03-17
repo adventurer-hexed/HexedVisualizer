@@ -40,6 +40,13 @@ class Visualizer extends React.Component {
         this.props.zeroDeviceStateCounter()
     }
 
+    parseText(text) {
+        if(text.length > 28) {
+            return "\"" + text.slice(0, 28) + "...\""
+        } else {
+            return "\""+text+"\""
+        }
+    }
 
 
     handleWindowResize = (e) => {
@@ -90,7 +97,7 @@ class Visualizer extends React.Component {
                 <canvas style={{ zIndex: 1 }} ref={this._canvas} />
                 <BackBtn
                     artist={this.props.artist}
-                    song={this.props.songName}
+                    song={this.parseText(this.props.songName)}
                 />
             </div>
         )

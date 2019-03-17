@@ -85,23 +85,19 @@ export default class CompleteRipple {
               
               // TOP
               if(this._occurencePos % 5 === 0) {
-                // ripple_x -= 200
                 ripple_y -= 150
 
                 // Left
               } else if(this._occurencePos % 5 === 1) {
                 ripple_x -= 150
-                // ripple_y -= 150
 
                 // BOTTOM
               } else if(this._occurencePos % 5 === 2) {
-                // ripple_x += 0
                 ripple_y += 150
 
                 // RIGHT
               } else if(this._occurencePos % 5 === 3) {
                 ripple_x += 150
-                // ripple_y += 200
               } 
               const confidence = arr[this[index]].confidence
               const rippleCircle = new RippleCircle(
@@ -187,10 +183,6 @@ export default class CompleteRipple {
    
       if(this._currBarIndex < bars.length - 1) {
         const AMOUNT_OF_DIAMONDS = 5
-        const ripple_x1 = 100
-        const ripple_y1 = 100
-
-
 
         if(progress < total_dur) {
 
@@ -272,7 +264,8 @@ export default class CompleteRipple {
       // Makes array shrink when ripple circle has a opacity of 0
       this._rippleSections = this._rippleSections.filter( a => a._opacity >= 0)
       this._rippleSections.forEach(element => element.update());
-
+      
+      // Makes array shrink when ripple bars has a opacity of 0
       this._rippleBars = this._rippleBars.filter( a => a._opacity >= 0)
       this._rippleBars.forEach(element => element.update());
      
