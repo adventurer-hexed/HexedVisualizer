@@ -11,96 +11,70 @@ import {
 import { BackBtn, requireAuth } from '../../common';
 import history from '../../../history';
 
+function parseText(text) {
+  if (text.length > 28) {
+    return `"${text.slice(0, 28)}..."`;
+  }
+  return `"${text}"`;
+}
+
 class Visualizer extends React.Component {
-    constructor(props) {
-        super(props)
-        this._canvas = React.createRef()
-        this._startingTime = props.progress;
-        this._lastTime = null
-    }
+  constructor(props) {
+    super(props);
+    this._canvas = React.createRef();
+    this._startingTime = props.progress;
+    this._lastTime = null;
+  }
 
-    componentDidMount() {
-        window.addEventListener("resize", this.handleWindowResize)
-        this._canvas.current.width = window.innerWidth
-        this._canvas.current.height = window.innerHeight
-        this._ctx = this._canvas.current.getContext("2d")
-        this._completeCircle = new CompleteRipple(
-            this._ctx,
-            this._canvas.current.width,
-            this._canvas.current.height
-        )
+  componentDidMount() {
+    window.addEventListener('resize', this.handleWindowResize);
+    this._canvas.current.width = window.innerWidth;
+    this._canvas.current.height = window.innerHeight;
+    this._ctx = this._canvas.current.getContext('2d');
+    this._completeCircle = new CompleteRipple(
+      this._ctx,
+      this._canvas.current.width,
+      this._canvas.current.height
+    );
 
-        this.animate()
-    }
+    this.animate();
+  }
 
-    componentWillUnmount() {
-        window.cancelAnimationFrame(this._animationFrame)
-        window.removeEventListener("resize", this.handleWindowResize)
-        this.props.zeroPlayBack()
-        this.props.zeroDeviceStateCounter()
-    }
+  componentWillUnmount() {
+    window.cancelAnimationFrame(this._animationFrame);
+    window.removeEventListener('resize', this.handleWindowResize);
+    this.props.zeroPlayBack();
+    this.props.zeroDeviceStateCounter();
+  }
 
-    parseText(text) {
-        if(text.length > 28) {
-            return "\"" + text.slice(0, 28) + "...\""
-        } else {
-            return "\""+text+"\""
-        }
-    }
+  handleWindowResize = () => {
+    this._canvas.current.width = window.innerWidth;
+    this._canvas.current.height = window.innerHeight;
+    this._completeCircle._canvasHeight = this._canvas.current.height;
+    this._completeCircle._canvasWidth = this._canvas.current.width;
+  };
 
+  animate = currentTime => {
+    if (!this._startingTime) this._startingTime = currentTime;
 
-    handleWindowResize = (e) => {
-        this._canvas.current.width = window.innerWidth
-        this._canvas.current.height = window.innerHeight
-        this._completeCircle._canvasHeight = this._canvas.current.height
-        this._completeCircle._canvasWidth = this._canvas.current.width
-    }
+    const totalElapsedTime = currentTime - this._startingTime;
 
-    animate = (currentTime) => {
-        if (!this._startingTime) this._startingTime = currentTime;
+    this._animationFrame = requestAnimationFrame(this.animate);
+    this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    this._completeCircle.update(
+      totalElapsedTime,
+      this.props.total_dur,
+      this.props.beats,
+      this.props.tatums,
+      this.props.sections,
+      this.props.bars
+    );
 
-        const totalElapsedTime = (currentTime - this._startingTime);
-
-
-        this._animationFrame = requestAnimationFrame(this.animate)
-        this._ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-        this._completeCircle.update(
-            totalElapsedTime,
-            this.props.total_dur,
-            this.props.beats,
-            this.props.tatums,
-            this.props.sections,
-            this.props.bars
-        )
-
-        if (totalElapsedTime >= this.props.total_dur) {
-            window.cancelAnimationFrame(this._animationFrame)
-            history.push("/")
-            this.props.zeroPlayBack()
-            this.props.zeroDeviceStateCounter()
-        }
-    }
-
-    render() {
-        document.title = `${(this.props.currSongPlayback.item) 
-            ? this.props.currSongPlayback.item.name 
-            : 'No Song Playing'
-            } - ${(this.props.currSongPlayback.item) 
-                ? this.props.currSongPlayback.item.artists.reduce((final, artist) => {
-                return `${final}${(final === '') 
-                ? "" 
-                : ", "}${artist.name}`
-            }, '') : ''
-            }`
-        return (
-            <div style={{ margin: 0, background: "black", padding: 0, position: "relative" }}>
-                <canvas style={{ zIndex: 1 }} ref={this._canvas} />
-                <BackBtn
-                    artist={this.props.artist}
-                    song={this.parseText(this.props.songName)}
-                />
-            </div>
-        )
+    if (totalElapsedTime >= this.props.total_dur) {
+      window.cancelAnimationFrame(this._animationFrame);
+      history.push('/');
+      this.props.zeroPlayBack();
+      this.props.zeroDeviceStateCounter();
     }
   };
 
@@ -128,7 +102,10 @@ class Visualizer extends React.Component {
         }}
       >
         <canvas style={{ zIndex: 1 }} ref={this._canvas} />
-        <BackBtn artist={this.props.artist} song={this.props.songName} />
+        <BackBtn
+          artist={this.props.artist}
+          song={parseText(this.props.songName)}
+        />
       </div>
     );
   }

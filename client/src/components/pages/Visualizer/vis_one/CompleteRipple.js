@@ -152,8 +152,8 @@ export default class CompleteRipple {
     beats = [],
     tatums = [],
     sections = [],
-    bars = []
-  ) {
+    bars = [],
+) {
     if (this._currSectionIndex < sections.length - 1) {
       if (progress < total_dur) {
         while (progress >= sections[this._currSectionIndex].start * 1000) {
