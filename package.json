@@ -1,7 +1,7 @@
 {
   "name": "hexed-visualizer",
   "version": "1.0.0",
-  "description": "An audio visualizer built for raspberry pi, which takes input through a web portal, and outputs the visualizer signal to an led array.",
+  "description": "Hexed Visualizer is an audio visualizer built for spotify",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -16,15 +16,32 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anthonyrivas/VisualizerPi.git"
+    "url": "git+https://github.com/adventurer-hexed/HexedVisualizer.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "visualizer",
+    "spotify",
+    "music-player",
+    "music",
+    "webapp",
+    "react",
+    "reactjs",
+    "passport",
+    "passportjs",
+    "node",
+    "nodejs",
+    "mysql"
+  ],
+  "contributors": [
+    "Andrew Nguyen",
+    "Anthony Rivas",
+    "Colin Nelson"
+  ],
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anthonyrivas/VisualizerPi/issues"
+    "url": "https://github.com/adventurer-hexed/HexedVisualizer/issues"
   },
-  "homepage": "https://github.com/anthonyrivas/VisualizerPi#readme",
+  "homepage": "https://github.com/adventurer-hexed/HexedVisualizer#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
