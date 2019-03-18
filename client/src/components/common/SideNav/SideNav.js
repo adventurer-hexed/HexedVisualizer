@@ -7,6 +7,7 @@ import NavLink from './NavLink';
 import LogoutBtn from './LogoutBtn';
 import Logo from '../Logo/Logo';
 import { playPlayback } from '../../../actions';
+import { withRouter } from "react-router-dom" 
 
 const navLinks = [
   { path: '/', text: 'Home', Component: IoIosHome },
@@ -20,7 +21,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { playPlayback }
-)(
+)(withRouter(
   class SideNav extends React.Component {
     state = {
       largeLogo: true,
@@ -72,6 +73,7 @@ export default connect(
     }
 
     render() {
+      console.log(this.props)
       return ReactDOM.createPortal(
         <div className="side_nav">
           <section>
@@ -83,7 +85,11 @@ export default connect(
             />
 
             {navLinks.map(({ path, text, Component }) => (
-              <NavLink key={text} path={path} text={text}>
+              <NavLink 
+                key={text} 
+                path={path} 
+                text={text}
+                clN={this.props.match.path === path ? "active_nav" : ""}>
                 <Component size="2em" color="white" />
               </NavLink>
             ))}
@@ -96,4 +102,4 @@ export default connect(
       );
     }
   }
-);
+));

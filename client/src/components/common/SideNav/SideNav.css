@@ -29,6 +29,11 @@
     padding: 10px;
 }
 
+.active_nav {
+    background: rgba(255, 255, 255, .1);
+    border-radius: 30px;
+}
+
 .side_nav_icon_container {
     padding: 10px;
     text-decoration: none;
