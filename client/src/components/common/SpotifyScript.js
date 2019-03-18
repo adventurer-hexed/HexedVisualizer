@@ -5,13 +5,19 @@ import {
   deviceStateListener,
   fetchAvailableDevices,
   updateCurrentDeviceId,
+  stopPlayback
 } from '../../actions';
+import history from "../../history"
 
 const mapStateToProps = state => ({ token: state.auth.accessToken });
 
 export default connect(
   mapStateToProps,
-  { deviceStateListener, fetchAvailableDevices, updateCurrentDeviceId }
+  { deviceStateListener, 
+    fetchAvailableDevices, 
+    updateCurrentDeviceId,
+    stopPlayback
+  }
 )(
   class SpotifyScript extends React.Component {
     componentWillMount() {
@@ -46,6 +52,9 @@ export default connect(
           if (state) {
             this.props.deviceStateListener(state);
             this.props.fetchAvailableDevices();
+          } else {
+            // this.props.stopPlayback()
+            history.push("/")
           }
         });
 

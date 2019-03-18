@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/App.css';
-
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
@@ -11,11 +10,11 @@ import reducers from './reducers';
 
 let enhanceComposer;
 // Disable redux dev tools in production
-if (process.env.REACT_APP_ENVIROMENT === 'production') {
-  enhanceComposer = compose;
-} else {
+// if (process.env.REACT_APP_ENVIROMENT === 'production') {
+  // enhanceComposer = compose;
+// } else {
   enhanceComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-}
+// }
 const enhance = enhanceComposer(applyMiddleware(thunk));
 const store = createStore(reducers, enhance);
 

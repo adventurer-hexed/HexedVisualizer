@@ -1,4 +1,4 @@
-import { CURR_URI } from '../actions/types';
+import { CURR_URI, ZERO_CURR_URI } from '../actions/types';
 
 const INITIAL_STATE = {
   URI: '',
@@ -9,6 +9,7 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CURR_URI:
       return { ...state, ...action.payload };
+
 
     default:
       return state;

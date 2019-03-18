@@ -7,6 +7,7 @@ import {
   deviceStateListener,
   zeroPlayBack,
   zeroDeviceStateCounter,
+  stopPlayback,
 } from '../../../actions';
 import { BackBtn, requireAuth } from '../../common';
 import history from '../../../history';
@@ -43,7 +44,7 @@ class Visualizer extends React.Component {
   componentWillUnmount() {
     window.cancelAnimationFrame(this._animationFrame);
     window.removeEventListener('resize', this.handleWindowResize);
-    this.props.zeroPlayBack();
+    // this.props.zeroPlayBack();
     this.props.zeroDeviceStateCounter();
   }
 
@@ -69,12 +70,10 @@ class Visualizer extends React.Component {
       this.props.sections,
       this.props.bars
     );
-
     if (totalElapsedTime >= this.props.total_dur) {
       window.cancelAnimationFrame(this._animationFrame);
+      this.props.stopPlayback()
       history.push('/');
-      this.props.zeroPlayBack();
-      this.props.zeroDeviceStateCounter();
     }
   };
 
@@ -126,7 +125,7 @@ const mapStateToProps = state => {
     beats = state.songAnalysis.beats;
     tatums = state.songAnalysis.tatums;
     sections = state.songAnalysis.sections;
-    total_dur = state.songAnalysis.track.duration * 60000;
+    total_dur = state.songAnalysis.track.duration * 1000;
   }
 
   if (Object.values(state.currSongPlayback).length > 0) {
@@ -156,5 +155,6 @@ export default connect(
     zeroPlayBack,
     zeroDeviceStateCounter,
     deviceStateListener,
+    stopPlayback
   }
 )(requireAuth(Visualizer));

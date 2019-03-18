@@ -32,6 +32,7 @@
 .side_nav_icon_container {
     padding: 10px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .nav_icon_down {

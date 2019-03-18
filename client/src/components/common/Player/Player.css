@@ -135,6 +135,8 @@
     transition: all 50ms;
     border: none;
     background: none;
+    outline: none;
+    
   }
   
   .player .playButton{

@@ -23,6 +23,7 @@ import {
   LOADING_OFF,
   LOADING_ON,
   UPDATE_VOLUME,
+  ZERO_CURR_URI
 } from './types';
 
 export const signIn = id => async dispatch => {
@@ -74,7 +75,6 @@ export const playPlayback = (triggerLoading, songURI, songId) => async (
   getState
 ) => {
   if (!getState().playState.isPlayState || songURI) {
-    // dispatch(fetchAnalysis(songId))
     dispatch({ type: ZERO_ANALYSIS });
     if (triggerLoading) {
       dispatch({ type: LOADING_ON });
@@ -88,7 +88,9 @@ export const playPlayback = (triggerLoading, songURI, songId) => async (
       songURI ? { uris: JSON.stringify([songURI]) } : {}
     );
     dispatch(fetchCurrPlayback());
-    dispatch(updateCurrSongInfo({ URI: songURI, songId }));
+    if(songURI) {
+      dispatch(updateCurrSongInfo({ URI: songURI, songId }));
+    }
     dispatch({ type: PLAY_STATE_ON, payload: true });
   }
 };
