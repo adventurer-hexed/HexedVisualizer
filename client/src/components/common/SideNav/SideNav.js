@@ -62,14 +62,14 @@ export default connect(
     };
 
     renderSongToVis() {
-      let error = ""
+      let isSongSelected = ""
       if(this.props.currSongInfo.URI === "") {
-        error = "song_not_ready_error"
+        isSongSelected = "song_not_ready_isSongSelected"
       } else {
-        error = "song_ready_success"
+        isSongSelected = "song_ready_success"
       }
       return (
-        <div className={`side_nav_icon_container ${error}`} onClick={this.playSong}>
+        <div className={`side_nav_icon_container ${isSongSelected}`} onClick={this.playSong}>
           <div className="nav_icon_container">
             <IoMdMusicalNote size="2em" color="white" />
           </div>
