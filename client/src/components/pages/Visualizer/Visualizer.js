@@ -12,12 +12,6 @@ import {
 import { BackBtn, requireAuth } from '../../common';
 import history from '../../../history';
 
-function parseText(text) {
-  if (text.length > 28) {
-    return `"${text.slice(0, 28)}..."`;
-  }
-  return `"${text}"`;
-}
 
 class Visualizer extends React.Component {
   constructor(props) {
@@ -54,6 +48,14 @@ class Visualizer extends React.Component {
     this._completeCircle._canvasHeight = this._canvas.current.height;
     this._completeCircle._canvasWidth = this._canvas.current.width;
   };
+
+
+  parseText = (text) => {
+    if (text.length > 28) {
+      return `"${text.slice(0, 28)}..."`;
+    }
+    return `"${text}"`;
+  }
 
   animate = currentTime => {
     if (!this._startingTime) this._startingTime = currentTime;
@@ -103,7 +105,7 @@ class Visualizer extends React.Component {
         <canvas style={{ zIndex: 1 }} ref={this._canvas} />
         <BackBtn
           artist={this.props.artist}
-          song={parseText(this.props.songName)}
+          song={this.parseText(this.props.songName)}
         />
       </div>
     );
