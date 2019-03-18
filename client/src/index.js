@@ -10,8 +10,8 @@ import reducers from './reducers';
 
 let enhanceComposer;
 // Disable redux dev tools in production
-// if (process.env.REACT_APP_ENVIROMENT === 'production') {
-  // enhanceComposer = compose;
+// if (process.env. === 'production') {
+//   enhanceComposer = compose;
 // } else {
   enhanceComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // }
