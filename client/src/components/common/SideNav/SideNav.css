@@ -40,8 +40,6 @@
     cursor: pointer;
     transition: 0.4s;
     box-sizing: border-box;
-
-    
 }
 
 .side_nav_icon_container:hover {
@@ -49,6 +47,20 @@
     border-radius: 30px;
     
 }
+
+.song_not_ready_error {}
+
+.song_not_ready_error:hover {
+    background: rgba(230, 33, 23, 1);
+}
+
+.song_ready_success {}
+
+.song_ready_success:hover {
+    background: rgba(83,235,145,1)
+
+}
+
 
 .nav_icon_down {
     align-self: center;

@@ -24,7 +24,7 @@ export default connect(
 )(withRouter(
   class SideNav extends React.Component {
     state = {
-      largeLogo: true,
+      largeLogo: true
     };
 
     componentDidMount() {
@@ -62,8 +62,14 @@ export default connect(
     };
 
     renderSongToVis() {
+      let error = ""
+      if(this.props.currSongInfo.URI === "") {
+        error = "song_not_ready_error"
+      } else {
+        error = "song_ready_success"
+      }
       return (
-        <div className="side_nav_icon_container" onClick={this.playSong}>
+        <div className={`side_nav_icon_container ${error}`} onClick={this.playSong}>
           <div className="nav_icon_container">
             <IoMdMusicalNote size="2em" color="white" />
           </div>
