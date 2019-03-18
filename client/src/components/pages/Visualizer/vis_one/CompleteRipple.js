@@ -69,9 +69,9 @@ export default class CompleteRipple {
               arrToPush.push(
                 new RippleCircle(
                   this._ctx,
-                  100 + i * 200,
+                  100 + i * 205,
                   this._canvasHeight / 2,
-                  20,
+                  30,
                   1,
                   'black',
                   this._isFill,
