@@ -1,4 +1,3 @@
-
 export default class RippleDiamond {
   constructor(ctx, x, y, w, h, isFill, opacity, confidence) {
     this._ctx = ctx;
@@ -18,7 +17,7 @@ export default class RippleDiamond {
     `rgba(234,92,144, ${opacity})`, // Pinkish Red
     `rgba(25,176,221,${opacity})`, // Light Blue
     `rgba(131,0,173,${opacity}`, // Purple
-    `rgba(251,133,95,${opacity})` // Coral
+    `rgba(251,133,95,${opacity})`, // Coral
   ];
 
   draw() {

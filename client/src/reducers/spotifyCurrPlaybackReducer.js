@@ -18,7 +18,7 @@ export default (state = {}, action) => {
 
     case ZERO_CURR_PLAYBACK:
       return {};
-      
+
     default:
       return state;
   }

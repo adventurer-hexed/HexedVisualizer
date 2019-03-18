@@ -12,7 +12,6 @@ import {
 import { BackBtn, requireAuth } from '../../common';
 import history from '../../../history';
 
-
 class Visualizer extends React.Component {
   constructor(props) {
     super(props);
@@ -49,13 +48,12 @@ class Visualizer extends React.Component {
     this._completeCircle._canvasWidth = this._canvas.current.width;
   };
 
-
-  parseText = (text) => {
+  parseText = text => {
     if (text.length > 28) {
       return `"${text.slice(0, 28)}..."`;
     }
     return `"${text}"`;
-  }
+  };
 
   animate = currentTime => {
     if (!this._startingTime) this._startingTime = currentTime;
@@ -74,7 +72,7 @@ class Visualizer extends React.Component {
     );
     if (totalElapsedTime >= this.props.total_dur) {
       window.cancelAnimationFrame(this._animationFrame);
-      this.props.stopPlayback()
+      this.props.stopPlayback();
       history.push('/');
     }
   };
@@ -157,6 +155,6 @@ export default connect(
     zeroPlayBack,
     zeroDeviceStateCounter,
     deviceStateListener,
-    stopPlayback
+    stopPlayback,
   }
 )(requireAuth(Visualizer));

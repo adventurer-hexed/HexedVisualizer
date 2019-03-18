@@ -25,7 +25,7 @@ class Player extends Component {
       volume: 100,
     };
 
-    this._progressInterval = null
+    this._progressInterval = null;
     this._startTime = new Date().getTime();
   }
 
@@ -78,29 +78,29 @@ class Player extends Component {
       this.props.playPlayback(false);
       this.playSongProgression();
     }
-      this._startTime = new Date().getTime();
+    this._startTime = new Date().getTime();
   };
 
   playSongProgression = () => {
     this._progressInterval = setInterval(() => {
-
-        if(this.props.isPlayback) {
+      if (this.props.isPlayback) {
         const now = new Date().getTime();
         const curr = this.props.currentTime;
-  
-      
-          this.setState({
-            inc: curr + (now - this._startTime),
-          }, () => {
-            if(this.state.inc  >= this.props.totalTime + 2000) {
-              clearInterval(this._progressInterval)
-              this.props.stopPlayback()
-              this.setState({inc:0})
-            } 
-          });
 
+        this.setState(
+          {
+            inc: curr + (now - this._startTime),
+          },
+          () => {
+            if (this.state.inc >= this.props.totalTime + 2000) {
+              clearInterval(this._progressInterval);
+              this.props.stopPlayback();
+              this.setState({ inc: 0 });
+            }
+          }
+        );
       }
-      }, 1);
+    }, 1);
   };
 
   render() {
@@ -177,12 +177,11 @@ class Player extends Component {
 
 const mapStateToProps = state => {
   let totalTime;
-  let currSongInfo = {}
+  let currSongInfo = {};
 
-  if(Object.values(state.currSongInfo).length >= 0) {
-    currSongInfo = state.currSongInfo
+  if (Object.values(state.currSongInfo).length >= 0) {
+    currSongInfo = state.currSongInfo;
   }
-
 
   if (state.currSongPlayback.item) {
     if (Object.keys(state.currSongPlayback.item).length > 0) {

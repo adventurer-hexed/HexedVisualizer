@@ -28,19 +28,19 @@ export default class RippleCircle extends Circle {
     `rgba(234,92,144, ${opacity})`, // Pinkish Red
     `rgba(25,176,221,${opacity})`, // Light Blue
     `rgba(131,0,173,${opacity}`, // Purple
-    `rgba(251,133,95,${opacity})` // Coral
+    `rgba(251,133,95,${opacity})`, // Coral
   ];
 
   draw() {
     this._ctx.beginPath();
     let color;
-    if(this._confidence > .9) {
-      color = this.colorOpacity(this._opacity)[4]
+    if (this._confidence > 0.9) {
+      color = this.colorOpacity(this._opacity)[4];
     } else if (this._confidence > 0.8) {
       color = this.colorOpacity(this._opacity)[1];
-    } else if(this._confidence > .7) {
-      color = this.colorOpacity(this._opacity)[5]
-    }else if (this._confidence > 0.5) {
+    } else if (this._confidence > 0.7) {
+      color = this.colorOpacity(this._opacity)[5];
+    } else if (this._confidence > 0.5) {
       color = this.colorOpacity(this._opacity)[2];
     } else if (this._confidence > 0.4) {
       color = this.colorOpacity(this._opacity)[3];

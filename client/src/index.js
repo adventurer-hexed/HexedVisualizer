@@ -8,12 +8,11 @@ import * as serviceWorker from './serviceWorker';
 import App from './components/App';
 import reducers from './reducers';
 
-let enhanceComposer;
 // Disable redux dev tools in production
 // if (process.env. === 'production') {
 //   enhanceComposer = compose;
 // } else {
-  enhanceComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const enhanceComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // }
 const enhance = enhanceComposer(applyMiddleware(thunk));
 const store = createStore(reducers, enhance);

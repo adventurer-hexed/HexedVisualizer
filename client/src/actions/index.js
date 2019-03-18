@@ -22,7 +22,7 @@ import {
   CURR_URI,
   LOADING_OFF,
   LOADING_ON,
-  UPDATE_VOLUME
+  UPDATE_VOLUME,
 } from './types';
 
 export const signIn = id => async dispatch => {
@@ -87,7 +87,7 @@ export const playPlayback = (triggerLoading, songURI, songId) => async (
       songURI ? { uris: JSON.stringify([songURI]) } : {}
     );
     dispatch(fetchCurrPlayback());
-    if(songURI) {
+    if (songURI) {
       dispatch(updateCurrSongInfo({ URI: songURI, songId }));
     }
     dispatch({ type: PLAY_STATE_ON, payload: true });
