@@ -1,4 +1,4 @@
-import { CURR_URI, ZERO_CURR_URI } from '../actions/types';
+import { CURR_URI } from '../actions/types';
 
 const INITIAL_STATE = {
   URI: '',

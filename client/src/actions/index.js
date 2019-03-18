@@ -22,8 +22,7 @@ import {
   CURR_URI,
   LOADING_OFF,
   LOADING_ON,
-  UPDATE_VOLUME,
-  ZERO_CURR_URI
+  UPDATE_VOLUME
 } from './types';
 
 export const signIn = id => async dispatch => {

@@ -64,10 +64,11 @@ export default connect(
     renderSongToVis() {
       let isSongSelected = ""
       if(this.props.currSongInfo.URI === "") {
-        isSongSelected = "song_not_ready_isSongSelected"
+        isSongSelected = "song_not_ready_error"
       } else {
         isSongSelected = "song_ready_success"
       }
+
       return (
         <div className={`side_nav_icon_container ${isSongSelected}`} onClick={this.playSong}>
           <div className="nav_icon_container">
